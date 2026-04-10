@@ -1,1740 +1,476 @@
-<!-- Home - WJG (Busca Expandida) -->
 <!DOCTYPE html>
-
-<html class="dark" lang="pt-BR"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>WJG Arena | A Paixão em Chamas</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,700;0,900;1,900&amp;family=Manrope:wght@400;600&amp;family=Space+Grotesk:wght@400;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-tertiary-fixed-variant": "#6e1c00",
-                        "tertiary-fixed-dim": "#ff7d54",
-                        "outline-variant": "#484848",
-                        "error-container": "#a70138",
-                        "on-background": "#ffffff",
-                        "on-secondary": "#525151",
-                        "secondary-fixed-dim": "#d6d4d3",
-                        "inverse-on-surface": "#555555",
-                        "on-surface-variant": "#ababab",
-                        "inverse-primary": "#c10100",
-                        "surface-container": "#191919",
-                        "secondary-dim": "#d6d4d3",
-                        "on-primary-container": "#4f0000",
-                        "on-tertiary-fixed": "#340800",
-                        "on-tertiary-container": "#0e0100",
-                        "surface-container-highest": "#262626",
-                        "error": "#ff6e84",
-                        "background": "#0e0e0e",
-                        "secondary": "#e5e2e1",
-                        "tertiary-dim": "#ff7346",
-                        "primary-fixed-dim": "#ff5b47",
-                        "on-primary": "#650000",
-                        "tertiary-container": "#fc4c00",
-                        "tertiary-fixed": "#ff9473",
-                        "on-primary-fixed": "#000000",
-                        "surface": "#0e0e0e",
-                        "surface-container-low": "#131313",
-                        "surface-bright": "#2c2c2c",
-                        "surface-dim": "#0e0e0e",
-                        "on-tertiary": "#420d00",
-                        "on-secondary-fixed-variant": "#5c5b5b",
-                        "secondary-fixed": "#e5e2e1",
-                        "outline": "#757575",
-                        "on-primary-fixed-variant": "#600000",
-                        "surface-container-high": "#1f1f1f",
-                        "primary-fixed": "#ff7763",
-                        "on-error-container": "#ffb2b9",
-                        "error-dim": "#d73357",
-                        "on-error": "#490013",
-                        "tertiary": "#ff7346",
-                        "on-secondary-container": "#d2d0cf",
-                        "on-surface": "#ffffff",
-                        "inverse-surface": "#f9f9f9",
-                        "secondary-container": "#474746",
-                        "surface-variant": "#262626",
-                        "primary": "#ff8e7d",
-                        "surface-container-lowest": "#000000",
-                        "primary-dim": "#eb0000",
-                        "on-secondary-fixed": "#403f3f",
-                        "primary-container": "#ff7763",
-                        "surface-tint": "#ff8e7d"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0px",
-                        "lg": "0px",
-                        "xl": "0px",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Epilogue"],
-                        "body": ["Manrope"],
-                        "label": ["Space Grotesk"]
-                    }
-                },
-            },
-        }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .kinetic-glow {
-            box-shadow: 0 0 40px rgba(235, 0, 0, 0.15);
-        }
-        .flame-gradient {
-            background: radial-gradient(circle at top left, #eb000033 0%, #0e0e0e 70%);
-        }
-        .image-bleed {
-            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-        }
-        /* Search Expansion Style */
-        #search-container {
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-        }
-        #search-container.expanded {
-            width: 240px;
-            opacity: 1;
-            margin-right: 12px;
-        }
-        #search-container.collapsed {
-            width: 0;
-            opacity: 0;
-            margin-right: 0;
-            pointer-events: none;
-        }
-    </style>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WJG — Camisas de Futebol</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-background text-on-background font-body selection:bg-primary-dim selection:text-white" data-mode="connect">
-<!-- TopNavBar -->
-<nav class="sticky top-0 w-full z-50 bg-[#0e0e0e]/90 backdrop-blur-xl flex justify-between items-center px-8 h-20 max-w-full shadow-[0_4px_20px_rgba(235,0,0,0.1)]">
-<div class="text-3xl font-black italic tracking-tighter text-white">WJG</div>
-<div class="hidden md:flex items-center gap-8 font-['Epilogue'] uppercase tracking-tighter font-bold text-sm">
-<a class="text-white border-b-2 border-[#eb0000] shadow-[0_5px_15px_-5px_rgba(235,0,0,0.8)] pb-1 transition-all active:scale-95 duration-100" href="#">Home</a>
-<a class="text-[#ababab] hover:text-white transition-colors duration-300 transition-all active:scale-95 duration-100" href="#">Clubes</a>
-<a class="text-[#ababab] hover:text-white transition-colors duration-300 transition-all active:scale-95 duration-100" href="#">Seleções</a>
-<a class="text-[#ababab] hover:text-white transition-colors duration-300 transition-all active:scale-95 duration-100" href="#">Promoções</a>
-</div>
-<div class="flex items-center gap-6">
-<div class="flex items-center overflow-hidden" id="search-wrapper">
-<div class="collapsed flex items-center" id="search-container">
-<input class="w-full bg-surface-container-high border-0 border-b border-outline-variant focus:border-primary-dim focus:ring-0 text-white font-label text-xs uppercase px-2 py-1 placeholder:text-[#484848] transition-all" id="search-input" placeholder="Buscar produtos..." type="text"/>
-</div>
-<button class="text-[#ababab] hover:text-[#ff8e7d] transition-all active:scale-95 duration-100 flex items-center" id="search-trigger">
-<span class="material-symbols-outlined">search</span>
-</button>
-</div>
-<button class="text-[#ababab] hover:text-[#ff8e7d] transition-all active:scale-95 duration-100 relative">
-<span class="material-symbols-outlined">shopping_cart</span>
-<span class="absolute -top-2 -right-2 bg-primary-dim text-[10px] px-1.5 py-0.5 font-bold">3</span>
-</button>
-<button class="text-[#ababab] hover:text-[#ff8e7d] transition-all active:scale-95 duration-100">
-<span class="material-symbols-outlined">person</span>
-</button>
-</div>
-</nav>
-<main>
-<!-- Hero Section -->
-<section class="relative h-[921px] flex items-center overflow-hidden flame-gradient">
-<div class="absolute inset-0 z-0">
-<img class="w-full h-full object-cover opacity-40 mix-blend-luminosity" data-alt="cinematic wide shot of a massive modern football stadium at night with glowing red floodlights and dramatic smoke in the air" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA_88SEAyxmlPTDaj-MTqY6JYoucSnN_zljPYm5PLCfb2PmGLuHUEJr1oBRUVdM2JOd88NKqSsuHUlsO57FR08Sjluqu9bU-OhjWuA2uqLghC2NvnxLUECNEkRJxF06z-beYUPFR5j0m6_oabQ2uhl4LTS6cETeBcSMb6gvqzaYr-isFfecROoGHHKVin7iFIEHhzoPNnffWyXovtqriJWPwVZAO4l3glo5u8BL7mVnjdJtf8HVKB1BfhDWfbYHS8ePC22JXT8WzA"/>
-<div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent"></div>
-<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
-</div>
-<div class="container mx-auto px-8 relative z-10">
-<div class="max-w-4xl">
-<span class="font-label text-primary-dim tracking-[0.3em] uppercase text-sm mb-4 block">lançamentos inéditos</span>
-<h1 class="font-headline text-7xl md:text-9xl font-black italic tracking-tighter leading-[0.85] text-white uppercase mb-8">
-                        A PAIXÃO <br/> <span class="text-primary-dim">EM CHAMAS</span>
-</h1>
-<p class="text-on-surface-variant text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
-                        Sinta o calor da arquibancada na sua pele. A WJG Arena traz o fogo das maiores competições do planeta para o seu vestuário.
-                    </p>
-<div class="flex flex-wrap gap-4">
-<button class="bg-primary px-10 py-5 font-headline font-bold uppercase tracking-widest text-on-primary hover:shadow-[0_0_30px_rgba(255,142,125,0.4)] transition-all active:scale-95">
-                            Explorar Arena
-                        </button>
-</div>
-</div>
-</div>
-<!-- Animated Heat Element -->
-<div class="absolute right-[-10%] bottom-[-10%] w-[600px] h-[600px] bg-primary-dim/20 blur-[120px] rounded-full pointer-events-none"></div>
-</section>
-<!-- Championship Categories -->
-<section class="py-24 bg-surface-container-low">
-<div class="container mx-auto px-8">
-<div class="flex justify-between items-end mb-16">
-<h2 class="font-headline text-5xl font-black italic tracking-tighter uppercase">Grandes Palcos</h2>
-<div class="w-1/3 h-px bg-outline-variant/20 hidden md:block mb-4"></div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Champions League -->
-<div class="group relative aspect-[4/5] bg-surface-container-highest overflow-hidden cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70" data-alt="dramatic close-up of a professional soccer ball on stadium grass under bright spotlights with heavy shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdDTPAV2P-7ql_d8FTQa44LvmDEzfefwJow4BwmLdXCLnUh_UhBMCw3ZGXVdrqlTWg08W1-hhNLmh3CUREwXuLz2nd6OjBLCvhT_Jnr45j-4fzpCvcgAc72nzaH-sexRk0aHKhw5jWkcHjG-D6krLyB6aaK-M-oCXoDEqu32ZlzDobQ-hp3o3RubKQO6MPDTfA4rI7BLSD7ZvfY7_dvJvSIBe9IOBKcQdC3MJ7QTMejTfIev93Kl6LvScB4RR7DLHvSzBdNc-Rh6I"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-<div class="absolute bottom-8 left-8 right-8">
-<h3 class="font-headline text-3xl font-black italic uppercase text-white mb-2">Champions League</h3>
-<p class="font-label text-primary text-xs tracking-widest uppercase">O Topo da Europa</p>
-</div>
-</div>
-<!-- Libertadores -->
-<div class="group relative aspect-[4/5] bg-surface-container-highest overflow-hidden cursor-pointer translate-y-8">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70" data-alt="soccer fans cheering in a crowded stadium with red flares creating a thick smoke and intense atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSXEwT9wGvNTpaEf8BLP6i5Bye0kd_IORbLqx2j7crbAD4YK2g09yGmiT1DebyVHOYl-EJxOZUeptHLiTqbv6E0rd4Li8O2-FjRZGhBeZnfI73YpLCX7Qy2HUoYouR-PzHNUtZ8_3sgQkQle83CrfPDO8XWd3y7VxEoHLkeacHYszL1SRMn4jq5icHSyRAss2W1ZASdxFj6pzGx2SVnpRJXcVPV-3pVsFcWLHqoZjDt5ZExHMbczEDXK0Yue0KMK7A5CHUaJUY0xk"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-<div class="absolute bottom-8 left-8 right-8">
-<h3 class="font-headline text-3xl font-black italic uppercase text-white mb-2">Libertadores</h3>
-<p class="font-label text-primary text-xs tracking-widest uppercase">A Glória Eterna</p>
-</div>
-</div>
-<!-- Copa do Mundo -->
-<div class="group relative aspect-[4/5] bg-surface-container-highest overflow-hidden cursor-pointer">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70" data-alt="abstract view of world cup tournament atmosphere with vibrant gold and dark background lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATDZAFyXETDaFmjY8QxJ1Jo995Uc36AJu54LtJS09scJPitMi_CtIs3h70_iQdwoI6iCXFLDI7nlqne-sq_8hMA6uA1mIe9Ev3MrDvYuqGhlPIIIwt_81k93zuZQZWVD5JuSpgCNZDZ11t6mVbdiW8gVQ-wAw9LNcyFow3DifrTVtKbtfzERZmUCFq3Go5TRmB50ebyDddkNc__obiv-mk_oLcU7mlAH9V4n-n-OIyVfh-kTsqZ88h-WsL5FvJUfJyppQy-gWK6ds"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-<div class="absolute bottom-8 left-8 right-8">
-<h3 class="font-headline text-3xl font-black italic uppercase text-white mb-2">Copa do Mundo</h3>
-<p class="font-label text-primary text-xs tracking-widest uppercase">O Mundo em Jogo</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- OS MAIS QUENTES - Product Grid -->
-<section class="py-32 bg-surface">
-<div class="container mx-auto px-8">
-<div class="flex flex-col items-center mb-20 text-center">
-<div class="inline-flex items-center gap-2 bg-tertiary-container/20 px-4 py-1 mb-6">
-<span class="w-2 h-2 bg-tertiary rounded-full animate-pulse"></span>
-<span class="font-label text-tertiary text-xs tracking-widest uppercase">Trending Now</span>
-</div>
-<h2 class="font-headline text-6xl md:text-7xl font-black italic tracking-tighter uppercase mb-4">Os Mais Quentes</h2>
-<p class="text-on-surface-variant max-w-2xl font-body">As armaduras que estão incendiando o mercado. Garanta o seu lugar na história com as edições oficiais.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-<!-- Product Card: Flamengo -->
-<div class="group relative bg-surface-container-high p-6 flex flex-col transition-all hover:bg-surface-container-highest">
-<div class="relative mb-6 overflow-hidden aspect-square">
-<img class="w-full h-full object-contain image-bleed group-hover:scale-105 transition-transform duration-500" data-alt="professional product shot of a black and red striped football jersey on a dark background with sharp lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRLL4V6zSauOqdcNYkpCdUdyxUZoVxFOyoFsWwmH9JYJ5YKTF3VnF7ffqVECW4TpxhyRhYr22UzCWkkRtUnT46LA-9151CBe9H6YBtx1E5jvB9Htn8m6MQFVobWN1ylqmKhCU0xHKEesb1ka_NjkYRZRqmteuVLfbVFcYaOu8GoQWrqK2xqd0rEGGUPEbF4OuN0FWIy5LHNFPnBUFwcMTbqggQkVfEQmyjP-HH1AwgGKwszteQeOxRFa51yzp-o49xcdkXW5kIAVo"/>
-<div class="absolute top-0 right-0 bg-primary-dim px-3 py-1 font-label text-[10px] uppercase font-bold text-white">Novo</div>
-</div>
-<div class="mt-auto">
-<p class="font-label text-on-surface-variant text-[10px] tracking-widest uppercase mb-1">Manto Sagrado</p>
-<h4 class="font-headline text-xl font-bold uppercase mb-4">Flamengo Home 24/25</h4>
-<div class="flex justify-between items-center">
-<span class="font-label text-xl text-white font-bold">R$ 349,90</span>
-<button class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-primary transition-colors">
-<span class="material-symbols-outlined text-sm">add</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card: Real Madrid -->
-<div class="group relative bg-surface-container-high p-6 flex flex-col transition-all hover:bg-surface-container-highest">
-<div class="relative mb-6 overflow-hidden aspect-square">
-<img class="w-full h-full object-contain image-bleed group-hover:scale-105 transition-transform duration-500" data-alt="white football kit jersey with gold accents displayed on a minimalist dark surface with spotlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi9u4E6aivMHd2FVIRbJkZygp6sp4jv3S7tNVcuAqfhzYR43Z588yM8CF3Kf_hToYGBjvKnbZgI-M7n1-fGcA5e8gQubUvuyesqpsMOszyCFr3NF7m28UegH6Flm2nBQw6tCA9SmY9tvdSe9s8UhELVbsj7j1tWogAAHLED60IjHBlo_REvYcKyjzsDkaiBAjMF5pvBE1-dStnbMxk2wWQ8TlBbVtsR7vSragupWOV0ItRamDEBjtJbsepm7IZ5n1g4iNtBRTrJs8"/>
-<div class="absolute top-0 right-0 bg-tertiary-container px-3 py-1 font-label text-[10px] uppercase font-bold text-white">Elite</div>
-</div>
-<div class="mt-auto">
-<p class="font-label text-on-surface-variant text-[10px] tracking-widest uppercase mb-1">Real Madrid CF</p>
-<h4 class="font-headline text-xl font-bold uppercase mb-4">Madrid Home '24</h4>
-<div class="flex justify-between items-center">
-<span class="font-label text-xl text-white font-bold">R$ 399,90</span>
-<button class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-primary transition-colors">
-<span class="material-symbols-outlined text-sm">add</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card: Brasil -->
-<div class="group relative bg-surface-container-high p-6 flex flex-col transition-all hover:bg-surface-container-highest">
-<div class="relative mb-6 overflow-hidden aspect-square">
-<img class="w-full h-full object-contain image-bleed group-hover:scale-105 transition-transform duration-500" data-alt="iconic yellow and green national football team jersey isolated against a deep black background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK3NqDBCaJ9GBrA60_DOZjIlrDAQcSPomxfrIaVKCfo0XJvmLQhXqcWWmyKXKpRk25Is61JcC6K8Ml7XxTCVePfpTrNYsnYvChzSaHnRnCvNKWaSyTNVSV7qpVY1VJ0OnbLjlEfZlKtWp2nyfN5sGbIwTzomEy9U13_EKKdt0rzQpUi2c4H15GO6rofZPR1smXDNlEIWyBgzuc8KJBcTLEBKLYX_GaIB9MMSBOV3-8qPPaeQxZXNjDbyhYRfNipFeZthCQeSQrFbA"/>
-</div>
-<div class="mt-auto">
-<p class="font-label text-on-surface-variant text-[10px] tracking-widest uppercase mb-1">CBF Oficial</p>
-<h4 class="font-headline text-xl font-bold uppercase mb-4">Brasil Amarelinha</h4>
-<div class="flex justify-between items-center">
-<span class="font-label text-xl text-white font-bold">R$ 349,90</span>
-<button class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-primary transition-colors">
-<span class="material-symbols-outlined text-sm">add</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card: Milan -->
-<div class="group relative bg-surface-container-high p-6 flex flex-col transition-all hover:bg-surface-container-highest">
-<div class="relative mb-6 overflow-hidden aspect-square">
-<img class="w-full h-full object-contain image-bleed group-hover:scale-105 transition-transform duration-500" data-alt="red and black striped professional jersey with club emblem clearly visible on high-contrast background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbKOZluD4CPIHE5t_a7A1teGMGbHhrWBBtqTLb1ah4s8V3RCnnA0UDIN76GlKvEZCyKmg3JQ_3bC1umYGiMgewEksRlUHHjUZ4bg-TDLqDHgtJf6_HA4EEDsMjTo2gTbSDXgWA0VJGsjM7b2KPyFbPJYZwjKG0s6xukgV_ppD1o7epLLwZqXSP99Tj5F-u_MU8pgmW_bokqP9_lv28MoEVtnRg2EiuK7DzZgHamHifqKi3gYvPLq65pEx8PHG59p2gGo21nzq58ws"/>
-<div class="absolute top-0 right-0 bg-primary-dim px-3 py-1 font-label text-[10px] uppercase font-bold text-white">Hot</div>
-</div>
-<div class="mt-auto">
-<p class="font-label text-on-surface-variant text-[10px] tracking-widest uppercase mb-1">AC Milan</p>
-<h4 class="font-headline text-xl font-bold uppercase mb-4">Milan Rossonero</h4>
-<div class="flex justify-between items-center">
-<span class="font-label text-xl text-white font-bold">R$ 379,90</span>
-<button class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-primary transition-colors">
-<span class="material-symbols-outlined text-sm">add</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Newsletter / CTA -->
-<section class="py-24 bg-surface-container-low border-y border-outline-variant/10">
-<div class="container mx-auto px-8 grid md:grid-cols-2 gap-16 items-center">
-<div>
-<h2 class="font-headline text-5xl font-black italic tracking-tighter uppercase mb-6 leading-none">Entre para o <br/> <span class="text-primary-dim">Clube da Arena</span></h2>
-<p class="text-on-surface-variant text-lg">Receba acesso antecipado a drops limitados e promoções exclusivas que evaporam em minutos.</p>
-</div>
-<div class="flex flex-col gap-4">
-<div class="relative">
-<input class="w-full bg-surface-container-highest border-0 border-b-2 border-outline-variant focus:border-primary-dim focus:ring-0 text-white font-label p-4 transition-all" placeholder="SEU MELHOR E-MAIL" type="email"/>
-</div>
-<button class="bg-white text-black font-headline font-bold uppercase py-4 tracking-widest hover:bg-primary-dim hover:text-white transition-all">
-                        Inscrever Agora
-                    </button>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-[#0e0e0e] w-full py-12 border-t border-[#484848]/20 flex flex-col items-center gap-6 px-8">
-<div class="text-xl font-black text-white italic tracking-tighter">WJG ARENA</div>
-<div class="flex flex-wrap justify-center gap-8 font-['Space_Grotesk'] text-xs tracking-widest uppercase">
-<a class="text-[#ababab] hover:text-white transition-all" href="#">Privacidade</a>
-<a class="text-[#ababab] hover:text-white transition-all" href="#">Termos de Uso</a>
-<a class="text-[#ababab] hover:text-white transition-all" href="#">Contato</a>
-<a class="text-[#ababab] hover:text-white transition-all" href="#">Suporte</a>
-</div>
-<div class="flex gap-6 mt-4">
-<a class="text-[#ababab] hover:text-white transition-all" href="#">
-<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-</a>
-<a class="text-[#ababab] hover:text-white transition-all" href="#">
-<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
-</a>
-</div>
-<p class="text-[10px] text-[#484848] mt-8">© 2024 WJG Arena. Todos os direitos reservados.</p>
-</footer>
-<!-- FAB for Mobile Heatmap (Contextual to Home) -->
-<div class="fixed bottom-8 right-8 z-40 md:hidden">
-<button class="w-16 h-16 bg-primary-dim rounded-full shadow-[0_0_20px_rgba(235,0,0,0.5)] flex items-center justify-center text-white active:scale-90 transition-all">
-<span class="material-symbols-outlined text-3xl">local_fire_department</span>
-</button>
-</div>
-<script>
-        const searchTrigger = document.getElementById('search-trigger');
-        const searchContainer = document.getElementById('search-container');
-        const searchInput = document.getElementById('search-input');
-        const searchWrapper = document.getElementById('search-wrapper');
+<body>
 
-        searchTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (searchContainer.classList.contains('collapsed')) {
-                searchContainer.classList.remove('collapsed');
-                searchContainer.classList.add('expanded');
-                searchInput.focus();
-            } else {
-                searchContainer.classList.remove('expanded');
-                searchContainer.classList.add('collapsed');
-            }
-        });
+<!-- ░░ CURSOR PERSONALIZADO ░░ -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursor-trail"></div>
 
-        // Close when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!searchWrapper.contains(e.target)) {
-                searchContainer.classList.remove('expanded');
-                searchContainer.classList.add('collapsed');
-            }
-        });
+<!-- ░░ PARTÍCULAS DE FUNDO ░░ -->
+<canvas id="particles-canvas"></canvas>
 
-        // Handle Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                searchContainer.classList.remove('expanded');
-                searchContainer.classList.add('collapsed');
-            }
-        });
-    </script>
-</body></html>
+<!-- =============================================
+     HEADER FIXO
+     ============================================= -->
+<header id="site-header">
+  <div class="header-inner">
 
-<!-- Produto - Busca Ativa - WJG -->
-<!DOCTYPE html>
+    <!-- LOGO — substitua a imagem aqui -->
+    <a class="logo-wrap" href="#" onclick="showPage('home'); return false;">
+      <div class="logo-img-slot" title="[SUBSTITUIR] Insira o arquivo da logo aqui">
+        <!--
+          ╔═══════════════════════════════════╗
+          ║  ESPAÇO RESERVADO PARA LOGO       ║
+          ║  Tamanho ideal: 48×48px ou SVG    ║
+          ║  <img src="logo.png" alt="WJG"/>  ║
+          ╚═══════════════════════════════════╝
+        -->
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-placeholder-svg">
+          <rect width="48" height="48" rx="8" fill="url(#lgrd)"/>
+          <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" font-family="Orbitron,sans-serif">🎲</text>
+          <defs>
+            <linearGradient id="lgrd" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FF2200"/>
+              <stop offset="1" stop-color="#FF7700"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <span class="logo-name">WJG</span>
+    </a>
 
-<html class="dark" lang="pt-BR"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "on-tertiary-fixed-variant": "#6e1c00",
-                    "tertiary-fixed-dim": "#ff7d54",
-                    "outline-variant": "#484848",
-                    "error-container": "#a70138",
-                    "on-background": "#ffffff",
-                    "on-secondary": "#525151",
-                    "secondary-fixed-dim": "#d6d4d3",
-                    "inverse-on-surface": "#555555",
-                    "on-surface-variant": "#ababab",
-                    "inverse-primary": "#c10100",
-                    "surface-container": "#191919",
-                    "secondary-dim": "#d6d4d3",
-                    "on-primary-container": "#4f0000",
-                    "on-tertiary-fixed": "#340800",
-                    "on-tertiary-container": "#0e0100",
-                    "surface-container-highest": "#262626",
-                    "error": "#ff6e84",
-                    "background": "#0e0e0e",
-                    "secondary": "#e5e2e1",
-                    "tertiary-dim": "#ff7346",
-                    "primary-fixed-dim": "#ff5b47",
-                    "on-primary": "#650000",
-                    "tertiary-container": "#fc4c00",
-                    "tertiary-fixed": "#ff9473",
-                    "on-primary-fixed": "#000000",
-                    "surface": "#0e0e0e",
-                    "surface-container-low": "#131313",
-                    "surface-bright": "#2c2c2c",
-                    "surface-dim": "#0e0e0e",
-                    "on-tertiary": "#420d00",
-                    "on-secondary-fixed-variant": "#5c5b5b",
-                    "secondary-fixed": "#e5e2e1",
-                    "outline": "#757575",
-                    "on-primary-fixed-variant": "#600000",
-                    "surface-container-high": "#1f1f1f",
-                    "primary-fixed": "#ff7763",
-                    "on-error-container": "#ffb2b9",
-                    "error-dim": "#d73357",
-                    "on-error": "#490013",
-                    "tertiary": "#ff7346",
-                    "on-secondary-container": "#d2d0cf",
-                    "on-surface": "#ffffff",
-                    "inverse-surface": "#f9f9f9",
-                    "secondary-container": "#474746",
-                    "surface-variant": "#262626",
-                    "primary": "#ff8e7d",
-                    "surface-container-lowest": "#000000",
-                    "primary-dim": "#eb0000",
-                    "on-secondary-fixed": "#403f3f",
-                    "primary-container": "#ff7763",
-                    "surface-tint": "#ff8e7d"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0px",
-                    "lg": "0px",
-                    "xl": "0px",
-                    "full": "9999px"
-            },
-            "fontFamily": {
-                    "headline": ["Epilogue"],
-                    "body": ["Manrope"],
-                    "label": ["Space Grotesk"]
-            }
-          },
-        },
-      }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            background-color: #0e0e0e;
-            color: #ffffff;
-            font-family: 'Manrope', sans-serif;
-        }
-        .text-stroke-primary {
-            -webkit-text-stroke: 1px #eb0000;
-            color: transparent;
-        }
-        .glow-hover:hover {
-            box-shadow: 0px 0px 20px rgba(235, 0, 0, 0.4);
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            height: 2px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #191919;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #ff8e7d;
-        }
-    </style>
-</head>
-<body class="overflow-x-hidden" data-mode="connect">
-<!-- TopNavBar - Identical to SCREEN_61 with 'Clubes' highlighted -->
-<header class="fixed top-0 left-0 w-full z-50 bg-[#0e0e0e] shadow-[0_10px_30px_-15px_rgba(235,0,0,0.3)]">
-<div class="flex justify-between items-center w-full px-6 py-4 max-w-[1440px] mx-auto">
-<!-- Brand Logo -->
-<div class="flex-1">
-<a class="text-3xl font-black italic text-red-600 drop-shadow-[0_0_10px_rgba(235,0,0,0.4)] font-['Epilogue'] tracking-tighter uppercase" href="#">
-                WJG
-            </a>
-</div>
-<!-- Desktop Navigation -->
-<nav class="hidden md:flex gap-8 font-['Epilogue'] tracking-tighter uppercase font-black items-center">
-<a class="text-gray-400 hover:text-red-400 transition-colors hover:scale-105 transition-transform duration-200" href="#">Home</a>
-<a class="text-white border-b-2 border-red-600 pb-1 hover:scale-105 hover:text-red-500 transition-transform duration-200" href="#">Clubes</a>
-<a class="text-gray-400 hover:text-red-400 transition-colors hover:scale-105 transition-transform duration-200" href="#">Seleções</a>
-<a class="text-gray-400 hover:text-red-400 transition-colors hover:scale-105 transition-transform duration-200" href="#">Promoções</a>
-</nav>
-<!-- Actions -->
-<div class="flex items-center gap-6 flex-1 justify-end">
-<div class="relative flex items-center">
-<input class="absolute right-full mr-2 w-0 overflow-hidden bg-black border-b-2 border-primary text-white font-label text-sm uppercase tracking-widest px-0 py-1 transition-all duration-300 focus:outline-none focus:ring-0 focus:shadow-[0_4px_10px_-2px_rgba(255,0,0,0.5)] opacity-0 pointer-events-none" id="search-input" placeholder="Buscar produtos..." type="text"/>
-<button class="text-gray-400 hover:text-red-500 transition-all active:scale-95 z-10" onclick="toggleSearch()">
-<span class="material-symbols-outlined">search</span>
-</button>
-</div>
-<a class="text-gray-400 hover:text-red-500 transition-all active:scale-95" href="#"><span class="material-symbols-outlined">shopping_cart</span></a>
-<button class="text-gray-400 hover:text-red-500 transition-all active:scale-95">
-<span class="material-symbols-outlined">person</span>
-</button>
-</div>
-</div>
-<!-- Separation Logic -->
-<div class="bg-gradient-to-b from-red-900/20 to-transparent h-1"></div>
+    <!-- NAVEGAÇÃO -->
+    <nav class="main-nav" id="main-nav">
+      <a class="nav-link" href="#" onclick="showPage('promocoes'); return false;">
+        <span class="nav-fire">🔥</span> Promoções
+      </a>
+      <a class="nav-link" href="#" onclick="showPage('times'); return false;">Times</a>
+      <a class="nav-link" href="#" onclick="showPage('selecoes'); return false;">Seleções</a>
+      <a class="nav-link" href="#" onclick="showPage('institucional'); return false;">Sobre</a>
+    </nav>
+
+    <!-- AÇÕES -->
+    <div class="header-actions">
+      <!-- Busca -->
+      <div class="search-container" id="search-container">
+        <button class="icon-btn" id="search-btn" aria-label="Buscar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <div class="search-flyout" id="search-flyout">
+          <input id="search-input" type="text" placeholder="Buscar camisas..." autocomplete="off" />
+          <button class="search-x" id="search-x">✕</button>
+        </div>
+        <div class="search-results-drop" id="search-results-drop"></div>
+      </div>
+
+      <!-- Carrinho -->
+      <button class="icon-btn cart-btn" id="cart-btn" aria-label="Carrinho">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+
+      <!-- Hamburguer mobile -->
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
 </header>
-<main class="min-h-[1024px] pt-20" data-stitch-vh="min-h-[1024px]===min-h-screen">
-<!-- Product Details Section -->
-<section class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-0 pt-8 pb-20">
-<!-- Left: Interactive Photo Gallery -->
-<div class="md:col-span-7 relative group px-8">
-<div class="absolute -top-10 -left-10 text-[10rem] font-black text-white/5 font-headline pointer-events-none uppercase tracking-tighter leading-none">
-                JERSEY
-            </div>
-<div class="relative z-10 flex flex-col gap-4">
-<!-- Main Image Display -->
-<div class="relative aspect-[4/5] bg-surface-container overflow-hidden">
-<img class="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700" data-alt="Main jersey view" id="main-product-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHJE6KnYeYqt6zSQMdvoq561qqN0j7rNwEbZ73hsA2L2E0pjy16TXITulNVuLm3iD_JWa7Fe7AXgFLDhFf5CApCCNgVQdW6-vgiK3R9VuDdXXmBEjBn95fEKlXZiQBSUfTl2WGFBBkvmixLqVUmIRlDuOG5PcDZKpq22mrQ8yd9PtyNPs_tKpDQ_oTSOgs7qaFLrZq4tcSFRNcKwSCUJzyuDUQLF8ufX5kATwBhabldms8VNr7ugHHuTSx83po_Jg6XmqUb7ZDcQw" style="opacity: 1;"/>
-<!-- Navigation Arrows -->
-<div class="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-<button class="pointer-events-auto w-12 h-12 bg-black/50 backdrop-blur-md text-white flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all" onclick="prevImage()">
-<span class="material-symbols-outlined">chevron_left</span>
-</button>
-<button class="pointer-events-auto w-12 h-12 bg-black/50 backdrop-blur-md text-white flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all" onclick="nextImage()">
-<span class="material-symbols-outlined">chevron_right</span>
-</button>
-</div>
-<!-- Heat Map Chip -->
-<div class="absolute top-8 right-8 bg-tertiary-container px-4 py-1 flex items-center gap-2 animate-pulse">
-<span class="material-symbols-outlined text-on-tertiary-container text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
-<span class="font-label text-on-tertiary-container text-xs font-bold tracking-widest uppercase">DROPS EXCLUSIVO</span>
-</div>
-</div>
-<!-- Thumbnails Gallery -->
-<div class="grid grid-cols-4 md:grid-cols-5 gap-3 overflow-x-auto pb-2 custom-scrollbar">
-<button class="thumbnail-btn border-2 aspect-square bg-surface-container-high overflow-hidden border-transparent transition-all" onclick="updateMainImage(this.querySelector('img').src, 0)">
-<img alt="Front view" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMJukRJgrNssEc_9tdkFVORcYeWiuKhjxasbY360V2q2im0Ef1UTDHR0VrEl7QXrQvl6i_Pv9Uz3tGxkgyiY0SjafyL3glseX6humJ-Q5PkI4v_M9dyEgowA9VfbhDv4isSJDMQRmoAnw7o0sDo7kxnmqJdZY6TeVVMjP-ZT36dg_NDHgTgBDzbt8mdQuHj77ZjuARfsy-SmaBlryfB9joOqWGP9O0yYOVE6KguNIO4qb-emmrjdA1kiZbUeENn4OSbEHNTfG-Zp4"/>
-</button>
-<button class="thumbnail-btn border-2 aspect-square bg-surface-container-high overflow-hidden border-transparent transition-all" onclick="updateMainImage(this.querySelector('img').src, 1)">
-<img alt="Detail view 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHJE6KnYeYqt6zSQMdvoq561qqN0j7rNwEbZ73hsA2L2E0pjy16TXITulNVuLm3iD_JWa7Fe7AXgFLDhFf5CApCCNgVQdW6-vgiK3R9VuDdXXmBEjBn95fEKlXZiQBSUfTl2WGFBBkvmixLqVUmIRlDuOG5PcDZKpq22mrQ8yd9PtyNPs_tKpDQ_oTSOgs7qaFLrZq4tcSFRNcKwSCUJzyuDUQLF8ufX5kATwBhabldms8VNr7ugHHuTSx83po_Jg6XmqUb7ZDcQw"/>
-</button>
-<button class="thumbnail-btn border-2 aspect-square bg-surface-container-high overflow-hidden border-transparent transition-all" onclick="updateMainImage(this.querySelector('img').src, 2)">
-<img alt="Detail view 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqbuqGshAFRqJTrpupoiJ4os7ivSQwHJ9poKiHxiRI9MEsHB0Z0sEVydQVw3LCW7U5ebXHjiXxRBi_Kg9pYjxt3Wjy9qOKHXzdqZl4T3qW8J4PxR5nCQr_gust5Afa3cUmGcsU7l8WYHA4tVTbpoU6naXeD7Wy104VH8OyNYLhMN9v0FY4AirmktPv8inqXd0joYNPATmIiZ9XHFwv_InuxgswJjNPMJH1JuIfdOiutO2j589WIAfKAYWq0JpJOhOB7XBAnK_oTWs"/>
-</button>
-</div>
-</div>
-</div>
-<!-- Right: Action Area -->
-<div class="md:col-span-5 px-8 flex flex-col justify-center gap-10 mt-12 md:mt-0">
-<div>
-<span class="font-label text-primary-fixed uppercase tracking-widest text-sm mb-4 block" id="main-product-category">Arena Collection // 2024</span>
-<h1 class="font-headline text-6xl md:text-7xl font-black text-white uppercase tracking-tighter leading-[0.9] mb-4" id="main-product-title">
-                    Manto Sagrado Pro <span class="text-primary block">"Inferno" 24/25</span>
-</h1>
-<p class="font-label text-3xl font-bold text-white tracking-tight" id="main-product-price">R$ 349,90</p>
-</div>
-<!-- Gender Selection -->
-<div class="space-y-4">
-<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Gênero</h3>
-<div class="flex gap-4">
-<button class="flex-1 py-4 bg-primary text-on-primary font-headline font-bold uppercase tracking-tight text-sm border-none shadow-[0_0_15px_rgba(255,142,125,0.4)]">
-                        Masculino
-                    </button>
-<button class="flex-1 py-4 bg-surface-container-highest border border-outline-variant/20 text-white font-headline font-bold uppercase tracking-tight text-sm hover:border-primary/40 transition-all">
-                        Feminino
-                    </button>
-</div>
-</div>
-<!-- Size Selection -->
-<div class="space-y-4">
-<div class="flex justify-between items-end">
-<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Tamanho</h3>
-<button class="text-[10px] uppercase font-label tracking-widest text-primary hover:underline">Guia de Medidas</button>
-</div>
-<div class="grid grid-cols-5 gap-2">
-<button class="aspect-square bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center font-label text-white hover:bg-primary hover:text-on-primary transition-colors">P</button>
-<button class="aspect-square bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center font-label text-white hover:bg-primary hover:text-on-primary transition-colors">M</button>
-<button class="aspect-square bg-primary text-on-primary flex items-center justify-center font-label font-bold shadow-[0_0_15px_rgba(255,142,125,0.4)]">G</button>
-<button class="aspect-square bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center font-label text-white hover:bg-primary hover:text-on-primary transition-colors">GG</button>
-<button class="aspect-square bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center font-label text-white hover:bg-primary hover:text-on-primary transition-colors">XG</button>
-</div>
-</div>
-<!-- Main CTA linked to Checkout/Cart SCREEN_108 -->
-<a class="w-full bg-primary text-on-primary py-6 font-headline font-black text-xl uppercase tracking-tighter shadow-[0px_0px_30px_rgba(255,142,125,0.2)] hover:shadow-[0px_0px_50px_rgba(255,142,125,0.4)] transition-all flex items-center justify-center gap-3 active:scale-95 duration-100 no-underline cursor-pointer" href="#">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
-                ADICIONAR AO CARRINHO
-            </a>
-<div class="flex flex-col gap-4 pt-4 border-t border-outline-variant/20">
-<div class="flex items-center gap-4 text-on-surface-variant">
-<span class="material-symbols-outlined text-primary-fixed">local_shipping</span>
-<span class="text-xs font-label uppercase tracking-widest">Frete Grátis para todo o Brasil</span>
-</div>
-<div class="flex items-center gap-4 text-on-surface-variant">
-<span class="material-symbols-outlined text-primary-fixed">verified_user</span>
-<span class="text-xs font-label uppercase tracking-widest">Produto Original Licenciado</span>
-</div>
-</div>
-</div>
-</section>
-<!-- Technical Specs / Content Divider -->
-<div class="w-full h-px bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent my-10"></div>
-<!-- Related Products Section -->
-<section class="max-w-[1400px] mx-auto px-8 py-20">
-<div class="flex items-center justify-between mb-12">
-<h2 class="font-headline text-4xl font-black text-white uppercase tracking-tighter">
-                Você <span class="text-stroke-primary">também</span> pode gostar
-            </h2>
-<div class="flex gap-4">
-<button class="w-12 h-12 flex items-center justify-center border border-outline-variant/30 text-white hover:bg-white hover:text-black transition-all">
-<span class="material-symbols-outlined">arrow_back</span>
-</button>
-<button class="w-12 h-12 flex items-center justify-center border border-outline-variant/30 text-white hover:bg-white hover:text-black transition-all">
-<span class="material-symbols-outlined">arrow_forward</span>
-</button>
-</div>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-8"><!-- Related Item 1 -->
-<div class="group">
-<div class="aspect-[3/4] bg-surface-container-high overflow-hidden relative mb-6">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD76R-84Dx5poAoRs_YZAOroYJ1YOEUlYNGf7omKGuVIUnE_PBfVFx1SllahfRDgMg0nGe-E0l5OarWFSjjx9w0WENJA168YVtT0tkR6n0KmKJwS3t2u5e9LJk3Kb0b0YQGoIawHte4xNXS951dF-DKLZO7ifECLtG_CuiQEQugDwzE9nDjGKnHhUV1iXgY-v9StK4AijhYulm4uAi-PWnFi0uFra9U7K1vUS5NdmOqs0ZP9Wqe7f-HY8TkPigyJRhIBBCdaL0j7dE"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
-<button class="bg-white text-black py-3 font-headline font-bold text-xs uppercase tracking-widest" onclick="updateProductDetails('Chuteira Phantom X', 'R$ 899,00', 'CHUTEIRAS', 'https://lh3.googleusercontent.com/aida-public/AB6AXuD76R-84Dx5poAoRs_YZAOroYJ1YOEUlYNGf7omKGuVIUnE_PBfVFx1SllahfRDgMg0nGe-E0l5OarWFSjjx9w0WENJA168YVtT0tkR6n0KmKJwS3t2u5e9LJk3Kb0b0YQGoIawHte4xNXS951dF-DKLZO7ifECLtG_CuiQEQugDwzE9nDjGKnHhUV1iXgY-v9StK4AijhYulm4uAi-PWnFi0uFra9U7K1vUS5NdmOqs0ZP9Wqe7f-HY8TkPigyJRhIBBCdaL0j7dE')">Ver Detalhes</button>
-</div>
-</div>
-<span class="font-label text-[10px] text-primary-fixed uppercase tracking-[0.2em] mb-2 block">CHUTEIRAS</span>
-<h3 class="font-headline font-bold text-white uppercase text-lg group-hover:text-primary transition-colors">Chuteira Phantom X</h3>
-<p class="font-label text-on-surface-variant mt-1">R$ 899,00</p>
-</div>
-<!-- Related Item 2 -->
-<div class="group">
-<div class="aspect-[3/4] bg-surface-container-high overflow-hidden relative mb-6">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqbuqGshAFRqJTrpupoiJ4os7ivSQwHJ9poKiHxiRI9MEsHB0Z0sEVydQVw3LCW7U5ebXHjiXxRBi_Kg9pYjxt3Wjy9qOKHXzdqZl4T3qW8J4PxR5nCQr_gust5Afa3cUmGcsU7l8WYHA4tVTbpoU6naXeD7Wy104VH8OyNYLhMN9v0FY4AirmktPv8inqXd0joYNPATmIiZ9XHFwv_InuxgswJjNPMJH1JuIfdOiutO2j589WIAfKAYWq0JpJOhOB7XBAnK_oTWs"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
-<button class="bg-white text-black py-3 font-headline font-bold text-xs uppercase tracking-widest" onclick="updateProductDetails('Shorts Arena Pro', 'R$ 159,90', 'TREINO', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCqbuqGshAFRqJTrpupoiJ4os7ivSQwHJ9poKiHxiRI9MEsHB0Z0sEVydQVw3LCW7U5ebXHjiXxRBi_Kg9pYjxt3Wjy9qOKHXzdqZl4T3qW8J4PxR5nCQr_gust5Afa3cUmGcsU7l8WYHA4tVTbpoU6naXeD7Wy104VH8OyNYLhMN9v0FY4AirmktPv8inqXd0joYNPATmIiZ9XHFwv_InuxgswJjNPMJH1JuIfdOiutO2j589WIAfKAYWq0JpJOhOB7XBAnK_oTWs')">Ver Detalhes</button>
-</div>
-</div>
-<span class="font-label text-[10px] text-primary-fixed uppercase tracking-[0.2em] mb-2 block">TREINO</span>
-<h3 class="font-headline font-bold text-white uppercase text-lg group-hover:text-primary transition-colors">Shorts Arena Pro</h3>
-<p class="font-label text-on-surface-variant mt-1">R$ 159,90</p>
-</div>
-<!-- Related Item 3 -->
-<div class="group">
-<div class="aspect-[3/4] bg-surface-container-high overflow-hidden relative mb-6">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHJE6KnYeYqt6zSQMdvoq561qqN0j7rNwEbZ73hsA2L2E0pjy16TXITulNVuLm3iD_JWa7Fe7AXgFLDhFf5CApCCNgVQdW6-vgiK3R9VuDdXXmBEjBn95fEKlXZiQBSUfTl2WGFBBkvmixLqVUmIRlDuOG5PcDZKpq22mrQ8yd9PtyNPs_tKpDQ_oTSOgs7qaFLrZq4tcSFRNcKwSCUJzyuDUQLF8ufX5kATwBhabldms8VNr7ugHHuTSx83po_Jg6XmqUb7ZDcQw"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
-<button class="bg-white text-black py-3 font-headline font-bold text-xs uppercase tracking-widest" onclick="updateProductDetails('Jaqueta Termo Core', 'R$ 549,90', 'JAQUETAS', 'https://lh3.googleusercontent.com/aida-public/AB6AXuDHJE6KnYeYqt6zSQMdvoq561qqN0j7rNwEbZ73hsA2L2E0pjy16TXITulNVuLm3iD_JWa7Fe7AXgFLDhFf5CApCCNgVQdW6-vgiK3R9VuDdXXmBEjBn95fEKlXZiQBSUfTl2WGFBBkvmixLqVUmIRlDuOG5PcDZKpq22mrQ8yd9PtyNPs_tKpDQ_oTSOgs7qaFLrZq4tcSFRNcKwSCUJzyuDUQLF8ufX5kATwBhabldms8VNr7ugHHuTSx83po_Jg6XmqUb7ZDcQw')">Ver Detalhes</button>
-</div>
-</div>
-<span class="font-label text-[10px] text-primary-fixed uppercase tracking-[0.2em] mb-2 block">JAQUETAS</span>
-<h3 class="font-headline font-bold text-white uppercase text-lg group-hover:text-primary transition-colors">Jaqueta Termo Core</h3>
-<p class="font-label text-on-surface-variant mt-1">R$ 549,90</p>
-</div>
-<!-- Related Item 4 -->
-<div class="group">
-<div class="aspect-[3/4] bg-surface-container-high overflow-hidden relative mb-6">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzCvIa0uZV9xceCDwRIgOREcTtoxIfK9DO0T-s1mbCzzdykivY_1YbiVfYm6G5atx1EoGaNgWX2JBaTZakE_cxs8zUMNw-SekdbmRr6X3uWE1OqKhAaKtiLiNpVMHDoX-HF3OaIXe6xEGVBaBb1uGeHdzq0Z4Sb5svJS_oqfutgGHhWEk-LSUPvfWo26wZaFvxhrTzAsD6XryBRCHvO9iXEMFizTTW6u3DWksSAEq-txEASeCvSXcb3_uXBccfChHYMJBOfFflIdY"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
-<button class="bg-white text-black py-3 font-headline font-bold text-xs uppercase tracking-widest" onclick="updateProductDetails('Bola Arena Match', 'R$ 199,90', 'EQUIPAMENTOS', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCzCvIa0uZV9xceCDwRIgOREcTtoxIfK9DO0T-s1mbCzzdykivY_1YbiVfYm6G5atx1EoGaNgWX2JBaTZakE_cxs8zUMNw-SekdbmRr6X3uWE1OqKhAaKtiLiNpVMHDoX-HF3OaIXe6xEGVBaBb1uGeHdzq0Z4Sb5svJS_oqfutgGHhWEk-LSUPvfWo26wZaFvxhrTzAsD6XryBRCHvO9iXEMFizTTW6u3DWksSAEq-txEASeCvSXcb3_uXBccfChHYMJBOfFflIdY')">Ver Detalhes</button>
-</div>
-</div>
-<span class="font-label text-[10px] text-primary-fixed uppercase tracking-[0.2em] mb-2 block">EQUIPAMENTOS</span>
-<h3 class="font-headline font-bold text-white uppercase text-lg group-hover:text-primary transition-colors">Bola Arena Match</h3>
-<p class="font-label text-on-surface-variant mt-1">R$ 199,90</p>
-</div></div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="w-full py-12 border-t border-[#484848]/20 bg-[#0e0e0e] flex flex-col items-center gap-6 px-8">
-<span class="text-xl font-black text-white">WJG ARENA</span>
-<div class="flex gap-8">
-<a class="font-['Space_Grotesk'] text-xs tracking-widest uppercase text-[#ababab] hover:text-white transition-all" href="#">Privacidade</a>
-<a class="font-['Space_Grotesk'] text-xs tracking-widest uppercase text-[#ababab] hover:text-white transition-all" href="#">Termos de Uso</a>
-<a class="font-['Space_Grotesk'] text-xs tracking-widest uppercase text-[#ababab] hover:text-white transition-all" href="#">Contato</a>
-<a class="font-['Space_Grotesk'] text-xs tracking-widest uppercase text-[#ababab] hover:text-white transition-all" href="#">Suporte</a>
-</div>
-<div class="flex gap-6 mt-4">
-<span class="material-symbols-outlined text-[#ababab] hover:text-[#eb0000] cursor-pointer transition-colors">language</span>
-<span class="material-symbols-outlined text-[#ababab] hover:text-[#eb0000] cursor-pointer transition-colors">share</span>
-<span class="material-symbols-outlined text-[#ababab] hover:text-[#eb0000] cursor-pointer transition-colors">help</span>
-</div>
-<p class="font-['Space_Grotesk'] text-[10px] tracking-widest uppercase text-[#ababab] mt-4">
-        © 2024 WJG Arena. Todos os direitos reservados.
-    </p>
-</footer>
-<script>
-    const images = [
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuDMJukRJgrNssEc_9tdkFVORcYeWiuKhjxasbY360V2q2im0Ef1UTDHR0VrEl7QXrQvl6i_Pv9Uz3tGxkgyiY0SjafyL3glseX6humJ-Q5PkI4v_M9dyEgowA9VfbhDv4isSJDMQRmoAnw7o0sDo7kxnmqJdZY6TeVVMjP-ZT36dg_NDHgTgBDzbt8mdQuHj77ZjuARfsy-SmaBlryfB9joOqWGP9O0yYOVE6KguNIO4qb-emmrjdA1kiZbUeENn4OSbEHNTfG-Zp4",
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuDHJE6KnYeYqt6zSQMdvoq561qqN0j7rNwEbZ73hsA2L2E0pjy16TXITulNVuLm3iD_JWa7Fe7AXgFLDhFf5CApCCNgVQdW6-vgiK3R9VuDdXXmBEjBn95fEKlXZiQBSUfTl2WGFBBkvmixLqVUmIRlDuOG5PcDZKpq22mrQ8yd9PtyNPs_tKpDQ_oTSOgs7qaFLrZq4tcSFRNcKwSCUJzyuDUQLF8ufX5kATwBhabldms8VNr7ugHHuTSx83po_Jg6XmqUb7ZDcQw",
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuCqbuqGshAFRqJTrpupoiJ4os7ivSQwHJ9poKiHxiRI9MEsHB0Z0sEVydQVw3LCW7U5ebXHjiXxRBi_Kg9pYjxt3Wjy9qOKHXzdqZl4T3qW8J4PxR5nCQr_gust5Afa3cUmGcsU7l8WYHA4tVTbpoU6naXeD7Wy104VH8OyNYLhMN9v0FY4AirmktPv8inqXd0joYNPATmIiZ9XHFwv_InuxgswJjNPMJH1JuIfdOiutO2j589WIAfKAYWq0JpJOhOB7XBAnK_oTWs"
-    ];
-    let currentIndex = 0;
 
-    function updateMainImage(src, index) {
-        currentIndex = index;
-        const mainImg = document.getElementById('main-product-image');
-        mainImg.style.opacity = '0';
-        setTimeout(() => {
-            mainImg.src = src;
-            mainImg.style.opacity = '1';
-        }, 200);
-
-        // Update thumbnail borders
-        document.querySelectorAll('.thumbnail-btn').forEach((btn, idx) => {
-            if (idx === index) {
-                btn.classList.add('border-primary');
-                btn.classList.remove('border-transparent');
-            } else {
-                btn.classList.remove('border-primary');
-                btn.classList.add('border-transparent');
-            }
-        });
-    }
-
-    function nextImage() {
-        currentIndex = (currentIndex + 1) % images.length;
-        updateMainImage(images[currentIndex], currentIndex);
-    }
-
-    function prevImage() {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        updateMainImage(images[currentIndex], currentIndex);
-    }
-</script>
-<script>
-    function toggleSearch() {
-        const input = document.getElementById('search-input');
-        const isClosed = input.classList.contains('w-0');
-        
-        if (isClosed) {
-            input.classList.remove('w-0', 'px-0', 'opacity-0', 'pointer-events-none');
-            input.classList.add('w-48', 'md:w-64', 'px-4', 'opacity-100', 'pointer-events-auto');
-            input.focus();
-        } else {
-            closeSearch();
-        }
-    }
-
-    function closeSearch() {
-        const input = document.getElementById('search-input');
-        input.classList.add('w-0', 'px-0', 'opacity-0', 'pointer-events-none');
-        input.classList.remove('w-48', 'md:w-64', 'px-4', 'opacity-100', 'pointer-events-auto');
-    }
-
-    // Close when clicking outside
-    document.addEventListener('mousedown', (e) => {
-        const input = document.getElementById('search-input');
-        const searchContainer = input.parentElement;
-        if (!searchContainer.contains(e.target) && !input.classList.contains('w-0')) {
-            closeSearch();
-        }
-    });
-</script><script>
-    function updateProductDetails(name, price, category, image) {
-        // Update basic info
-        document.getElementById('main-product-title').innerText = name;
-        document.getElementById('main-product-price').innerText = price;
-        document.getElementById('main-product-category').innerText = category + ' // 2024';
-        
-        // Update images list for slider (simulating by repeating same image or using a fixed set)
-        // In a real app, this would be an array of image URLs for that specific product
-        const newImages = [image, image, image]; 
-        
-        // Update the global images array used by navigation
-        // Note: 'images' is defined in the script block above
-        if (typeof images !== 'undefined') {
-            images.length = 0;
-            images.push(...newImages);
-        }
-
-        // Reset to first image
-        updateMainImage(image, 0);
-
-        // Update thumbnails UI
-        const thumbnails = document.querySelectorAll('.thumbnail-btn img');
-        thumbnails.forEach((thumb, idx) => {
-            if (newImages[idx]) {
-                thumb.src = newImages[idx];
-                thumb.parentElement.style.display = 'block';
-            } else {
-                thumb.parentElement.style.display = 'none';
-            }
-        });
-
-        // Scroll to top to see changes
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-</script></body></html>
-
-<!-- Perfil do Atleta - Menu à Direita -->
-<!DOCTYPE html>
-
-<html class="dark" lang="pt-BR"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&amp;family=Manrope:wght@200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-tertiary-fixed": "#340800",
-                        "surface-container-lowest": "#000000",
-                        "on-secondary": "#525151",
-                        "surface-tint": "#ff8e7d",
-                        "tertiary-fixed": "#ff9473",
-                        "secondary-container": "#474746",
-                        "outline-variant": "#484848",
-                        "surface": "#0e0e0e",
-                        "inverse-surface": "#f9f9f9",
-                        "on-primary": "#650000",
-                        "inverse-on-surface": "#555555",
-                        "tertiary-dim": "#ff7346",
-                        "on-tertiary": "#420d00",
-                        "tertiary-fixed-dim": "#ff7d54",
-                        "on-primary-fixed-variant": "#600000",
-                        "background": "#0e0e0e",
-                        "on-error": "#490013",
-                        "primary-fixed": "#ff7763",
-                        "secondary-fixed": "#e5e2e1",
-                        "on-surface-variant": "#ababab",
-                        "surface-dim": "#0e0e0e",
-                        "inverse-primary": "#c10100",
-                        "primary-dim": "#eb0000",
-                        "on-tertiary-fixed-variant": "#6e1c00",
-                        "surface-bright": "#2c2c2c",
-                        "on-surface": "#ffffff",
-                        "on-background": "#ffffff",
-                        "outline": "#757575",
-                        "on-primary-fixed": "#000000",
-                        "primary-container": "#ff7763",
-                        "secondary-fixed-dim": "#d6d4d3",
-                        "on-secondary-fixed": "#403f3f",
-                        "surface-container-highest": "#262626",
-                        "on-tertiary-container": "#0e0100",
-                        "surface-container-low": "#131313",
-                        "error": "#ff6e84",
-                        "secondary": "#e5e2e1",
-                        "surface-container-high": "#1f1f1f",
-                        "on-secondary-container": "#d2d0cf",
-                        "tertiary-container": "#fc4c00",
-                        "primary-fixed-dim": "#ff5b47",
-                        "error-dim": "#d73357",
-                        "secondary-dim": "#d6d4d3",
-                        "on-error-container": "#ffb2b9",
-                        "on-secondary-fixed-variant": "#5c5b5b",
-                        "tertiary": "#ff7346",
-                        "surface-container": "#191919",
-                        "surface-variant": "#262626",
-                        "error-container": "#a70138",
-                        "on-primary-container": "#4f0000",
-                        "primary": "#ff8e7d"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0px",
-                        "lg": "0px",
-                        "xl": "0px",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Epilogue"],
-                        "body": ["Manrope"],
-                        "label": ["Space Grotesk"]
-                    }
-                },
-            },
-        }
-    </script>
-<style>
-        body { font-family: 'Manrope', sans-serif; background-color: #0e0e0e; color: #ffffff; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .kinetic-gradient {
-            background: radial-gradient(circle at top right, rgba(235, 0, 0, 0.15) 0%, rgba(14, 14, 14, 1) 70%);
-        }
-        .text-glow {
-            text-shadow: 0 0 20px rgba(235, 0, 0, 0.4);
-        }
-    </style>
-</head>
-<body class="bg-surface selection:bg-primary-dim selection:text-white">
-<!-- TopNavBar Implementation -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-[#0e0e0e] shadow-[0px_10px_30px_rgba(235,0,0,0.1)]">
-<div class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
-<!-- Brand Logo -->
-<div class="text-2xl italic font-black text-[#eb0000] tracking-tighter font-['Epilogue'] uppercase">
-                WJG FOOTBALL
-            </div>
-<!-- Navigation Links -->
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-[#ffffff] border-b-2 border-[#eb0000] pb-1 font-['Epilogue'] tracking-tighter uppercase font-black transition-all duration-300" href="#">Home</a>
-<a class="text-[#ababab] hover:text-[#ffffff] transition-colors font-['Epilogue'] tracking-tighter uppercase font-black" href="#">Clubes</a>
-<a class="text-[#ababab] hover:text-[#ffffff] transition-colors font-['Epilogue'] tracking-tighter uppercase font-black" href="#">Seleções</a>
-<a class="text-[#ababab] hover:text-[#ffffff] transition-colors font-['Epilogue'] tracking-tighter uppercase font-black" href="#">Promoções</a>
-</nav>
-<!-- Trailing Icons / Search -->
-<div class="flex items-center gap-6">
-<div class="hidden lg:flex items-center bg-[#1f1f1f] px-4 py-2 rounded-none border-b-2 border-transparent focus-within:border-[#eb0000] transition-all">
-<span class="material-symbols-outlined text-[#ababab] mr-2">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-48 text-white placeholder-[#ababab]" placeholder="Buscar arena..." type="text"/>
-</div>
-<div class="flex gap-4">
-<button class="text-[#ababab] hover:text-[#eb0000] transition-all duration-300 scale-95 active:scale-90">
-<span class="material-symbols-outlined">shopping_cart</span>
-</button>
-<button class="text-[#eb0000] transition-all duration-300 scale-95 active:scale-90">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
-</button>
-</div>
-</div>
-</div>
-<div class="bg-gradient-to-b from-[#1f1f1f] to-transparent h-px w-full"></div>
-</header>
-<div class="flex pt-20">
-<!-- Main Content Area - Padding adjusted for right sidebar -->
-<main class="lg:mr-64 w-full min-h-screen kinetic-gradient p-6 lg:p-12">
-<!-- Welcome Header -->
-<div class="mb-12">
-<h1 class="font-['Epilogue'] font-black text-5xl md:text-7xl uppercase tracking-tighter text-on-surface mb-2 italic">
-                    BEM-VINDO, <span class="text-glow text-primary-dim">MARCUS REYES</span>
-</h1>
-<p class="font-['Space_Grotesk'] text-on-surface-variant tracking-[0.2em] text-sm">PERFORMANCE TRACKING &amp; GEAR MANAGEMENT</p>
-</div>
-<!-- Bento Grid Stats & Profile -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-<!-- Stat 1 -->
-<div class="bg-surface-container-high p-8 flex flex-col justify-between border-l-2 border-primary-dim h-48">
-<span class="material-symbols-outlined text-primary-dim mb-4">payments</span>
-<div>
-<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-on-surface-variant mb-1">Total Gasto</p>
-<p class="font-['Epilogue'] font-black text-3xl">R$ 4.290,00</p>
-</div>
-</div>
-<!-- Stat 2 -->
-<div class="bg-surface-container-high p-8 flex flex-col justify-between border-l-2 border-tertiary h-48">
-<span class="material-symbols-outlined text-tertiary mb-4">savings</span>
-<div>
-<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-on-surface-variant mb-1">Total Economizado</p>
-<p class="font-['Epilogue'] font-black text-3xl">R$ 845,00</p>
-</div>
-</div>
-<!-- Profile Summary Card -->
-<div class="bg-surface-container-highest p-8 md:row-span-2 flex flex-col">
-<div class="flex justify-between items-start mb-8">
-<h3 class="font-['Epilogue'] font-black text-xl uppercase italic">Dados do Atleta</h3>
-<span class="bg-tertiary-container px-3 py-1 font-['Space_Grotesk'] text-[10px] font-bold text-on-tertiary-container animate-pulse">HOT TOPIC</span>
-</div>
-<div class="space-y-6 flex-grow">
-<div>
-<p class="font-['Space_Grotesk'] text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">E-mail de Contato</p>
-<p class="font-['Manrope'] font-bold text-sm">m.reyes.athlete@arena.com</p>
-</div>
-<div>
-<p class="font-['Space_Grotesk'] text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">Status de Membro</p>
-<p class="font-['Epilogue'] font-black text-lg text-primary-dim italic uppercase">Ignition Elite</p>
-</div>
-<div>
-<p class="font-['Space_Grotesk'] text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">Membro desde</p>
-<p class="font-['Manrope'] font-bold text-sm">Fevereiro, 2024</p>
-</div>
-</div>
-<button class="w-full mt-8 py-4 bg-primary-dim text-on-primary font-['Epilogue'] font-black uppercase tracking-widest text-xs hover:bg-primary-fixed transition-all hover:shadow-[0px_0px_20px_#ff7763]">
-                        EDITAR INFORMAÇÕES
-                    </button>
-</div>
-<!-- Recent Gear / Orders Section -->
-<div class="md:col-span-2 bg-surface-container p-8">
-<div class="flex justify-between items-end mb-8">
-<h2 class="font-['Epilogue'] font-black text-2xl uppercase italic">Equipamentos Recentes</h2>
-<a class="font-['Space_Grotesk'] text-[10px] font-bold text-primary-fixed border-b border-primary-fixed uppercase tracking-widest" href="#">Ver Histórico</a>
-</div>
-<div class="space-y-4">
-<!-- Order 1 -->
-<div class="flex items-center gap-6 p-4 bg-surface-container-high group hover:bg-surface-container-highest transition-colors">
-<div class="w-16 h-16 bg-surface-container-lowest overflow-hidden">
-<img alt="Ignition Core Jersey" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="professional red and black football jersey displayed flat on a dark carbon texture background with dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg25CucHI-G226FvzxCk8eIbfUk21F5ASld0Nnpqcda6GC2vWXcOrGJerBosESGn_E98DqP9r-uNoXLXop7KL0TxEXLnvYAu7JKjWGGF0mwHzQwQ_zHogTYKWaBgCqyp9GwfNO7LvRLcqG0c-WRv4CGNVaBeylZix8pdjJFWPuMIu0D2gx4VDNsSuZoZza4EhhC2x9b6UqQfng-DMlcsnYnlKhHUo1rfOGXsdXojEbjUl0e94gtY8LMccJE6asMLzhUhJ5d890f3w"/>
-</div>
-<div class="flex-grow">
-<h4 class="font-['Epilogue'] font-black uppercase text-sm italic">Ignition Core Jersey - V2</h4>
-<p class="font-['Space_Grotesk'] text-[10px] text-on-surface-variant">ORD #8812 - TAMANHO G</p>
-</div>
-<div class="text-right">
-<span class="px-2 py-1 bg-outline-variant text-on-surface text-[10px] font-['Space_Grotesk'] font-bold uppercase tracking-widest">Enviado</span>
-<p class="font-['Space_Grotesk'] text-xs font-bold mt-1">R$ 249,90</p>
-</div>
-</div>
-<!-- Order 2 -->
-<div class="flex items-center gap-6 p-4 bg-surface-container-high group hover:bg-surface-container-highest transition-colors">
-<div class="w-16 h-16 bg-surface-container-lowest overflow-hidden">
-<img alt="Velocity Elite Trainers" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="high-performance red and black sports sneakers with a sharp aerodynamic silhouette on a dark reflective surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIu7yVgccUZLpkgUJyTU2XCgHmEA-d6kHTK1rxDYKG8QtRS2s3xIdxvkD-EXbbexSTRyESnkL3fiVIEU0u3nw1MdOg7f_HIJT2RUUScLBYr_1yKHztXHH8dYRigNmAt-luVPQuSt7sagZ1aB4feQQ6Lf0KN-o-wfFRTcvhkFwrGIuN62tM_qwucPeflRLOXeUcTlpkBVcAeYhxZvCoGhcgub60dEwWLHtnwX18OJMuaEcb-b5HoXh_h3WtsjQRfLSYvy53XnsAhiA"/>
-</div>
-<div class="flex-grow">
-<h4 class="font-['Epilogue'] font-black uppercase text-sm italic">Velocity Elite Trainers</h4>
-<p class="font-['Space_Grotesk'] text-[10px] text-on-surface-variant">ORD #8795 - TAMANHO 42</p>
-</div>
-<div class="text-right">
-<span class="px-2 py-1 bg-primary-dim text-white text-[10px] font-['Space_Grotesk'] font-bold uppercase tracking-widest">Entregue</span>
-<p class="font-['Space_Grotesk'] text-xs font-bold mt-1">R$ 899,00</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Kinetic Graphics / Accents -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20">
-<div class="relative overflow-hidden aspect-video">
-<img alt="Stadium Atmosphere" class="w-full h-full object-cover opacity-40 grayscale" data-alt="cinematic wide shot of a modern football stadium at night under bright floodlights with atmospheric smoke and mist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoLv5MjlOfGZKkER_-n7Qr6lGPvMmlizpb8x9igu1E_wGNbOfDGiYRmREi9vXgkf6axWHYucCcO7ZTWtodVyNUjmOssbvMdPESOzoDiUeBieaqMxxPpgN8LPR_O0euzmowog2vOfNknb0rpKJnJ9D0wusnlC5SSmkjUlZfKWEZ1LRKbUtgbJoe5xefYe2qFzFeq7BaawQ9_yH6W4481qHaMOCPk1x7wkLVST85mfVnOcy6KomS8_nApR246Wt4GcYw-KNP96g6TGo"/>
-<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
-<div class="absolute bottom-6 left-6">
-<p class="font-['Epilogue'] font-black text-2xl uppercase italic leading-tight">PRÓXIMO DESAFIO:<br/><span class="text-primary-dim">COPA ARENA WJG</span></p>
-</div>
-</div>
-<div class="flex flex-col justify-center">
-<p class="font-['Space_Grotesk'] text-primary-dim font-bold uppercase tracking-widest mb-4">MENSAGEM DA EQUIPE</p>
-<h2 class="font-['Epilogue'] font-black text-3xl uppercase italic mb-6 leading-tight">A EXCELÊNCIA NÃO É UM ATO, MAS UM HÁBITO.</h2>
-<p class="font-['Manrope'] text-on-surface-variant mb-8 max-w-md">Marcus, seu desempenho nas compras e engajamento com a arena o coloca no topo 5% da nossa comunidade. Continue elevando o nível.</p>
-<div class="flex gap-4">
-<div class="w-12 h-px bg-primary-dim self-center"></div>
-<p class="font-['Space_Grotesk'] font-bold text-xs uppercase tracking-widest">Equipe WJG Performance</p>
-</div>
-</div>
-</div>
-</main>
-<!-- SideNavBar Implementation - Moved to the right side -->
-<aside class="hidden lg:flex flex-col h-screen w-64 fixed right-0 bg-[#0e0e0e] pt-12 border-l border-white/5">
-<!-- Athlete Header -->
-<div class="px-8 mb-10">
-<div class="flex items-center gap-4 mb-4">
-<div class="w-12 h-12 bg-surface-container-high relative overflow-hidden">
-<img alt="Marcus Reyes" class="w-full h-full object-cover" data-alt="portrait of a confident athletic man with short dark hair in front of a dark cinematic background with subtle red lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ3ueRW2rK4fJDTjKjqvh_dMk8HyrrtI2cKDoInZYnf2qqg-G-Q259ThQP947Nz0AS8IWmMH2p8sdn4R-zgjPVtZCfX8EvKwRyQSaobRJTAo328ORLbdPB9WUXtO8Hu7VI7zIWDV4n1-JbYNSyZQbGjBbx63cIz8hWI0yC9QbpaldF9cq6WTc7hHRPHe09LyQW-D-MztVAssKl0WiCERkN9M9l9tDowT6NYcIuFN9O2TOx7oUjeOuTD6ymXGqG_Qntf_cljAj1P4s"/>
-</div>
-<div>
-<p class="font-['Space_Grotesk'] font-bold uppercase tracking-widest text-[10px] text-primary-dim">Atleta WJG</p>
-<p class="font-['Epilogue'] font-black text-sm text-on-surface">Nível Profissional</p>
-</div>
-</div>
-</div>
-<!-- Nav Tabs -->
-<nav class="flex flex-col gap-1">
-<a class="flex items-center gap-4 text-[#ffffff] bg-[#1f1f1f] border-r-4 border-[#eb0000] px-6 py-4 active:translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="font-['Space_Grotesk'] font-bold uppercase tracking-widest text-xs">Visão Geral</span>
-</a>
-<a class="flex items-center gap-4 text-[#ababab] px-6 py-4 hover:bg-[#1f1f1f] hover:text-[#eb0000] transition-colors active:translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined">package_2</span>
-<span class="font-['Space_Grotesk'] font-bold uppercase tracking-widest text-xs">Pedidos</span>
-</a>
-<a class="flex items-center gap-4 text-[#ababab] px-6 py-4 hover:bg-[#1f1f1f] hover:text-[#eb0000] transition-colors active:translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined">map</span>
-<span class="font-['Space_Grotesk'] font-bold uppercase tracking-widest text-xs">Endereços</span>
-</a>
-<a class="flex items-center gap-4 text-[#ababab] px-6 py-4 hover:bg-[#1f1f1f] hover:text-[#eb0000] transition-colors active:translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined">payments</span>
-<span class="font-['Space_Grotesk'] font-bold uppercase tracking-widest text-xs">Pagamentos</span>
-</a>
-</nav>
-<!-- Bottom Ad/Banner inside Nav -->
-<div class="mt-auto p-6">
-<div class="bg-surface-container-high p-4 relative overflow-hidden group">
-<div class="relative z-10">
-<p class="font-['Epilogue'] font-black text-xs italic uppercase text-primary-dim mb-1">PRO DROP</p>
-<p class="font-['Space_Grotesk'] text-[10px] text-on-surface-variant leading-tight">ACESSAR COLEÇÃO EXCLUSIVA DE ELITE</p>
-</div>
-<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-30 transition-opacity">
-<span class="material-symbols-outlined text-6xl">local_fire_department</span>
-</div>
-</div>
-</div>
+<!-- =============================================
+     CARRINHO LATERAL
+     ============================================= -->
+<div class="cart-backdrop" id="cart-backdrop"></div>
+<aside class="cart-panel" id="cart-panel">
+  <div class="cart-panel-head">
+    <h3>Carrinho</h3>
+    <button class="cart-panel-close" id="cart-panel-close">✕</button>
+  </div>
+  <div class="cart-panel-items" id="cart-panel-items">
+    <div class="cart-empty-state">
+      <div class="cart-empty-icon">🛒</div>
+      <p>Seu carrinho está vazio</p>
+      <small>Adicione produtos para continuar</small>
+    </div>
+  </div>
+  <div class="cart-panel-footer" id="cart-panel-footer" style="display:none">
+    <div class="cart-row"><span>Subtotal</span><span id="cart-subtotal">R$ 0,00</span></div>
+    <div class="cart-row cart-row--big"><span>Total</span><span id="cart-total">R$ 0,00</span></div>
+    <button class="btn-fire full" onclick="alert('Redirecionando para checkout...')">
+      <span>Finalizar Compra</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 14 0M13 6l6 6-6 6"/></svg>
+    </button>
+    <p class="cart-secure">🔒 Pagamento 100% seguro</p>
+  </div>
 </aside>
-</div>
-<!-- Mobile Bottom Navigation Shell -->
-<div class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-high flex justify-around py-4 px-2 z-50 border-t border-white/5">
-<a class="flex flex-col items-center gap-1 text-[#ababab]" href="#">
-<span class="material-symbols-outlined">home</span>
-<span class="font-['Space_Grotesk'] text-[10px] uppercase">Home</span>
-</a>
-<a class="flex flex-col items-center gap-1 text-[#eb0000]" href="#">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-<span class="font-['Space_Grotesk'] text-[10px] uppercase">Dashboard</span>
-</a>
-<a class="flex flex-col items-center gap-1 text-[#ababab]" href="#">
-<span class="material-symbols-outlined">shopping_cart</span>
-<span class="font-['Space_Grotesk'] text-[10px] uppercase">Pedidos</span>
-</a>
-<a class="flex flex-col items-center gap-1 text-[#ababab]" href="#">
-<span class="material-symbols-outlined">person</span>
-<span class="font-['Space_Grotesk'] text-[10px] uppercase">Perfil</span>
-</a>
-</div>
-</body></html>
 
-<!-- Carrinho - Busca Ativa -->
-<!DOCTYPE html>
+<!-- =============================================
+     TOAST
+     ============================================= -->
+<div class="toast-wrap" id="toast-wrap"></div>
 
-<html class="dark" lang="pt-BR"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>WJG FOOTBALL ARENA | Sacola de Combate</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&amp;family=Manrope:wght@200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "inverse-on-surface": "#555555",
-                    "on-primary-container": "#4f0000",
-                    "on-surface-variant": "#ababab",
-                    "on-tertiary-fixed": "#340800",
-                    "surface": "#0e0e0e",
-                    "surface-container-lowest": "#000000",
-                    "surface-container-low": "#131313",
-                    "secondary-container": "#474746",
-                    "primary": "#ff8e7d",
-                    "error": "#ff6e84",
-                    "on-primary-fixed": "#000000",
-                    "secondary-fixed-dim": "#d6d4d3",
-                    "on-tertiary-container": "#0e0100",
-                    "tertiary-container": "#fc4c00",
-                    "surface-dim": "#0e0e0e",
-                    "on-secondary-fixed-variant": "#5c5b5b",
-                    "background": "#0e0e0e",
-                    "inverse-primary": "#c10100",
-                    "tertiary": "#ff7346",
-                    "error-container": "#a70138",
-                    "primary-fixed": "#ff7763",
-                    "on-tertiary-fixed-variant": "#6e1c00",
-                    "on-secondary-container": "#d2d0cf",
-                    "surface-bright": "#2c2c2c",
-                    "on-error-container": "#ffb2b9",
-                    "primary-container": "#ff7763",
-                    "error-dim": "#d73357",
-                    "surface-container": "#191919",
-                    "tertiary-fixed-dim": "#ff7d54",
-                    "primary-dim": "#eb0000",
-                    "on-background": "#ffffff",
-                    "surface-container-highest": "#262626",
-                    "tertiary-fixed": "#ff9473",
-                    "on-surface": "#ffffff",
-                    "on-secondary-fixed": "#403f3f",
-                    "primary-fixed-dim": "#ff5b47",
-                    "on-error": "#490013",
-                    "on-secondary": "#525151",
-                    "surface-container-high": "#1f1f1f",
-                    "inverse-surface": "#f9f9f9",
-                    "secondary": "#e5e2e1",
-                    "secondary-dim": "#d6d4d3",
-                    "on-primary-fixed-variant": "#600000",
-                    "surface-tint": "#ff8e7d",
-                    "tertiary-dim": "#ff7346",
-                    "on-tertiary": "#420d00",
-                    "on-primary": "#650000",
-                    "outline": "#757575",
-                    "surface-variant": "#262626",
-                    "secondary-fixed": "#e5e2e1",
-                    "outline-variant": "#484848"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0px",
-                    "lg": "0px",
-                    "xl": "0px",
-                    "full": "9999px"
-            },
-            "fontFamily": {
-                    "headline": ["Epilogue"],
-                    "body": ["Manrope"],
-                    "label": ["Space Grotesk"]
-            }
-          },
-        },
-      }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            display: inline-block;
-            line-height: 1;
-        }
-        body { background-color: #0e0e0e; color: #ffffff; }
-    </style>
-</head>
-<body class="font-body text-on-surface">
-<!-- TopNavBar Component (Identical to SCREEN_60) -->
-<header class="fixed top-0 left-0 w-full z-50 bg-[#0e0e0e] shadow-[0_10px_30px_-15px_rgba(235,0,0,0.3)]">
-<div class="flex justify-between items-center w-full px-6 py-4 max-w-[1440px] mx-auto">
-<!-- Brand Logo -->
-<div class="flex-1">
-<a class="text-3xl font-black italic text-red-600 drop-shadow-[0_0_10px_rgba(235,0,0,0.4)] font-epilogue tracking-tighter uppercase" href="#">
-                WJG
-            </a>
-</div>
-<!-- Desktop Navigation -->
-<nav class="hidden md:flex gap-8 font-epilogue tracking-tighter uppercase font-black items-center">
-<a class="text-gray-400 hover:text-red-400 transition-colors hover:scale-105 transition-transform duration-200" href="#">Home</a>
-<a class="text-gray-400 hover:text-red-400 transition-colors hover:scale-105 transition-transform duration-200" href="#">Clubes</a>
-<a class="text-gray-400 hover:text-red-400 transition-colors hover:scale-105 transition-transform duration-200" href="#">Seleções</a>
-<a class="text-gray-400 hover:text-red-400 transition-colors hover:scale-105 transition-transform duration-200" href="#">Promoções</a>
-</nav>
-<!-- Actions -->
-<div class="flex items-center gap-6 flex-1 justify-end">
-<div class="relative flex items-center group/search">
-<input class="w-0 group-hover/search:w-48 transition-all duration-300 bg-surface-container-high border-b-2 border-primary-dim text-white text-xs px-0 group-hover/search:px-3 py-1 outline-none font-headline uppercase tracking-tighter absolute right-full mr-2 h-8" placeholder="Buscar produtos..." type="text"/>
-<button class="text-gray-400 hover:text-red-500 transition-all active:scale-95">
-<span class="material-symbols-outlined">search</span>
-</button>
-</div>
-<a class="relative text-white border-b-2 border-red-600 pb-1 hover:scale-105 transition-transform duration-200" href="#">
-<span class="material-symbols-outlined">shopping_cart</span>
-<span class="absolute -top-2 -right-3 bg-primary-dim text-white text-[10px] font-bold px-1.5 py-0.5 min-w-[18px] text-center">02</span>
-</a>
-<button class="text-gray-400 hover:text-red-500 transition-all active:scale-95">
-<span class="material-symbols-outlined">person</span>
-</button>
-</div>
-</div>
-<div class="bg-gradient-to-b from-red-900/20 to-transparent h-1"></div>
-</header>
-<main class="max-w-[1440px] mx-auto px-6 pt-32 pb-24">
-<!-- Title Section -->
-<div class="mb-16 relative">
-<h1 class="font-headline text-6xl md:text-8xl font-black italic tracking-tighter uppercase leading-none text-white z-10 relative">
-            Sacola de<br/><span class="text-primary-dim">Combate</span>
-</h1>
-<div class="absolute -top-4 -left-4 w-32 h-32 bg-primary-dim/20 blur-3xl rounded-full"></div>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-<!-- Items List -->
-<div class="lg:col-span-8 space-y-6">
-<!-- Cart Item 1 -->
-<div class="group bg-surface-container-high relative p-6 flex flex-col md:flex-row gap-8 transition-all hover:bg-surface-container-highest border-l-2 border-transparent hover:border-primary-dim">
-<div class="w-full md:w-48 h-48 bg-surface-container-lowest overflow-hidden shrink-0">
-<img alt="Camisa Elite Arena V1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjreJFjkGEICF0agD-S1AikKzgzwew_Equ6kmmVLtnaSHxcaRIbD3UgTYhvprlHs2l7LkrjSrWCHkIKflA94tSmRKx5tzPAs9eLtRm09VT0kd3JXK76FGzVEdyHaAs88DOemhhxKY_S3ELLg4Bm0WlsOyenpmi_9M43VZqFT7CRynJh5qmSYAEasi4WfhTRldaDIrP0hG90eQbBMXnTtZuGxnbqUnOulYPfsGZ9j2f0-goofBdOYu7JbbENPAL-ZZjWCJFHyl2Dkk"/>
-</div>
-<div class="flex-grow flex flex-col justify-between">
-<div class="flex justify-between items-start">
-<div>
-<h3 class="font-headline text-2xl font-bold uppercase tracking-tight text-on-surface">Camisa Elite Arena V1</h3>
-<p class="font-label text-sm text-primary-fixed tracking-widest uppercase mt-1">Coleção Inferno</p>
-</div>
-<button class="text-on-surface-variant hover:text-error transition-colors">
-<span class="material-symbols-outlined">delete</span>
-</button>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 py-4 border-y border-outline-variant/20">
-<div class="flex flex-col gap-1">
-<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Tamanho</span>
-<span class="font-bold text-white uppercase">GG</span>
-</div>
-<div class="flex flex-col gap-1">
-<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Gênero</span>
-<span class="font-bold text-white">Masculino</span>
-</div>
-<div class="flex flex-col gap-1">
-<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Qtd</span>
-<div class="flex items-center gap-3 bg-surface-container-lowest px-2 py-1 w-fit">
-<button class="hover:text-primary transition-colors text-xs font-bold">-</button>
-<span class="font-bold text-sm min-w-[15px] text-center">1</span>
-<button class="hover:text-primary transition-colors text-xs font-bold">+</button>
-</div>
-</div>
-<div class="flex flex-col gap-1 text-right">
-<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Preço</span>
-<span class="font-headline font-black text-primary italic">R$ 299,90</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Cart Item 2 -->
-<div class="group bg-surface-container-high relative p-6 flex flex-col md:flex-row gap-8 transition-all hover:bg-surface-container-highest border-l-2 border-transparent hover:border-primary-dim">
-<div class="w-full md:w-48 h-48 bg-surface-container-lowest overflow-hidden shrink-0">
-<img alt="Chuteira Phantom Strike" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8A5IMoECOQuYRTqQ4ZeQA473Ql1bC0OLgF2ueW9JgdbK5xCzPy_q-AooxZrsbaItMnCImKr2avIFcvXy7jLXdaz0OzIDYoatv48h7UQxuDwY_JYX3gb7KVJnISKnFwf5wZSMTgT7P7VJdUS_PKQ1ShjSbs10BKJ4ncQBKdSx2NVh7BHx3vmFaGyyOX6mWNByyvtW8mgyHox28TXe40Y4AsqBBiVqfZ2Wm2-3F7zXDpp2FxkAOXQnMZQGveuTsihPtjrJK_79r69g"/>
-</div>
-<div class="flex-grow flex flex-col justify-between">
-<div class="flex justify-between items-start">
-<div>
-<h3 class="font-headline text-2xl font-bold uppercase tracking-tight text-on-surface">Chuteira Phantom Strike</h3>
-<p class="font-label text-sm text-primary-fixed tracking-widest uppercase mt-1">Limited Edition</p>
-</div>
-<button class="text-on-surface-variant hover:text-error transition-colors">
-<span class="material-symbols-outlined">delete</span>
-</button>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 py-4 border-y border-outline-variant/20">
-<div class="flex flex-col gap-1">
-<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Tamanho</span>
-<span class="font-bold text-white uppercase">42</span>
-</div>
-<div class="flex flex-col gap-1">
-<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Gênero</span>
-<span class="font-bold text-white">Unissex</span>
-</div>
-<div class="flex flex-col gap-1">
-<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Qtd</span>
-<div class="flex items-center gap-3 bg-surface-container-lowest px-2 py-1 w-fit">
-<button class="hover:text-primary transition-colors text-xs font-bold">-</button>
-<span class="font-bold text-sm min-w-[15px] text-center">1</span>
-<button class="hover:text-primary transition-colors text-xs font-bold">+</button>
-</div>
-</div>
-<div class="flex flex-col gap-1 text-right">
-<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Preço</span>
-<span class="font-headline font-black text-primary italic">R$ 849,90</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Shipping Form Section -->
-<section class="mt-16 space-y-8">
-<h2 class="font-headline text-3xl font-black uppercase italic text-white flex items-center gap-4">
-<span class="w-8 h-1 bg-primary-dim"></span> Coordenadas de Envio
-                </h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-surface-container p-8 border border-white/5">
-<div class="space-y-1">
-<label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Nome Completo</label>
-<input class="w-full bg-surface-container-highest border-none focus:ring-1 focus:ring-primary-dim text-white p-4 font-body placeholder:text-outline-variant" placeholder="Guerreiro da Arena" type="text"/>
-</div>
-<div class="space-y-1">
-<label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">CEP</label>
-<input class="w-full bg-surface-container-highest border-none focus:ring-1 focus:ring-primary-dim text-white p-4 font-body placeholder:text-outline-variant" placeholder="00000-000" type="text"/>
-</div>
-<div class="md:col-span-2 space-y-1">
-<label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Endereço de Entrega</label>
-<input class="w-full bg-surface-container-highest border-none focus:ring-1 focus:ring-primary-dim text-white p-4 font-body placeholder:text-outline-variant" placeholder="Rua, Número, Complemento" type="text"/>
-</div>
-<div class="space-y-1">
-<label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Cidade</label>
-<input class="w-full bg-surface-container-highest border-none focus:ring-1 focus:ring-primary-dim text-white p-4 font-body placeholder:text-outline-variant" placeholder="Sua Base" type="text"/>
-</div>
-<div class="space-y-1">
-<label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Estado</label>
-<select class="w-full bg-surface-container-highest border-none focus:ring-1 focus:ring-primary-dim text-white p-4 font-body">
-<option>São Paulo</option>
-<option>Rio de Janeiro</option>
-<option>Minas Gerais</option>
-</select>
-</div>
-</div>
-</section>
-</div>
-<!-- Summary Sidebar -->
-<aside class="lg:col-span-4">
-<div class="bg-surface-container-high p-8 sticky top-32 border-l-4 border-primary-dim shadow-[0_20px_50px_rgba(235,0,0,0.1)]">
-<h2 class="font-headline text-2xl font-black uppercase italic text-white mb-8">Resumo do Pedido</h2>
-<div class="space-y-4 font-label text-xs uppercase tracking-widest">
-<div class="flex justify-between text-on-surface-variant">
-<span>Subtotal</span>
-<span class="text-white">R$ 1.149,80</span>
-</div>
-<div class="flex justify-between items-center text-on-surface-variant">
-<span>Frete</span>
-<span class="text-primary-fixed-dim bg-on-primary/30 px-2 py-0.5 text-[10px] font-bold">GRÁTIS</span>
-</div>
-<div class="flex justify-between text-on-surface-variant">
-<span>Descontos</span>
-<span class="text-tertiary-dim">- R$ 0,00</span>
-</div>
-<div class="pt-6 mt-6 border-t border-outline-variant/30">
-<div class="flex justify-between items-end">
-<span class="font-headline text-lg italic font-black text-white">Total</span>
-<div class="text-right">
-<span class="font-headline text-4xl italic font-black text-primary">R$ 1.149,80</span>
-<p class="text-[10px] text-on-surface-variant normal-case tracking-normal mt-1 italic">Ou em até 10x de R$ 114,98</p>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-10 space-y-4">
-<button class="w-full bg-primary-dim text-white font-headline font-black uppercase italic py-5 text-xl transition-all shadow-[0_0_30px_rgba(235,0,0,0.3)] hover:brightness-110 active:scale-95">
-                        Finalizar Compra
-                    </button>
-<button class="w-full bg-transparent border border-outline-variant/50 hover:border-white text-on-surface-variant hover:text-white font-label font-bold uppercase tracking-widest py-4 text-[10px] transition-all">
-                        Continuar Comprando
-                    </button>
-</div>
-<div class="mt-8 flex items-center gap-4 p-4 bg-surface-container-lowest/50 border border-white/5">
-<span class="material-symbols-outlined text-primary-dim text-3xl">verified_user</span>
-<div>
-<p class="font-label text-[10px] uppercase font-bold text-white leading-tight">Checkout Seguro</p>
-<p class="font-body text-[9px] text-on-surface-variant uppercase tracking-tighter">Seus dados estão protegidos por criptografia de ponta.</p>
-</div>
-</div>
-</div>
-</aside>
-</div>
-</main>
-<!-- Footer Component (Consistent with SCREEN_60 style) -->
-<footer class="bg-[#0e0e0e] w-full border-t border-white/5">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12 px-8 py-16 w-full max-w-[1440px] mx-auto">
-<div class="space-y-6">
-<h2 class="text-2xl font-black italic text-red-600 font-epilogue tracking-tighter uppercase">WJG FOOTBALL</h2>
-<p class="font-body text-sm text-gray-500 max-w-xs leading-relaxed uppercase tracking-tighter">
-                A maior arena de artigos esportivos. Onde a paixão pelo futebol nunca apaga.
-            </p>
-<div class="flex gap-4">
-<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
-<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
-<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">location_on</span></a>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-8">
-<div>
-<h4 class="font-label text-xs tracking-[0.2em] uppercase text-on-surface-variant mb-6">Explorar</h4>
-<ul class="space-y-4 font-space-grotesk text-xs tracking-widest uppercase">
-<li><a class="text-gray-500 hover:text-white transition-all" href="#">Institucional</a></li>
-<li><a class="text-gray-500 hover:text-white transition-all" href="#">Envio</a></li>
-<li><a class="text-gray-500 hover:text-white transition-all" href="#">Devoluções</a></li>
-</ul>
-</div>
-<div>
-<h4 class="font-label text-xs tracking-[0.2em] uppercase text-on-surface-variant mb-6">Suporte</h4>
-<ul class="space-y-4 font-space-grotesk text-xs tracking-widest uppercase">
-<li><a class="text-gray-500 hover:text-white transition-all" href="#">Contato</a></li>
-<li><a class="text-gray-500 hover:text-white transition-all" href="#">Privacidade</a></li>
-<li><a class="text-gray-500 hover:text-white transition-all" href="#">Termos</a></li>
-</ul>
-</div>
-</div>
-<div class="flex flex-col justify-between items-start md:items-end">
-<div class="font-epilogue text-4xl font-black italic opacity-10 uppercase select-none">
-                NO LIMITS
+<!-- =============================================
+     MAIN — PÁGINAS SPA
+     ============================================= -->
+<main id="spa-root">
+
+  <!-- ══════════ HOME ══════════ -->
+  <div class="page active" id="page-home">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid-lines"></div>
+      <div class="hero-glow-orb hero-glow-orb--1"></div>
+      <div class="hero-glow-orb hero-glow-orb--2"></div>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="pill pill--fire">⚡ NOVAS CAMISAS DISPONÍVEIS</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-line-1">VISTA O</span>
+          <span class="hero-line-2">FOGO</span>
+          <span class="hero-line-3">DO JOGO</span>
+        </h1>
+        <p class="hero-sub">As camisas mais icônicas do futebol mundial. Originais, autênticas e com entrega rápida em todo o Brasil.</p>
+        <div class="hero-ctas">
+          <button class="btn-fire" onclick="showPage('times')">
+            <span>Ver Times</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 14 0M13 6l6 6-6 6"/></svg>
+          </button>
+          <button class="btn-outline-fire" onclick="showPage('promocoes')">🔥 Ver Promoções</button>
+        </div>
+        <div class="hero-badges">
+          <div class="hero-badge"><span>500+</span><small>Modelos</small></div>
+          <div class="hero-badge-sep"></div>
+          <div class="hero-badge"><span>24h</span><small>Envio</small></div>
+          <div class="hero-badge-sep"></div>
+          <div class="hero-badge"><span>10x</span><small>Sem juros</small></div>
+        </div>
+      </div>
+
+      <!-- PRODUTO DESTAQUE HERO -->
+      <div class="hero-product-showcase">
+        <div class="hero-product-card">
+          <div class="hero-product-glow"></div>
+          <!--
+            ╔══════════════════════════════════════════╗
+            ║  IMAGEM DESTAQUE DO HERO                 ║
+            ║  [SUBSTITUIR] src="camisa-destaque.png"  ║
+            ║  Tamanho ideal: 400×400px                ║
+            ╚══════════════════════════════════════════╝
+          -->
+          <div class="product-img-placeholder hero-img-ph" data-label="IMAGEM DESTAQUE DO HERO&#10;Substituir: camisa-destaque.png&#10;Tamanho ideal: 400×400px">
+            <div class="ph-inner">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+              <span>Imagem<br/>do Produto</span>
             </div>
-<p class="font-space-grotesk text-[10px] tracking-widest uppercase text-gray-600 mt-12">
-                © 2024 WJG FOOTBALL ARENA. TODOS OS DIREITOS RESERVADOS.
-            </p>
-</div>
-</div>
-</footer>
-</body></html>
+          </div>
+          <div class="hero-product-info">
+            <span class="badge-fire">MAIS VENDIDO</span>
+            <strong>Camisa Brasil 2024</strong>
+            <span class="hero-product-price">R$ 349,90</span>
+          </div>
+        </div>
+      </div>
 
-<!-- Clubes - Brasileirão (WJG Arena) -->
-<!DOCTYPE html>
+      <!-- STRIP ANIMADO -->
+      <div class="hero-strip">
+        <div class="hero-strip-track">
+          <span>⚡ ATÉ 40% OFF</span><span>•</span>
+          <span>🚚 FRETE GRÁTIS ACIMA DE R$299</span><span>•</span>
+          <span>💳 10x SEM JUROS</span><span>•</span>
+          <span>🏅 PRODUTO ORIGINAL</span><span>•</span>
+          <span>⚡ ATÉ 40% OFF</span><span>•</span>
+          <span>🚚 FRETE GRÁTIS ACIMA DE R$299</span><span>•</span>
+          <span>💳 10x SEM JUROS</span><span>•</span>
+          <span>🏅 PRODUTO ORIGINAL</span><span>•</span>
+        </div>
+      </div>
+    </section>
 
-<html class="dark" lang="pt-BR"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&amp;family=Manrope:wght@400;500;700&amp;family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "secondary-dim": "#d6d4d3",
-                    "secondary": "#e5e2e1",
-                    "inverse-surface": "#f9f9f9",
-                    "surface-container-high": "#1f1f1f",
-                    "on-secondary": "#525151",
-                    "on-error": "#490013",
-                    "tertiary-dim": "#ff7346",
-                    "surface-tint": "#ff8e7d",
-                    "on-primary-fixed-variant": "#600000",
-                    "on-primary": "#650000",
-                    "on-tertiary": "#420d00",
-                    "outline-variant": "#484848",
-                    "secondary-fixed": "#e5e2e1",
-                    "surface-variant": "#262626",
-                    "outline": "#757575",
-                    "surface-container-highest": "#262626",
-                    "on-background": "#ffffff",
-                    "primary-dim": "#eb0000",
-                    "tertiary-fixed-dim": "#ff7d54",
-                    "surface-container": "#191919",
-                    "primary-container": "#ff7763",
-                    "error-dim": "#d73357",
-                    "on-surface": "#ffffff",
-                    "tertiary-fixed": "#ff9473",
-                    "primary-fixed-dim": "#ff5b47",
-                    "on-secondary-fixed": "#403f3f",
-                    "tertiary-container": "#fc4c00",
-                    "on-tertiary-container": "#0e0100",
-                    "secondary-fixed-dim": "#d6d4d3",
-                    "inverse-primary": "#c10100",
-                    "background": "#0e0e0e",
-                    "on-secondary-fixed-variant": "#5c5b5b",
-                    "surface-dim": "#0e0e0e",
-                    "error-container": "#a70138",
-                    "tertiary": "#ff7346",
-                    "on-error-container": "#ffb2b9",
-                    "surface-bright": "#2c2c2c",
-                    "on-secondary-container": "#d2d0cf",
-                    "on-tertiary-fixed-variant": "#6e1c00",
-                    "primary-fixed": "#ff7763",
-                    "on-primary-container": "#4f0000",
-                    "inverse-on-surface": "#555555",
-                    "surface-container-lowest": "#000000",
-                    "surface": "#0e0e0e",
-                    "on-tertiary-fixed": "#340800",
-                    "on-surface-variant": "#ababab",
-                    "surface-container-low": "#131313",
-                    "on-primary-fixed": "#000000",
-                    "secondary-container": "#474746",
-                    "primary": "#ff8e7d",
-                    "error": "#ff6e84"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0px",
-                    "lg": "0px",
-                    "xl": "0px",
-                    "full": "9999px"
-            },
-            "fontFamily": {
-                    "headline": ["Epilogue"],
-                    "body": ["Manrope"],
-                    "label": ["Space Grotesk"]
-            }
-          },
-        },
-      }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body { background-color: #0e0e0e; color: #ffffff; }
-    </style>
-</head>
-<body class="font-body selection:bg-primary-dim selection:text-white">
-<!-- Top Navigation Bar -->
-<nav class="bg-[#0e0e0e]/80 backdrop-blur-lg rounded-none w-full sticky top-0 z-50 shadow-[0_10px_30px_rgba(235,0,0,0.05)]">
-<div class="bg-gradient-to-b from-[#1f1f1f] to-transparent h-px w-full absolute bottom-0"></div>
-<div class="flex justify-between items-center max-w-screen-2xl mx-auto px-8 h-20">
-<div class="text-2xl font-black italic tracking-tighter text-white font-headline">WJG ARENA</div>
-<!-- Desktop Links -->
-<div class="hidden md:flex items-center gap-8">
-<a class="text-zinc-400 hover:text-white transition-colors font-headline uppercase tracking-tighter font-bold" href="#">Home</a>
-<a class="text-white border-b-2 border-[#eb0000] pb-1 font-headline uppercase tracking-tighter font-bold" href="#">Clubes</a>
-<a class="text-zinc-400 hover:text-white transition-colors font-headline uppercase tracking-tighter font-bold" href="#">Seleções</a>
-<a class="text-zinc-400 hover:text-white transition-colors font-headline uppercase tracking-tighter font-bold" href="#">Promoções</a>
-</div>
-<div class="flex items-center gap-6">
-<div class="hidden md:flex bg-surface-container-highest px-4 py-2 items-center gap-3">
-<span class="material-symbols-outlined text-on-surface-variant text-sm">search</span>
-<input class="bg-transparent border-none outline-none text-xs font-label uppercase tracking-widest text-on-surface focus:ring-0" placeholder="PROCURAR MANTO..." type="text"/>
-</div>
-<div class="flex gap-4">
-<span class="material-symbols-outlined hover:scale-105 hover:text-[#ff8e7d] transition-all duration-200 cursor-pointer" data-icon="shopping_cart">shopping_cart</span>
-<span class="material-symbols-outlined hover:scale-105 hover:text-[#ff8e7d] transition-all duration-200 cursor-pointer" data-icon="person">person</span>
-</div>
-</div>
-</div>
-</nav>
-<main class="min-h-screen">
-<!-- Hero Filter Section -->
-<header class="relative py-16 px-8 overflow-hidden bg-surface-container-low">
-<div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none" style="background: radial-gradient(circle at center, #eb0000 0%, transparent 70%);"></div>
-<div class="max-w-7xl mx-auto relative z-10">
-<div class="flex flex-col gap-2 mb-12">
-<span class="text-primary-fixed font-label text-sm tracking-[0.3em] uppercase">Coleções Oficiais</span>
-<h1 class="text-6xl md:text-8xl font-headline font-black italic tracking-tighter uppercase leading-none">Clubes <span class="text-outline-variant">Mundiais</span></h1>
-</div>
-<!-- Filter Row -->
-<div class="flex flex-wrap gap-4 items-center">
-<button class="px-8 py-3 bg-primary-dim text-white font-label font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(235,0,0,0.3)] hover:scale-105 transition-transform">Brasileirão</button>
-<button class="px-8 py-3 bg-surface-container-highest text-on-surface-variant hover:text-white font-label font-bold uppercase tracking-widest transition-colors">Premier League</button>
-<button class="px-8 py-3 bg-surface-container-highest text-on-surface-variant hover:text-white font-label font-bold uppercase tracking-widest transition-colors">La Liga</button>
-<button class="px-8 py-3 bg-surface-container-highest text-on-surface-variant hover:text-white font-label font-bold uppercase tracking-widest transition-colors">Bundesliga</button>
-<button class="px-8 py-3 bg-surface-container-highest text-on-surface-variant hover:text-white font-label font-bold uppercase tracking-widest transition-colors">Série A</button>
-</div>
-</div>
-</header>
-<!-- Product Grid -->
-<section class="max-w-7xl mx-auto px-8 py-20">
-<div class="flex justify-between items-end mb-16">
-<h2 class="text-3xl font-headline font-extrabold uppercase italic tracking-tighter">Série A <span class="text-primary-dim">Brasileirão</span></h2>
-<div class="h-px flex-grow mx-8 bg-surface-container-highest"></div>
-<span class="text-on-surface-variant font-label text-xs uppercase tracking-widest">12 Itens Encontrados</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-<!-- Card 1: Flamengo -->
-<div class="group bg-surface-container-low flex flex-col relative">
-<div class="aspect-[3/4] bg-surface-container-highest overflow-hidden relative">
-<img alt="Flamengo Jersey" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Close up of a classic red and black striped football jersey with high performance fabric texture in a dark studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXBUV8AIsIdt20hvtDx1nJiOrsdal5mpJ9lTdDNAamLjOqbR1K2aGHOiswtMLZQPLQAnv6OVAXhwGPaf3En6XYFjGFCOjmHEaSYxWuV2rdD8ZBoNsOHycwzKsFlNuKzwah6nswLs5CM_uZJvUN-FX88h_9S_KXJztF1mSilaeEI4Chd8ell-RoHXLBZBxAXSALWkxOeiqw3o-2T90eiU3a_4RtwWvicLfW5M0i8o4KzPrjDCm3-puWmao47GbU70LVqXAiGabzstw"/>
-<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-surface-container-low to-transparent"></div>
-<div class="absolute top-4 left-4">
-<span class="bg-tertiary-container px-3 py-1 font-label text-[10px] font-bold text-white tracking-widest uppercase animate-pulse">Trending</span>
-</div>
-</div>
-<div class="p-6 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div>
-<h3 class="font-headline font-bold text-xl uppercase tracking-tighter group-hover:text-primary-dim transition-colors">Flamengo Home 24/25</h3>
-<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest">Adidas Authentic</p>
-</div>
-<span class="text-primary-fixed font-label font-bold text-lg italic">R$ 349,90</span>
-</div>
-<button class="w-full py-4 bg-white text-black font-label font-black uppercase tracking-[0.2em] hover:bg-primary-dim hover:text-white transition-all duration-300">Garantir Manto</button>
-</div>
-</div>
-<!-- Card 2: Palmeiras -->
-<div class="group bg-surface-container-low flex flex-col relative">
-<div class="aspect-[3/4] bg-surface-container-highest overflow-hidden relative">
-<img alt="Palmeiras Jersey" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Detail of a vibrant green football jersey with golden accents and premium embroidery, dramatic lighting highlighting the texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQel8g9KsUf2DaB_ufXVpx4EcIAN3CQddgJcrKSSOVv6Ep45ELXfMLLwMHh-KypIH51aH5cdfJt2b8rWT1Y3WQBnq1DRoPYF4nLdV6w6BRHp9ps9pV_isiYCI68y7nxh5m6s5fH5RUKQgD6Hv6Sasn9KS1mgV4vkv51n0cYZ6ot9WtU8JUgtAEaekdDeaDdU71CraZN6CYE8nHYdUH5R8nytl-IYSgkQsrNOkTAssHoUGu8VfjXKoKt-VHGroLDgsAK8FYSjPdTt4"/>
-<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-surface-container-low to-transparent"></div>
-</div>
-<div class="p-6 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div>
-<h3 class="font-headline font-bold text-xl uppercase tracking-tighter group-hover:text-primary-dim transition-colors">Palmeiras Home 24/25</h3>
-<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest">Puma Performance</p>
-</div>
-<span class="text-primary-fixed font-label font-bold text-lg italic">R$ 329,90</span>
-</div>
-<button class="w-full py-4 bg-white text-black font-label font-black uppercase tracking-[0.2em] hover:bg-primary-dim hover:text-white transition-all duration-300">Garantir Manto</button>
-</div>
-</div>
-<!-- Card 3: São Paulo -->
-<div class="group bg-surface-container-low flex flex-col relative">
-<div class="aspect-[3/4] bg-surface-container-highest overflow-hidden relative">
-<img alt="São Paulo Jersey" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Professional sports jersey featuring clean white fabric with central horizontal red and black stripes, sophisticated atmospheric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnHuHB13DY4FrNyGCdeHPLiaRN1qIuHW6ySAb_FSUFebrnm7afek01qYtCM1QQBeBZaJlCYJDv5ZNrQ8eXP70AkVXeTV7gsasyuJvdRrjl9uxoNSXqGuLYU__xBwKaoPmDUfKiU2e3TyzLQyZOzouSMXjcNQ2pzCZMzXwkObRYHUGbf1_DxyfAmlyXqjQfI0b5sgdZBuJLbKypoe0SPl0seeebvblmFYjv0sGoRTtZmtIZEpDkRG5ySzoeEp3W2gJvyGjkKmqw_AE"/>
-<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-surface-container-low to-transparent"></div>
-</div>
-<div class="p-6 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div>
-<h3 class="font-headline font-bold text-xl uppercase tracking-tighter group-hover:text-primary-dim transition-colors">São Paulo Home 24/25</h3>
-<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest">New Balance Elite</p>
-</div>
-<span class="text-primary-fixed font-label font-bold text-lg italic">R$ 299,90</span>
-</div>
-<button class="w-full py-4 bg-white text-black font-label font-black uppercase tracking-[0.2em] hover:bg-primary-dim hover:text-white transition-all duration-300">Garantir Manto</button>
-</div>
-</div>
-<!-- Card 4: Corinthians -->
-<div class="group bg-surface-container-low flex flex-col relative">
-<div class="aspect-[3/4] bg-surface-container-highest overflow-hidden relative">
-<img alt="Corinthians Jersey" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Modern black football kit detail with subtle grey patterns and white typography, low key dramatic lighting on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQthaP2treiiCje7co-GDnIOrjyWAw969e5uXDpKe1ah6woyMRjzTgv_-XkLnlVgIGtoZY0IBSj7knbNtK1rzG_vYPP67YH4Ys34jCS_dQ4svcZqRBB72DjaeJYKS5FDa7pQHmWglRv--YxTessXfPZEHHE60iScIp1K1M5--62k-Ln5IbLgbYnUyxBrSBJlrrbwLwPbCO1PSV-RXbmtjFCBAxMvH0PfORm1vEWuelr7JVtnuiHvIp1ftPyxmhU2Te4Daj8_e4Da8"/>
-<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-surface-container-low to-transparent"></div>
-</div>
-<div class="p-6 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div>
-<h3 class="font-headline font-bold text-xl uppercase tracking-tighter group-hover:text-primary-dim transition-colors">Corinthians Away 24/25</h3>
-<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest">Nike Vapor</p>
-</div>
-<span class="text-primary-fixed font-label font-bold text-lg italic">R$ 349,90</span>
-</div>
-<button class="w-full py-4 bg-white text-black font-label font-black uppercase tracking-[0.2em] hover:bg-primary-dim hover:text-white transition-all duration-300">Garantir Manto</button>
-</div>
-</div>
-<!-- Card 5: Gremio -->
-<div class="group bg-surface-container-low flex flex-col relative">
-<div class="aspect-[3/4] bg-surface-container-highest overflow-hidden relative">
-<img alt="Gremio Jersey" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Blue, black and white vertical striped football jersey texture in a cinematic dark studio atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6KPHdVD5PJBynODQZ3DN6t1tNqrD4-b8G-xEwGdsFkfczGJPVfMzSb1wapBcAHkKHkokAY0vKzi4H5jm2IkmBzjmUTmHTz7EUyuw8nmdciUdqetCJjWh81hndZvTrGiaG_etzw-EwuDWX98pm09Md-KcuZO-SwBOEYta4SCz265eYip5ESxFLeIoVxnzaNNoSl37ZyrApakIwW1flsNuE4XLn-P4pw9XdrXzO2t6dOp1KMdCHDTh1_BhjEFMq35qdCpGz0FFHqhc"/>
-<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-surface-container-low to-transparent"></div>
-</div>
-<div class="p-6 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div>
-<h3 class="font-headline font-bold text-xl uppercase tracking-tighter group-hover:text-primary-dim transition-colors">Grêmio Home 24/25</h3>
-<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest">Umbro Pro</p>
-</div>
-<span class="text-primary-fixed font-label font-bold text-lg italic">R$ 319,90</span>
-</div>
-<button class="w-full py-4 bg-white text-black font-label font-black uppercase tracking-[0.2em] hover:bg-primary-dim hover:text-white transition-all duration-300">Garantir Manto</button>
-</div>
-</div>
-<!-- Card 6: Atletico MG -->
-<div class="group bg-surface-container-low flex flex-col relative">
-<div class="aspect-[3/4] bg-surface-container-highest overflow-hidden relative">
-<img alt="Atletico MG Jersey" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Dramatic black and white vertical striped jersey fabric detail, high contrast lighting showing technical knitting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3Axg-dUqi2_6ZFmS9RnFa1fC_R15rETrzBpyLeQZeVh9FS5njUwBosTFHleAJ3kCpa93zSC52QZl3ChVPfm7ajKuT1sr52RbBkosIATThrhaFT7T2DO6W8vlu2rc5uhhDNnD8xLh_JjAWHuMxMflHrDp7Q6Z5axLJ_rMM-K0-xAgNgSigIMQqZiddxLLm5UvmwbHb9kOn2raAyF1iYdLsQt0rDTLEK09O9zVFo2ilg770t4lMnDA54ZBjqbt5IXL6cQrJ_bYgTfI"/>
-<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-surface-container-low to-transparent"></div>
-</div>
-<div class="p-6 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div>
-<h3 class="font-headline font-bold text-xl uppercase tracking-tighter group-hover:text-primary-dim transition-colors">Atlético MG Home 24/25</h3>
-<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest">Adidas Authentic</p>
-</div>
-<span class="text-primary-fixed font-label font-bold text-lg italic">R$ 349,90</span>
-</div>
-<button class="w-full py-4 bg-white text-black font-label font-black uppercase tracking-[0.2em] hover:bg-primary-dim hover:text-white transition-all duration-300">Garantir Manto</button>
-</div>
-</div>
-</div>
-</section>
-<!-- Newsletter Branding Section -->
-<section class="bg-surface-container-lowest py-24 px-8 border-y border-outline-variant/10">
-<div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
-<div class="w-full md:w-1/2">
-<h2 class="text-5xl md:text-7xl font-headline font-black italic uppercase leading-none mb-6">Entre na <br/><span class="text-primary-dim">Elite do Jogo</span></h2>
-<p class="text-on-surface-variant font-body text-lg max-w-md">Receba acesso antecipado a drops limitados e edições históricas dos clubes do Brasileirão.</p>
-</div>
-<div class="w-full md:w-1/2 bg-surface-container px-8 py-12">
-<div class="flex flex-col gap-6">
-<div class="relative">
-<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary-dim outline-none py-4 font-label uppercase tracking-widest transition-all" placeholder="SEU MELHOR E-MAIL" type="email"/>
-</div>
-<button class="w-full py-6 bg-primary-dim text-white font-label font-black uppercase tracking-[0.3em] shadow-[0_10px_40px_rgba(235,0,0,0.2)] hover:scale-[1.02] transition-all">Inscrever-se Agora</button>
-</div>
-</div>
-</div>
-</section>
+    <!-- SECÇÃO: TIMES -->
+    <section class="section" id="home-sec-times">
+      <div class="section-head">
+        <div class="section-head-left">
+          <span class="section-eyebrow">Clubes</span>
+          <h2 class="section-title">Camisas de <span>Times</span></h2>
+        </div>
+        <button class="btn-ghost" onclick="showPage('times')">Ver todos →</button>
+      </div>
+      <div class="products-grid" id="home-grid-times"></div>
+    </section>
+
+    <!-- BANNER MIDDLE -->
+    <div class="mid-promo-banner">
+      <div class="mid-promo-bg"></div>
+      <div class="mid-promo-content">
+        <span class="pill pill--white">OFERTA LIMITADA</span>
+        <h2>SELEÇÕES COM<br/><em>ATÉ 40% OFF</em></h2>
+        <p>Camisas das principais seleções do mundo. Aproveite enquanto o estoque durar!</p>
+        <button class="btn-fire" onclick="showPage('selecoes')"><span>Ver Seleções</span></button>
+      </div>
+      <div class="mid-promo-number">40<sup>%</sup></div>
+    </div>
+
+    <!-- SECÇÃO: SELEÇÕES -->
+    <section class="section">
+      <div class="section-head">
+        <div class="section-head-left">
+          <span class="section-eyebrow">Seleções Nacionais</span>
+          <h2 class="section-title">Camisas de <span>Seleções</span></h2>
+        </div>
+        <button class="btn-ghost" onclick="showPage('selecoes')">Ver todas →</button>
+      </div>
+      <div class="products-grid" id="home-grid-selecoes"></div>
+    </section>
+
+    <!-- SECÇÃO: PROMOÇÕES -->
+    <section class="section section--dark-alt">
+      <div class="section-head">
+        <div class="section-head-left">
+          <span class="section-eyebrow">Ofertas</span>
+          <h2 class="section-title">🔥 <span>Promoções</span></h2>
+        </div>
+        <button class="btn-ghost" onclick="showPage('promocoes')">Ver todas →</button>
+      </div>
+      <div class="products-grid" id="home-grid-promos"></div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <div class="trust-item"><span>🚚</span><div><strong>Envio em 24h</strong><p>Dias úteis após pagamento</p></div></div>
+      <div class="trust-item"><span>🔄</span><div><strong>30 dias para troca</strong><p>Sem burocracia</p></div></div>
+      <div class="trust-item"><span>🏅</span><div><strong>100% Original</strong><p>Produto licenciado oficial</p></div></div>
+      <div class="trust-item"><span>💳</span><div><strong>10x sem juros</strong><p>PIX com 5% de desconto</p></div></div>
+    </div>
+
+  </div><!-- /page-home -->
+
+
+  <!-- ══════════ TIMES ══════════ -->
+  <div class="page" id="page-times">
+    <div class="cat-hero cat-hero--times">
+      <div class="cat-hero-glow"></div>
+      <h1>Camisas de <span>Times</span></h1>
+      <p>Os maiores clubes do mundo em um só lugar</p>
+    </div>
+    <div class="cat-layout">
+      <aside class="filter-panel">
+        <h4>Filtros</h4>
+        <div class="filter-block">
+          <label class="filter-lbl">Ordenar por</label>
+          <select id="times-sort" onchange="renderCategory('times')">
+            <option value="">Destaque</option>
+            <option value="price-asc">Menor preço</option>
+            <option value="price-desc">Maior preço</option>
+            <option value="name">Nome A–Z</option>
+          </select>
+        </div>
+        <div class="filter-block">
+          <label class="filter-lbl">Faixa de preço</label>
+          <div class="radio-group">
+            <label><input type="radio" name="tp" value="" checked onchange="renderCategory('times')"/> Todos</label>
+            <label><input type="radio" name="tp" value="0-200" onchange="renderCategory('times')"/> Até R$200</label>
+            <label><input type="radio" name="tp" value="200-350" onchange="renderCategory('times')"/> R$200–350</label>
+            <label><input type="radio" name="tp" value="350-999" onchange="renderCategory('times')"/> Acima de R$350</label>
+          </div>
+        </div>
+        <div class="filter-block">
+          <label class="filter-lbl">Liga</label>
+          <div class="radio-group" id="liga-filter-group"></div>
+        </div>
+      </aside>
+      <div class="cat-products">
+        <div class="products-grid wide" id="cat-grid-times"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SELEÇÕES ══════════ -->
+  <div class="page" id="page-selecoes">
+    <div class="cat-hero cat-hero--selecoes">
+      <div class="cat-hero-glow"></div>
+      <h1>Camisas de <span>Seleções</span></h1>
+      <p>Represente o seu país no campo e nas arquibancadas</p>
+    </div>
+    <div class="cat-layout">
+      <aside class="filter-panel">
+        <h4>Filtros</h4>
+        <div class="filter-block">
+          <label class="filter-lbl">Ordenar por</label>
+          <select id="selecoes-sort" onchange="renderCategory('selecoes')">
+            <option value="">Destaque</option>
+            <option value="price-asc">Menor preço</option>
+            <option value="price-desc">Maior preço</option>
+            <option value="name">Nome A–Z</option>
+          </select>
+        </div>
+        <div class="filter-block">
+          <label class="filter-lbl">Faixa de preço</label>
+          <div class="radio-group">
+            <label><input type="radio" name="sp" value="" checked onchange="renderCategory('selecoes')"/> Todos</label>
+            <label><input type="radio" name="sp" value="0-250" onchange="renderCategory('selecoes')"/> Até R$250</label>
+            <label><input type="radio" name="sp" value="250-350" onchange="renderCategory('selecoes')"/> R$250–350</label>
+            <label><input type="radio" name="sp" value="350-999" onchange="renderCategory('selecoes')"/> Acima de R$350</label>
+          </div>
+        </div>
+      </aside>
+      <div class="cat-products">
+        <div class="products-grid wide" id="cat-grid-selecoes"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PROMOÇÕES ══════════ -->
+  <div class="page" id="page-promocoes">
+    <div class="cat-hero cat-hero--promo">
+      <div class="cat-hero-glow"></div>
+      <span class="pill pill--fire">⚡ TEMPO LIMITADO</span>
+      <h1>Promoções <span>em Chamas</span></h1>
+      <p>Estoque limitado. Aproveite agora!</p>
+      <div class="countdown" id="countdown">
+        <div class="cd-block"><span id="cd-h">08</span><label>h</label></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block"><span id="cd-m">45</span><label>min</label></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block"><span id="cd-s">00</span><label>seg</label></div>
+      </div>
+    </div>
+    <section class="section" style="padding-top:2rem">
+      <div class="products-grid" id="promo-grid"></div>
+    </section>
+  </div>
+
+  <!-- ══════════ PRODUTO DETALHE ══════════ -->
+  <div class="page" id="page-product">
+    <div id="product-detail-root"></div>
+  </div>
+
+  <!-- ══════════ INSTITUCIONAL ══════════ -->
+  <div class="page" id="page-institucional">
+    <div class="cat-hero cat-hero--inst">
+      <div class="cat-hero-glow"></div>
+      <h1>Sobre a <span>WJG</span></h1>
+      <p>Paixão, fogo e autenticidade em cada peça</p>
+    </div>
+
+    <div class="inst-wrapper">
+
+      <section class="inst-sec">
+        <div class="inst-sec-text">
+          <h2>Nossa história</h2>
+          <p>A <strong>WJG</strong> nasceu da paixão pelo futebol e pela moda esportiva. Fundada por um grupo de colecionadores apaixonados, hoje somos referência em camisas originais de times e seleções de todo o mundo.</p>
+          <p>Trabalhamos com distribuidores oficiais e produtos 100% licenciados. Nossa missão é aproximar o torcedor das camisas que ele sempre sonhou, com autenticidade garantida e entrega rápida.</p>
+        </div>
+        <div class="inst-stats-grid">
+          <div class="inst-stat"><span>50K+</span><label>Clientes</label></div>
+          <div class="inst-stat"><span>500+</span><label>Modelos</label></div>
+          <div class="inst-stat"><span>6</span><label>Anos</label></div>
+          <div class="inst-stat"><span>98%</span><label>Satisfação</label></div>
+        </div>
+      </section>
+
+      <section class="inst-sec inst-sec--alt">
+        <h2>Política de Envio</h2>
+        <div class="policy-cards">
+          <div class="policy-card"><span>📦</span><h4>Processamento</h4><p>Pedidos até 14h são despachados no mesmo dia útil.</p></div>
+          <div class="policy-card"><span>🚚</span><h4>Prazo de Entrega</h4><p>Capitais: 2–4 dias úteis. Interior: 5–10 dias úteis.</p></div>
+          <div class="policy-card"><span>🔄</span><h4>Trocas</h4><p>30 dias para troca. Produto deve estar sem uso e com etiqueta.</p></div>
+          <div class="policy-card"><span>🆓</span><h4>Frete Grátis</h4><p>Compras acima de R$299 têm frete grátis para todo o Brasil.</p></div>
+        </div>
+      </section>
+
+      <section class="inst-sec">
+        <h2>Fale Conosco</h2>
+        <div class="contact-grid">
+          <div class="contact-info-col">
+            <div class="contact-info-item"><span>📧</span><div><strong>E-mail</strong><p>contato@wjg.com.br</p></div></div>
+            <div class="contact-info-item"><span>💬</span><div><strong>WhatsApp</strong><p>(11) 9 8888-7777</p></div></div>
+            <div class="contact-info-item"><span>🕘</span><div><strong>Atendimento</strong><p>Seg–Sex: 9h–18h</p></div></div>
+          </div>
+          <form class="contact-form" onsubmit="submitContact(event)">
+            <div class="form-row">
+              <div class="form-field"><label>Nome</label><input type="text" placeholder="Seu nome" required/></div>
+              <div class="form-field"><label>E-mail</label><input type="email" placeholder="seu@email.com" required/></div>
+            </div>
+            <div class="form-field">
+              <label>Assunto</label>
+              <select>
+                <option>Pedido / Rastreio</option>
+                <option>Troca / Devolução</option>
+                <option>Disponibilidade</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Mensagem</label>
+              <textarea rows="5" placeholder="Como podemos ajudar?" required></textarea>
+            </div>
+            <button type="submit" class="btn-fire"><span>Enviar Mensagem</span></button>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </div><!-- /page-institucional -->
+
 </main>
-<!-- Footer -->
-<footer class="bg-[#0e0e0e]">
-<div class="bg-zinc-900 py-12 px-8 border-t border-white/5">
-<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
-<div class="font-black text-xl text-white font-headline">WJG ARENA</div>
-<div class="flex gap-8">
-<a class="font-['Space_Grotesk'] text-xs tracking-widest uppercase text-zinc-600 hover:text-red-500 underline underline-offset-4 transition-all duration-300" href="#">Termos</a>
-<a class="font-['Space_Grotesk'] text-xs tracking-widest uppercase text-zinc-600 hover:text-red-500 underline underline-offset-4 transition-all duration-300" href="#">Privacidade</a>
-<a class="font-['Space_Grotesk'] text-xs tracking-widest uppercase text-zinc-600 hover:text-red-500 underline underline-offset-4 transition-all duration-300" href="#">Trocas</a>
-<a class="font-['Space_Grotesk'] text-xs tracking-widest uppercase text-zinc-600 hover:text-red-500 underline underline-offset-4 transition-all duration-300" href="#">Suporte</a>
-</div>
-<div class="font-['Space_Grotesk'] text-xs tracking-widest uppercase text-zinc-600">© 2024 WJG ARENA. KINETIC PERFORMANCE.</div>
-</div>
-</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-wrap" style="pointer-events:none">
+        <div class="logo-img-slot small">
+          <svg viewBox="0 0 48 48" fill="none" class="logo-placeholder-svg">
+            <rect width="48" height="48" rx="8" fill="url(#lgrd2)"/>
+            <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" font-family="Orbitron,sans-serif">🎲</text>
+            <defs><linearGradient id="lgrd2" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#FF2200"/><stop offset="1" stop-color="#FF7700"/></linearGradient></defs>
+          </svg>
+        </div>
+        <span class="logo-name">WJG</span>
+      </div>
+      <p>A loja de camisas de futebol mais quente do Brasil. Originais, autênticas, entregues na sua porta.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="TikTok">TK</a>
+        <a href="#" aria-label="Facebook">FB</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Loja</h5>
+      <a href="#" onclick="showPage('times');return false">Times</a>
+      <a href="#" onclick="showPage('selecoes');return false">Seleções</a>
+      <a href="#" onclick="showPage('promocoes');return false">Promoções</a>
+    </div>
+    <div class="footer-col">
+      <h5>Ajuda</h5>
+      <a href="#" onclick="showPage('institucional');return false">Sobre nós</a>
+      <a href="#" onclick="showPage('institucional');return false">Política de envio</a>
+      <a href="#" onclick="showPage('institucional');return false">Trocas</a>
+      <a href="#" onclick="showPage('institucional');return false">Contato</a>
+    </div>
+    <div class="footer-col">
+      <h5>Pagamento</h5>
+      <div class="pay-icons">
+        <span>VISA</span><span>MC</span><span>PIX</span><span>AMEX</span><span>BOLETO</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 WJG Camisas de Futebol. Todos os direitos reservados.</p>
+  </div>
 </footer>
-<!-- Mobile Navigation Bar -->
-<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-4 bg-[#0e0e0e] z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
-<div class="bg-[#1f1f1f] h-[1px] w-full top-0 absolute"></div>
-<a class="flex flex-col items-center justify-center text-zinc-500 font-['Space_Grotesk'] text-[10px] font-bold uppercase" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
-            Arena
-        </a>
-<a class="flex flex-col items-center justify-center text-white relative after:content-[''] after:absolute after:top-0 after:w-8 after:h-1 after:bg-[#eb0000] font-['Space_Grotesk'] text-[10px] font-bold uppercase" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="search">search</span>
-            Explorar
-        </a>
-<a class="flex flex-col items-center justify-center text-zinc-500 font-['Space_Grotesk'] text-[10px] font-bold uppercase" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="shopping_bag">shopping_bag</span>
-            Carrinho
-        </a>
-<a class="flex flex-col items-center justify-center text-zinc-500 font-['Space_Grotesk'] text-[10px] font-bold uppercase" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
-            Perfil
-        </a>
-</nav>
-</body></html>
+
+<script src="script.js"></script>
+</body>
+</html>
