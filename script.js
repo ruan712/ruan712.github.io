@@ -1,69 +1,125 @@
 'use strict';
 
 /* =========================
+   PRODUTOS (mantido igual)
+========================= */
+const PRODUCTS = [
+  {
+    id: 1,
+    name: 'Flamengo',
+    category: 'times',
+    price: 299.90,
+    imgLabel: 'Camisa Flamengo',
+    stock: 5,
+    badges: ['hot']
+  },
+  {
+    id: 2,
+    name: 'Brasil',
+    category: 'selecoes',
+    price: 349.90,
+    imgLabel: 'Camisa Brasil',
+    stock: 8,
+    badges: ['promo']
+  }
+];
+
+/* =========================
    ESTADO
 ========================= */
 const state = {
   cart: JSON.parse(localStorage.getItem('wjg_cart') || '[]'),
+  currentPage: 'home'
 };
 
-/* =========================
-   UTIL
-========================= */
 function saveCart() {
   localStorage.setItem('wjg_cart', JSON.stringify(state.cart));
 }
 
-const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+/* =========================
+   UTIL
+========================= */
+const fmt = (v) => v.toLocaleString('pt-BR', {
+  style: 'currency',
+  currency: 'BRL'
+});
 
 /* =========================
-   HEADER
+   NAVEGAÇÃO
 ========================= */
-function initHeader() {
-  const header = document.getElementById('site-header');
-  const burger = document.getElementById('hamburger');
-  const nav = document.getElementById('main-nav');
+window.showPage = function(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
-  if (header) {
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 30);
-    });
-  }
+  const el = document.getElementById('page-' + pageId);
+  if (!el) return;
 
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
-      burger.classList.toggle('open');
-      nav.classList.toggle('open');
-    });
-  }
+  el.classList.add('active');
+  state.currentPage = pageId;
+};
+
+/* =========================
+   PRODUTOS
+========================= */
+function createCard(p) {
+  return `
+    <div class="product-card">
+      <div>${p.name}</div>
+      <div>${fmt(p.price)}</div>
+      <button onclick="quickAdd(${p.id})">Comprar</button>
+    </div>
+  `;
+}
+
+function renderHome() {
+  const el = document.getElementById('home-grid');
+  if (!el) return;
+
+  el.innerHTML = PRODUCTS.map(createCard).join('');
 }
 
 /* =========================
    CARRINHO
 ========================= */
-function updateCartUI() {
-  const countEl = document.getElementById('cart-count');
-  if (!countEl) return;
+window.quickAdd = function(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
 
-  const total = state.cart.reduce((s, i) => s + i.qty, 0);
-  countEl.textContent = total;
-}
-
-function addToCart(name, price) {
-  const item = state.cart.find(i => i.name === name);
+  const item = state.cart.find(i => i.id === id);
 
   if (item) item.qty++;
-  else state.cart.push({ name, price, qty: 1 });
+  else state.cart.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
 
   saveCart();
   updateCartUI();
-  showToast('Produto adicionado!');
+  showToast('Adicionado ao carrinho');
+};
+
+function updateCartUI() {
+  const el = document.getElementById('cart-count');
+  if (!el) return;
+
+  const total = state.cart.reduce((s, i) => s + i.qty, 0);
+  el.textContent = total;
+}
+
+/* =========================
+   SEARCH
+========================= */
+function initSearch() {
+  const btn = document.getElementById('search-btn');
+  const box = document.getElementById('search-flyout');
+
+  if (!btn || !box) return;
+
+  btn.addEventListener('click', () => {
+    box.classList.toggle('open');
+  });
 }
 
 /* =========================
    TOAST
 ========================= */
-function showToast(msg) {
+window.showToast = function(msg) {
   const wrap = document.getElementById('toast-wrap');
   if (!wrap) return;
 
@@ -73,60 +129,16 @@ function showToast(msg) {
 
   wrap.appendChild(el);
   setTimeout(() => el.remove(), 3000);
-}
-
-/* =========================
-   BUSCA
-========================= */
-function initSearch() {
-  const btn = document.getElementById('search-btn');
-  const flyout = document.getElementById('search-flyout');
-
-  if (!btn || !flyout) return;
-
-  btn.addEventListener('click', () => {
-    flyout.classList.toggle('open');
-  });
-}
-
-/* =========================
-   PARTÍCULAS (seguro)
-========================= */
-function initParticles() {
-  const canvas = document.getElementById('particles-canvas');
-  if (!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-
-  let W, H;
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-
-  resize();
-  window.addEventListener('resize', resize);
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#FF6600';
-    ctx.beginPath();
-    ctx.arc(Math.random()*W, Math.random()*H, 2, 0, Math.PI*2);
-    ctx.fill();
-    requestAnimationFrame(draw);
-  }
-
-  draw();
-}
+};
 
 /* =========================
    INIT
 ========================= */
 document.addEventListener('DOMContentLoaded', () => {
-  initHeader();
-  initSearch();
-  initParticles();
+  renderHome();
   updateCartUI();
+  initSearch();
+  showPage('home');
 
-  console.log('WJG carregado');
+  console.log('WJG restaurado com sucesso');
 });
