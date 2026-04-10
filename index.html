@@ -1,476 +1,224 @@
+<!-- =========================
+ESTRUTURA PROFISSIONAL
+/wjg-store
+ ├── index.html
+ ├── /css/styles.css
+ ├── /js/script.js
+ ├── /data/products.json
+========================= -->
+
+
+<!-- =========================
+INDEX.HTML
+========================= -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WJG — Camisas de Futebol</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <title>WJG Store</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
-<!-- ░░ CURSOR PERSONALIZADO ░░ -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-trail" id="cursor-trail"></div>
+<header class="header">
+  <h1 class="logo">WJG 🔥</h1>
 
-<!-- ░░ PARTÍCULAS DE FUNDO ░░ -->
-<canvas id="particles-canvas"></canvas>
+  <input type="text" id="search" placeholder="Buscar camisas..." />
 
-<!-- =============================================
-     HEADER FIXO
-     ============================================= -->
-<header id="site-header">
-  <div class="header-inner">
-
-    <!-- LOGO — substitua a imagem aqui -->
-    <a class="logo-wrap" href="#" onclick="showPage('home'); return false;">
-      <div class="logo-img-slot" title="[SUBSTITUIR] Insira o arquivo da logo aqui">
-        <!--
-          ╔═══════════════════════════════════╗
-          ║  ESPAÇO RESERVADO PARA LOGO       ║
-          ║  Tamanho ideal: 48×48px ou SVG    ║
-          ║  <img src="logo.png" alt="WJG"/>  ║
-          ╚═══════════════════════════════════╝
-        -->
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-placeholder-svg">
-          <rect width="48" height="48" rx="8" fill="url(#lgrd)"/>
-          <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" font-family="Orbitron,sans-serif">🎲</text>
-          <defs>
-            <linearGradient id="lgrd" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#FF2200"/>
-              <stop offset="1" stop-color="#FF7700"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-      <span class="logo-name">WJG</span>
-    </a>
-
-    <!-- NAVEGAÇÃO -->
-    <nav class="main-nav" id="main-nav">
-      <a class="nav-link" href="#" onclick="showPage('promocoes'); return false;">
-        <span class="nav-fire">🔥</span> Promoções
-      </a>
-      <a class="nav-link" href="#" onclick="showPage('times'); return false;">Times</a>
-      <a class="nav-link" href="#" onclick="showPage('selecoes'); return false;">Seleções</a>
-      <a class="nav-link" href="#" onclick="showPage('institucional'); return false;">Sobre</a>
-    </nav>
-
-    <!-- AÇÕES -->
-    <div class="header-actions">
-      <!-- Busca -->
-      <div class="search-container" id="search-container">
-        <button class="icon-btn" id="search-btn" aria-label="Buscar">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        </button>
-        <div class="search-flyout" id="search-flyout">
-          <input id="search-input" type="text" placeholder="Buscar camisas..." autocomplete="off" />
-          <button class="search-x" id="search-x">✕</button>
-        </div>
-        <div class="search-results-drop" id="search-results-drop"></div>
-      </div>
-
-      <!-- Carrinho -->
-      <button class="icon-btn cart-btn" id="cart-btn" aria-label="Carrinho">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <span class="cart-count" id="cart-count">0</span>
-      </button>
-
-      <!-- Hamburguer mobile -->
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+  <div id="cart" onclick="toggleCart()">
+    🛒 <span id="cart-count">0</span>
   </div>
 </header>
 
-<!-- =============================================
-     CARRINHO LATERAL
-     ============================================= -->
-<div class="cart-backdrop" id="cart-backdrop"></div>
-<aside class="cart-panel" id="cart-panel">
-  <div class="cart-panel-head">
-    <h3>Carrinho</h3>
-    <button class="cart-panel-close" id="cart-panel-close">✕</button>
-  </div>
-  <div class="cart-panel-items" id="cart-panel-items">
-    <div class="cart-empty-state">
-      <div class="cart-empty-icon">🛒</div>
-      <p>Seu carrinho está vazio</p>
-      <small>Adicione produtos para continuar</small>
-    </div>
-  </div>
-  <div class="cart-panel-footer" id="cart-panel-footer" style="display:none">
-    <div class="cart-row"><span>Subtotal</span><span id="cart-subtotal">R$ 0,00</span></div>
-    <div class="cart-row cart-row--big"><span>Total</span><span id="cart-total">R$ 0,00</span></div>
-    <button class="btn-fire full" onclick="alert('Redirecionando para checkout...')">
-      <span>Finalizar Compra</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 14 0M13 6l6 6-6 6"/></svg>
-    </button>
-    <p class="cart-secure">🔒 Pagamento 100% seguro</p>
-  </div>
-</aside>
-
-<!-- =============================================
-     TOAST
-     ============================================= -->
-<div class="toast-wrap" id="toast-wrap"></div>
-
-<!-- =============================================
-     MAIN — PÁGINAS SPA
-     ============================================= -->
-<main id="spa-root">
-
-  <!-- ══════════ HOME ══════════ -->
-  <div class="page active" id="page-home">
-
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-grid-lines"></div>
-      <div class="hero-glow-orb hero-glow-orb--1"></div>
-      <div class="hero-glow-orb hero-glow-orb--2"></div>
-
-      <div class="hero-content">
-        <div class="hero-eyebrow">
-          <span class="pill pill--fire">⚡ NOVAS CAMISAS DISPONÍVEIS</span>
-        </div>
-        <h1 class="hero-title">
-          <span class="hero-line-1">VISTA O</span>
-          <span class="hero-line-2">FOGO</span>
-          <span class="hero-line-3">DO JOGO</span>
-        </h1>
-        <p class="hero-sub">As camisas mais icônicas do futebol mundial. Originais, autênticas e com entrega rápida em todo o Brasil.</p>
-        <div class="hero-ctas">
-          <button class="btn-fire" onclick="showPage('times')">
-            <span>Ver Times</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 14 0M13 6l6 6-6 6"/></svg>
-          </button>
-          <button class="btn-outline-fire" onclick="showPage('promocoes')">🔥 Ver Promoções</button>
-        </div>
-        <div class="hero-badges">
-          <div class="hero-badge"><span>500+</span><small>Modelos</small></div>
-          <div class="hero-badge-sep"></div>
-          <div class="hero-badge"><span>24h</span><small>Envio</small></div>
-          <div class="hero-badge-sep"></div>
-          <div class="hero-badge"><span>10x</span><small>Sem juros</small></div>
-        </div>
-      </div>
-
-      <!-- PRODUTO DESTAQUE HERO -->
-      <div class="hero-product-showcase">
-        <div class="hero-product-card">
-          <div class="hero-product-glow"></div>
-          <!--
-            ╔══════════════════════════════════════════╗
-            ║  IMAGEM DESTAQUE DO HERO                 ║
-            ║  [SUBSTITUIR] src="camisa-destaque.png"  ║
-            ║  Tamanho ideal: 400×400px                ║
-            ╚══════════════════════════════════════════╝
-          -->
-          <div class="product-img-placeholder hero-img-ph" data-label="IMAGEM DESTAQUE DO HERO&#10;Substituir: camisa-destaque.png&#10;Tamanho ideal: 400×400px">
-            <div class="ph-inner">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-              <span>Imagem<br/>do Produto</span>
-            </div>
-          </div>
-          <div class="hero-product-info">
-            <span class="badge-fire">MAIS VENDIDO</span>
-            <strong>Camisa Brasil 2024</strong>
-            <span class="hero-product-price">R$ 349,90</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- STRIP ANIMADO -->
-      <div class="hero-strip">
-        <div class="hero-strip-track">
-          <span>⚡ ATÉ 40% OFF</span><span>•</span>
-          <span>🚚 FRETE GRÁTIS ACIMA DE R$299</span><span>•</span>
-          <span>💳 10x SEM JUROS</span><span>•</span>
-          <span>🏅 PRODUTO ORIGINAL</span><span>•</span>
-          <span>⚡ ATÉ 40% OFF</span><span>•</span>
-          <span>🚚 FRETE GRÁTIS ACIMA DE R$299</span><span>•</span>
-          <span>💳 10x SEM JUROS</span><span>•</span>
-          <span>🏅 PRODUTO ORIGINAL</span><span>•</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECÇÃO: TIMES -->
-    <section class="section" id="home-sec-times">
-      <div class="section-head">
-        <div class="section-head-left">
-          <span class="section-eyebrow">Clubes</span>
-          <h2 class="section-title">Camisas de <span>Times</span></h2>
-        </div>
-        <button class="btn-ghost" onclick="showPage('times')">Ver todos →</button>
-      </div>
-      <div class="products-grid" id="home-grid-times"></div>
-    </section>
-
-    <!-- BANNER MIDDLE -->
-    <div class="mid-promo-banner">
-      <div class="mid-promo-bg"></div>
-      <div class="mid-promo-content">
-        <span class="pill pill--white">OFERTA LIMITADA</span>
-        <h2>SELEÇÕES COM<br/><em>ATÉ 40% OFF</em></h2>
-        <p>Camisas das principais seleções do mundo. Aproveite enquanto o estoque durar!</p>
-        <button class="btn-fire" onclick="showPage('selecoes')"><span>Ver Seleções</span></button>
-      </div>
-      <div class="mid-promo-number">40<sup>%</sup></div>
-    </div>
-
-    <!-- SECÇÃO: SELEÇÕES -->
-    <section class="section">
-      <div class="section-head">
-        <div class="section-head-left">
-          <span class="section-eyebrow">Seleções Nacionais</span>
-          <h2 class="section-title">Camisas de <span>Seleções</span></h2>
-        </div>
-        <button class="btn-ghost" onclick="showPage('selecoes')">Ver todas →</button>
-      </div>
-      <div class="products-grid" id="home-grid-selecoes"></div>
-    </section>
-
-    <!-- SECÇÃO: PROMOÇÕES -->
-    <section class="section section--dark-alt">
-      <div class="section-head">
-        <div class="section-head-left">
-          <span class="section-eyebrow">Ofertas</span>
-          <h2 class="section-title">🔥 <span>Promoções</span></h2>
-        </div>
-        <button class="btn-ghost" onclick="showPage('promocoes')">Ver todas →</button>
-      </div>
-      <div class="products-grid" id="home-grid-promos"></div>
-    </section>
-
-    <!-- TRUST BAR -->
-    <div class="trust-bar">
-      <div class="trust-item"><span>🚚</span><div><strong>Envio em 24h</strong><p>Dias úteis após pagamento</p></div></div>
-      <div class="trust-item"><span>🔄</span><div><strong>30 dias para troca</strong><p>Sem burocracia</p></div></div>
-      <div class="trust-item"><span>🏅</span><div><strong>100% Original</strong><p>Produto licenciado oficial</p></div></div>
-      <div class="trust-item"><span>💳</span><div><strong>10x sem juros</strong><p>PIX com 5% de desconto</p></div></div>
-    </div>
-
-  </div><!-- /page-home -->
-
-
-  <!-- ══════════ TIMES ══════════ -->
-  <div class="page" id="page-times">
-    <div class="cat-hero cat-hero--times">
-      <div class="cat-hero-glow"></div>
-      <h1>Camisas de <span>Times</span></h1>
-      <p>Os maiores clubes do mundo em um só lugar</p>
-    </div>
-    <div class="cat-layout">
-      <aside class="filter-panel">
-        <h4>Filtros</h4>
-        <div class="filter-block">
-          <label class="filter-lbl">Ordenar por</label>
-          <select id="times-sort" onchange="renderCategory('times')">
-            <option value="">Destaque</option>
-            <option value="price-asc">Menor preço</option>
-            <option value="price-desc">Maior preço</option>
-            <option value="name">Nome A–Z</option>
-          </select>
-        </div>
-        <div class="filter-block">
-          <label class="filter-lbl">Faixa de preço</label>
-          <div class="radio-group">
-            <label><input type="radio" name="tp" value="" checked onchange="renderCategory('times')"/> Todos</label>
-            <label><input type="radio" name="tp" value="0-200" onchange="renderCategory('times')"/> Até R$200</label>
-            <label><input type="radio" name="tp" value="200-350" onchange="renderCategory('times')"/> R$200–350</label>
-            <label><input type="radio" name="tp" value="350-999" onchange="renderCategory('times')"/> Acima de R$350</label>
-          </div>
-        </div>
-        <div class="filter-block">
-          <label class="filter-lbl">Liga</label>
-          <div class="radio-group" id="liga-filter-group"></div>
-        </div>
-      </aside>
-      <div class="cat-products">
-        <div class="products-grid wide" id="cat-grid-times"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════ SELEÇÕES ══════════ -->
-  <div class="page" id="page-selecoes">
-    <div class="cat-hero cat-hero--selecoes">
-      <div class="cat-hero-glow"></div>
-      <h1>Camisas de <span>Seleções</span></h1>
-      <p>Represente o seu país no campo e nas arquibancadas</p>
-    </div>
-    <div class="cat-layout">
-      <aside class="filter-panel">
-        <h4>Filtros</h4>
-        <div class="filter-block">
-          <label class="filter-lbl">Ordenar por</label>
-          <select id="selecoes-sort" onchange="renderCategory('selecoes')">
-            <option value="">Destaque</option>
-            <option value="price-asc">Menor preço</option>
-            <option value="price-desc">Maior preço</option>
-            <option value="name">Nome A–Z</option>
-          </select>
-        </div>
-        <div class="filter-block">
-          <label class="filter-lbl">Faixa de preço</label>
-          <div class="radio-group">
-            <label><input type="radio" name="sp" value="" checked onchange="renderCategory('selecoes')"/> Todos</label>
-            <label><input type="radio" name="sp" value="0-250" onchange="renderCategory('selecoes')"/> Até R$250</label>
-            <label><input type="radio" name="sp" value="250-350" onchange="renderCategory('selecoes')"/> R$250–350</label>
-            <label><input type="radio" name="sp" value="350-999" onchange="renderCategory('selecoes')"/> Acima de R$350</label>
-          </div>
-        </div>
-      </aside>
-      <div class="cat-products">
-        <div class="products-grid wide" id="cat-grid-selecoes"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════ PROMOÇÕES ══════════ -->
-  <div class="page" id="page-promocoes">
-    <div class="cat-hero cat-hero--promo">
-      <div class="cat-hero-glow"></div>
-      <span class="pill pill--fire">⚡ TEMPO LIMITADO</span>
-      <h1>Promoções <span>em Chamas</span></h1>
-      <p>Estoque limitado. Aproveite agora!</p>
-      <div class="countdown" id="countdown">
-        <div class="cd-block"><span id="cd-h">08</span><label>h</label></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-block"><span id="cd-m">45</span><label>min</label></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-block"><span id="cd-s">00</span><label>seg</label></div>
-      </div>
-    </div>
-    <section class="section" style="padding-top:2rem">
-      <div class="products-grid" id="promo-grid"></div>
-    </section>
-  </div>
-
-  <!-- ══════════ PRODUTO DETALHE ══════════ -->
-  <div class="page" id="page-product">
-    <div id="product-detail-root"></div>
-  </div>
-
-  <!-- ══════════ INSTITUCIONAL ══════════ -->
-  <div class="page" id="page-institucional">
-    <div class="cat-hero cat-hero--inst">
-      <div class="cat-hero-glow"></div>
-      <h1>Sobre a <span>WJG</span></h1>
-      <p>Paixão, fogo e autenticidade em cada peça</p>
-    </div>
-
-    <div class="inst-wrapper">
-
-      <section class="inst-sec">
-        <div class="inst-sec-text">
-          <h2>Nossa história</h2>
-          <p>A <strong>WJG</strong> nasceu da paixão pelo futebol e pela moda esportiva. Fundada por um grupo de colecionadores apaixonados, hoje somos referência em camisas originais de times e seleções de todo o mundo.</p>
-          <p>Trabalhamos com distribuidores oficiais e produtos 100% licenciados. Nossa missão é aproximar o torcedor das camisas que ele sempre sonhou, com autenticidade garantida e entrega rápida.</p>
-        </div>
-        <div class="inst-stats-grid">
-          <div class="inst-stat"><span>50K+</span><label>Clientes</label></div>
-          <div class="inst-stat"><span>500+</span><label>Modelos</label></div>
-          <div class="inst-stat"><span>6</span><label>Anos</label></div>
-          <div class="inst-stat"><span>98%</span><label>Satisfação</label></div>
-        </div>
-      </section>
-
-      <section class="inst-sec inst-sec--alt">
-        <h2>Política de Envio</h2>
-        <div class="policy-cards">
-          <div class="policy-card"><span>📦</span><h4>Processamento</h4><p>Pedidos até 14h são despachados no mesmo dia útil.</p></div>
-          <div class="policy-card"><span>🚚</span><h4>Prazo de Entrega</h4><p>Capitais: 2–4 dias úteis. Interior: 5–10 dias úteis.</p></div>
-          <div class="policy-card"><span>🔄</span><h4>Trocas</h4><p>30 dias para troca. Produto deve estar sem uso e com etiqueta.</p></div>
-          <div class="policy-card"><span>🆓</span><h4>Frete Grátis</h4><p>Compras acima de R$299 têm frete grátis para todo o Brasil.</p></div>
-        </div>
-      </section>
-
-      <section class="inst-sec">
-        <h2>Fale Conosco</h2>
-        <div class="contact-grid">
-          <div class="contact-info-col">
-            <div class="contact-info-item"><span>📧</span><div><strong>E-mail</strong><p>contato@wjg.com.br</p></div></div>
-            <div class="contact-info-item"><span>💬</span><div><strong>WhatsApp</strong><p>(11) 9 8888-7777</p></div></div>
-            <div class="contact-info-item"><span>🕘</span><div><strong>Atendimento</strong><p>Seg–Sex: 9h–18h</p></div></div>
-          </div>
-          <form class="contact-form" onsubmit="submitContact(event)">
-            <div class="form-row">
-              <div class="form-field"><label>Nome</label><input type="text" placeholder="Seu nome" required/></div>
-              <div class="form-field"><label>E-mail</label><input type="email" placeholder="seu@email.com" required/></div>
-            </div>
-            <div class="form-field">
-              <label>Assunto</label>
-              <select>
-                <option>Pedido / Rastreio</option>
-                <option>Troca / Devolução</option>
-                <option>Disponibilidade</option>
-                <option>Outro</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label>Mensagem</label>
-              <textarea rows="5" placeholder="Como podemos ajudar?" required></textarea>
-            </div>
-            <button type="submit" class="btn-fire"><span>Enviar Mensagem</span></button>
-          </form>
-        </div>
-      </section>
-
-    </div>
-  </div><!-- /page-institucional -->
-
+<main>
+  <div id="products" class="grid"></div>
 </main>
 
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="logo-wrap" style="pointer-events:none">
-        <div class="logo-img-slot small">
-          <svg viewBox="0 0 48 48" fill="none" class="logo-placeholder-svg">
-            <rect width="48" height="48" rx="8" fill="url(#lgrd2)"/>
-            <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" font-family="Orbitron,sans-serif">🎲</text>
-            <defs><linearGradient id="lgrd2" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#FF2200"/><stop offset="1" stop-color="#FF7700"/></linearGradient></defs>
-          </svg>
-        </div>
-        <span class="logo-name">WJG</span>
-      </div>
-      <p>A loja de camisas de futebol mais quente do Brasil. Originais, autênticas, entregues na sua porta.</p>
-      <div class="footer-social">
-        <a href="#" aria-label="Instagram">IG</a>
-        <a href="#" aria-label="TikTok">TK</a>
-        <a href="#" aria-label="Facebook">FB</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h5>Loja</h5>
-      <a href="#" onclick="showPage('times');return false">Times</a>
-      <a href="#" onclick="showPage('selecoes');return false">Seleções</a>
-      <a href="#" onclick="showPage('promocoes');return false">Promoções</a>
-    </div>
-    <div class="footer-col">
-      <h5>Ajuda</h5>
-      <a href="#" onclick="showPage('institucional');return false">Sobre nós</a>
-      <a href="#" onclick="showPage('institucional');return false">Política de envio</a>
-      <a href="#" onclick="showPage('institucional');return false">Trocas</a>
-      <a href="#" onclick="showPage('institucional');return false">Contato</a>
-    </div>
-    <div class="footer-col">
-      <h5>Pagamento</h5>
-      <div class="pay-icons">
-        <span>VISA</span><span>MC</span><span>PIX</span><span>AMEX</span><span>BOLETO</span>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 WJG Camisas de Futebol. Todos os direitos reservados.</p>
-  </div>
-</footer>
+<!-- Carrinho lateral -->
+<div id="cart-panel" class="cart-panel">
+  <h2>Carrinho</h2>
+  <div id="cart-items"></div>
+</div>
 
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
+
+
+<!-- =========================
+STYLES.CSS
+========================= -->
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: white;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #111;
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  color: orange;
+}
+
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  width: 200px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+.card {
+  background: #1a1a1a;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.price {
+  color: orange;
+  font-weight: bold;
+}
+
+button {
+  background: orange;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cart-panel {
+  position: fixed;
+  right: -300px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: #111;
+  padding: 20px;
+  transition: 0.3s;
+}
+
+.cart-panel.open {
+  right: 0;
+}
+
+
+<!-- =========================
+PRODUCTS.JSON
+========================= -->
+
+[
+  {
+    "id": 1,
+    "name": "Flamengo",
+    "price": 299,
+    "image": "https://images.unsplash.com/photo-1521417531039-2a7c1b5b9c9f"
+  },
+  {
+    "id": 2,
+    "name": "Barcelona",
+    "price": 399,
+    "image": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2"
+  },
+  {
+    "id": 3,
+    "name": "Brasil",
+    "price": 349,
+    "image": "https://images.unsplash.com/photo-1517649763962-0c623066013b"
+  }
+]
+
+
+<!-- =========================
+SCRIPT.JS
+========================= -->
+
+let PRODUCTS = [];
+let cart = [];
+
+async function loadProducts() {
+  const res = await fetch('data/products.json');
+  PRODUCTS = await res.json();
+  renderProducts(PRODUCTS);
+}
+
+function renderProducts(list) {
+  const el = document.getElementById('products');
+
+  el.innerHTML = list.map(p => `
+    <div class="card">
+      <img src="${p.image}" />
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <p class="price">R$ ${p.price}</p>
+        <button onclick="addToCart(${p.id})">Adicionar ao carrinho</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addToCart(id) {
+  const product = PRODUCTS.find(p => p.id === id);
+  cart.push(product);
+
+  document.getElementById('cart-count').innerText = cart.length;
+  renderCart();
+}
+
+function renderCart() {
+  const el = document.getElementById('cart-items');
+
+  el.innerHTML = cart.map(item => `
+    <div>
+      ${item.name} - R$ ${item.price}
+    </div>
+  `).join('');
+}
+
+function toggleCart() {
+  document.getElementById('cart-panel').classList.toggle('open');
+}
+
+// busca
+const search = document.getElementById('search');
+search.addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  const filtered = PRODUCTS.filter(p => p.name.toLowerCase().includes(q));
+  renderProducts(filtered);
+});
+
+loadProducts();
