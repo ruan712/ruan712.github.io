@@ -19,9 +19,9 @@
  * 16. Formulário de contato
  * 17. Init
  */
-
+ 
 'use strict';
-
+ 
 /* ══════════════════════════════════════════
    1. DADOS DOS PRODUTOS
    ══════════════════════════════════════════ */
@@ -100,7 +100,7 @@ const PRODUCTS = [
     desc: 'Camisa do Paris Saint-Germain FC. Design icônico azul com detalhes vermelhos e dourados. Edição especial com logotipo em relevo dourado.',
     imgLabel: 'Camisa PSG 2024',
   },
-
+ 
   // ── SELEÇÕES ──
   {
     id: 10, name: 'Brasil', subtitle: 'Seleção Canarinho 2024 — Titular',
@@ -151,7 +151,7 @@ const PRODUCTS = [
     imgLabel: 'Camisa Seleção Itália 2024',
   },
 ];
-
+ 
 /* ══════════════════════════════════════════
    2. ESTADO
    ══════════════════════════════════════════ */
@@ -163,21 +163,21 @@ const state = {
   detailGender: 'Masculino',
   detailQty: 1,
 };
-
+ 
 function saveCart() {
   localStorage.setItem('wjg_cart', JSON.stringify(state.cart));
 }
-
+ 
 /* ══════════════════════════════════════════
    3. UTILITÁRIOS
    ══════════════════════════════════════════ */
 const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
+ 
 function pctDiscount(price, old) {
   if (!old) return null;
   return Math.round(((old - price) / old) * 100);
 }
-
+ 
 function buildPlaceholder(label) {
   /*
    * Gera HTML de placeholder de imagem.
@@ -196,7 +196,7 @@ function buildPlaceholder(label) {
       </div>
     </div>`;
 }
-
+ 
 /* ══════════════════════════════════════════
    4. CURSOR PERSONALIZADO
    ══════════════════════════════════════════ */
@@ -204,15 +204,15 @@ function initCursor() {
   const cursor = document.getElementById('cursor');
   const trail  = document.getElementById('cursor-trail');
   if (!cursor || window.innerWidth < 768) return;
-
+ 
   let tx = 0, ty = 0, cx = 0, cy = 0;
-
+ 
   document.addEventListener('mousemove', (e) => {
     tx = e.clientX; ty = e.clientY;
     cursor.style.left = tx + 'px';
     cursor.style.top  = ty + 'px';
   });
-
+ 
   function animTrail() {
     cx += (tx - cx) * 0.14;
     cy += (ty - cy) * 0.14;
@@ -221,11 +221,11 @@ function initCursor() {
     requestAnimationFrame(animTrail);
   }
   animTrail();
-
+ 
   document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%,-50%) scale(0.7)');
   document.addEventListener('mouseup',   () => cursor.style.transform = 'translate(-50%,-50%) scale(1)');
 }
-
+ 
 /* ══════════════════════════════════════════
    5. PARTÍCULAS DE FUNDO
    ══════════════════════════════════════════ */
@@ -233,14 +233,14 @@ function initParticles() {
   const canvas = document.getElementById('particles-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-
+ 
   let W, H, particles = [];
-
+ 
   function resize() {
     W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
   }
-
+ 
   class Particle {
     constructor() { this.reset(); }
     reset() {
@@ -270,12 +270,12 @@ function initParticles() {
       ctx.restore();
     }
   }
-
+ 
   resize();
   window.addEventListener('resize', resize);
-
+ 
   for (let i = 0; i < 80; i++) particles.push(new Particle());
-
+ 
   function loop() {
     ctx.clearRect(0, 0, W, H);
     particles.forEach(p => { p.update(); p.draw(); });
@@ -283,7 +283,7 @@ function initParticles() {
   }
   loop();
 }
-
+ 
 /* ══════════════════════════════════════════
    6. HEADER
    ══════════════════════════════════════════ */
@@ -291,16 +291,16 @@ function initHeader() {
   const header = document.getElementById('site-header');
   const burger = document.getElementById('hamburger');
   const nav    = document.getElementById('main-nav');
-
+ 
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 30);
   }, { passive: true });
-
+ 
   burger.addEventListener('click', () => {
     burger.classList.toggle('open');
     nav.classList.toggle('open');
   });
-
+ 
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.main-nav') && !e.target.closest('#hamburger')) {
       burger.classList.remove('open');
@@ -308,7 +308,7 @@ function initHeader() {
     }
   });
 }
-
+ 
 /* ══════════════════════════════════════════
    7. NAVEGAÇÃO SPA
    ══════════════════════════════════════════ */
@@ -319,23 +319,23 @@ window.showPage = function(pageId) {
   el.classList.add('active');
   state.currentPage = pageId;
   window.scrollTo({ top: 0, behavior: 'smooth' });
-
+ 
   // Fechar nav mobile
   document.getElementById('hamburger').classList.remove('open');
   document.getElementById('main-nav').classList.remove('open');
-
+ 
   if (pageId === 'times')     renderCategory('times');
   if (pageId === 'selecoes')  renderCategory('selecoes');
   if (pageId === 'promocoes') renderPromoPage();
 };
-
+ 
 /* ══════════════════════════════════════════
    8. RENDERIZAÇÃO DE CARDS
    ══════════════════════════════════════════ */
 function createCard(p) {
   const disc = pctDiscount(p.price, p.oldPrice);
   const inst = (p.price / 10).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-
+ 
   const badgeMap = {
     promo:  ['cbadge--fire',   'Promoção'],
     new:    ['cbadge--new',    'Novidade'],
@@ -346,11 +346,11 @@ function createCard(p) {
     const [cls, lbl] = badgeMap[b] || [];
     return cls ? `<span class="cbadge ${cls}">${lbl}</span>` : '';
   }).join('');
-
+ 
   const urgency = p.stock <= 5
     ? `<div class="pcard-urgency">⚠️ Restam apenas ${p.stock} unidades!</div>`
     : '';
-
+ 
   return `
     <div class="product-card" onclick="openProduct(${p.id})">
       <div class="product-card-img">
@@ -374,19 +374,19 @@ function createCard(p) {
       </div>
     </div>`;
 }
-
+ 
 /* ══════════════════════════════════════════
    9. HOME GRIDS
    ══════════════════════════════════════════ */
 function renderHomeGrids() {
   const featured = (cat) => PRODUCTS.filter(p => p.category === cat && p.featured).slice(0, 4);
   const promos   = PRODUCTS.filter(p => p.badges.includes('promo')).slice(0, 4);
-
+ 
   document.getElementById('home-grid-times').innerHTML    = featured('times').map(createCard).join('');
   document.getElementById('home-grid-selecoes').innerHTML = featured('selecoes').map(createCard).join('');
   document.getElementById('home-grid-promos').innerHTML   = promos.map(createCard).join('');
 }
-
+ 
 /* ══════════════════════════════════════════
    10. PÁGINAS DE CATEGORIA
    ══════════════════════════════════════════ */
@@ -395,33 +395,33 @@ window.renderCategory = function(cat) {
   const sortVal = sortEl ? sortEl.value : '';
   const priceEl = document.querySelector(`input[name="${cat === 'times' ? 'tp' : 'sp'}"]:checked`);
   const priceV  = priceEl ? priceEl.value : '';
-
+ 
   let items = PRODUCTS.filter(p => p.category === cat);
-
+ 
   // filtro de preço
   if (priceV) {
     const [mn, mx] = priceV.split('-').map(Number);
     items = items.filter(p => p.price >= mn && p.price <= mx);
   }
-
+ 
   // filtro de liga (times)
   if (cat === 'times') {
     const checked = [...document.querySelectorAll('.liga-cb:checked')].map(el => el.value);
     if (checked.length) items = items.filter(p => checked.includes(p.liga));
   }
-
+ 
   // ordenação
   if (sortVal === 'price-asc')  items.sort((a, b) => a.price - b.price);
   if (sortVal === 'price-desc') items.sort((a, b) => b.price - a.price);
   if (sortVal === 'name')       items.sort((a, b) => a.name.localeCompare(b.name));
-
+ 
   const grid = document.getElementById(`cat-grid-${cat}`);
   if (!grid) return;
   grid.innerHTML = items.length
     ? items.map(createCard).join('')
     : `<p style="color:var(--gray-3);padding:20px;">Nenhum produto encontrado para esses filtros.</p>`;
 };
-
+ 
 function buildLigaFilters() {
   const ligas = [...new Set(PRODUCTS.filter(p => p.liga).map(p => p.liga))];
   const el = document.getElementById('liga-filter-group');
@@ -432,7 +432,7 @@ function buildLigaFilters() {
       ${l}
     </label>`).join('');
 }
-
+ 
 /* ══════════════════════════════════════════
    11. PROMOÇÕES + COUNTDOWN
    ══════════════════════════════════════════ */
@@ -441,7 +441,7 @@ function renderPromoPage() {
   const grid = document.getElementById('promo-grid');
   if (grid) grid.innerHTML = promos.map(createCard).join('');
 }
-
+ 
 function initCountdown() {
   let secs = 8 * 3600 + 45 * 60;
   function tick() {
@@ -459,7 +459,7 @@ function initCountdown() {
   tick();
   setInterval(tick, 1000);
 }
-
+ 
 /* ══════════════════════════════════════════
    12. DETALHE DO PRODUTO
    ══════════════════════════════════════════ */
@@ -470,12 +470,12 @@ window.openProduct = function(id) {
   state.detailSize   = null;
   state.detailGender = 'Masculino';
   state.detailQty    = 1;
-
+ 
   const disc = pctDiscount(p.price, p.oldPrice);
   const inst = (p.price / 10).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
   const pix  = fmt(p.price * 0.95);
   const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 ? '☆' : '');
-
+ 
   const html = `
     <div class="product-detail-layout">
       <!-- GALERIA -->
@@ -504,7 +504,7 @@ window.openProduct = function(id) {
           </div>
         </div>
       </div>
-
+ 
       <!-- INFO -->
       <div class="detail-info">
         <div class="detail-breadcrumb">
@@ -512,16 +512,16 @@ window.openProduct = function(id) {
           <a href="#" onclick="showPage('${p.category}');return false">${p.category === 'times' ? 'Times' : 'Seleções'}</a> /
           ${p.name}
         </div>
-
+ 
         <h1 class="detail-name">${p.name}</h1>
         <p class="detail-subtitle">${p.subtitle}</p>
-
+ 
         <div class="detail-rating">
           <span class="stars">${stars}</span>
           <strong>${p.rating}</strong>
           <span>(${p.reviews} avaliações)</span>
         </div>
-
+ 
         <div class="detail-pricing">
           ${p.oldPrice ? `<span class="dp-old">De ${fmt(p.oldPrice)}</span>` : ''}
           <div class="dp-main">
@@ -531,20 +531,20 @@ window.openProduct = function(id) {
           <p class="dp-install">ou 10x de R$ ${inst} sem juros no cartão</p>
           <p class="dp-pix">⚡ PIX com 5% OFF: ${pix}</p>
         </div>
-
+ 
         <!-- TAMANHO -->
         <div class="detail-options">
           <span class="option-label">Tamanho <strong id="sz-selected">—</strong></span>
           <div class="size-btns">
             ${['PP','P','M','G','GG','XGG'].map(s => `<button class="sz-btn" onclick="selectSize(this,'${s}')">${s}</button>`).join('')}
           </div>
-
+ 
           <!-- GÊNERO -->
           <span class="option-label" style="margin-top:0">Gênero <strong id="gd-selected">Masculino</strong></span>
           <div class="gender-btns">
             ${['Masculino','Feminino'].map((g,i) => `<button class="gd-btn ${i===0?'active':''}" onclick="selectGender(this,'${g}')">${g}</button>`).join('')}
           </div>
-
+ 
           <!-- QUANTIDADE -->
           <span class="option-label" style="margin-top:4px">Quantidade</span>
           <div class="qty-selector">
@@ -553,7 +553,7 @@ window.openProduct = function(id) {
             <button class="qty-btn" onclick="detailQtyChange(+1)">+</button>
           </div>
         </div>
-
+ 
         <div class="detail-ctas">
           <button class="btn-fire" onclick="addDetailToCart()">
             <span>Adicionar ao Carrinho</span>
@@ -561,14 +561,14 @@ window.openProduct = function(id) {
           </button>
           <button class="btn-wish-detail" onclick="showToast('❤️ Adicionado aos favoritos!')">♡</button>
         </div>
-
+ 
         <div class="detail-perks">
           <div class="dperk"><span>🚚</span><span>Frete grátis em compras acima de R$299</span></div>
           <div class="dperk"><span>🔄</span><span>30 dias para troca sem custo adicional</span></div>
           <div class="dperk"><span>🏅</span><span>Produto 100% original e licenciado</span></div>
           <div class="dperk"><span>🔒</span><span>Compra segura com SSL e antifraude</span></div>
         </div>
-
+ 
         <div class="detail-desc">
           <h3>Descrição</h3>
           <p>${p.desc}</p>
@@ -576,17 +576,17 @@ window.openProduct = function(id) {
         </div>
       </div>
     </div>`;
-
+ 
   document.getElementById('product-detail-root').innerHTML = html;
   showPage('product');
 };
-
+ 
 window.switchThumb = function(el, view) {
   document.querySelectorAll('.dthumb').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   // Aqui você trocaria a imagem principal ao integrar imagens reais
 };
-
+ 
 window.selectSize = function(el, sz) {
   document.querySelectorAll('.sz-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
@@ -594,7 +594,7 @@ window.selectSize = function(el, sz) {
   const lbl = document.getElementById('sz-selected');
   if (lbl) lbl.textContent = sz;
 };
-
+ 
 window.selectGender = function(el, g) {
   document.querySelectorAll('.gd-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
@@ -602,13 +602,13 @@ window.selectGender = function(el, g) {
   const lbl = document.getElementById('gd-selected');
   if (lbl) lbl.textContent = g;
 };
-
+ 
 window.detailQtyChange = function(delta) {
   state.detailQty = Math.max(1, state.detailQty + delta);
   const el = document.getElementById('detail-qty-num');
   if (el) el.textContent = state.detailQty;
 };
-
+ 
 window.addDetailToCart = function() {
   if (!state.detailSize) {
     showToast('⚠️ Selecione um tamanho!');
@@ -619,7 +619,7 @@ window.addDetailToCart = function() {
     addToCart(p, state.detailSize, state.detailGender);
   }
 };
-
+ 
 /* ══════════════════════════════════════════
    13. CARRINHO
    ══════════════════════════════════════════ */
@@ -627,7 +627,7 @@ window.quickAdd = function(id) {
   const p = PRODUCTS.find(x => x.id === id);
   if (p) addToCart(p, 'M', 'Masculino');
 };
-
+ 
 function addToCart(p, size, gender) {
   const key = `${p.id}_${size}_${gender}`;
   const ex  = state.cart.find(i => i.key === key);
@@ -639,20 +639,20 @@ function addToCart(p, size, gender) {
   saveCart();
   updateCartUI();
   showToast(`✅ ${p.name} (${size}/${gender}) adicionado!`);
-
+ 
   // animação badge
   const badge = document.getElementById('cart-count');
   badge.classList.remove('pop');
   void badge.offsetWidth;
   badge.classList.add('pop');
 }
-
+ 
 window.removeFromCart = function(key) {
   state.cart = state.cart.filter(i => i.key !== key);
   saveCart();
   updateCartUI();
 };
-
+ 
 window.changeCartQty = function(key, delta) {
   const item = state.cart.find(i => i.key === key);
   if (!item) return;
@@ -660,14 +660,14 @@ window.changeCartQty = function(key, delta) {
   saveCart();
   updateCartUI();
 };
-
+ 
 function updateCartUI() {
   const total = state.cart.reduce((s, i) => s + i.qty, 0);
   document.getElementById('cart-count').textContent = total;
-
+ 
   const items  = document.getElementById('cart-panel-items');
   const footer = document.getElementById('cart-panel-footer');
-
+ 
   if (state.cart.length === 0) {
     items.innerHTML = `
       <div class="cart-empty-state">
@@ -678,7 +678,7 @@ function updateCartUI() {
     footer.style.display = 'none';
     return;
   }
-
+ 
   footer.style.display = 'block';
   items.innerHTML = state.cart.map(item => `
     <div class="cart-item-card">
@@ -697,14 +697,14 @@ function updateCartUI() {
       </div>
       <button class="cart-item-rm" onclick="removeFromCart('${item.key}')">✕</button>
     </div>`).join('');
-
+ 
   const subtotal = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
   const frete    = subtotal >= 299 ? 0 : 19.90;
   const total2   = subtotal + frete;
   document.getElementById('cart-subtotal').textContent = fmt(subtotal);
   document.getElementById('cart-total').textContent    = fmt(total2);
 }
-
+ 
 // Open / close cart
 function openCart() {
   document.getElementById('cart-panel').classList.add('open');
@@ -716,7 +716,7 @@ function closeCart() {
   document.getElementById('cart-backdrop').classList.remove('show');
   document.body.style.overflow = '';
 }
-
+ 
 /* ══════════════════════════════════════════
    14. BUSCA EM TEMPO REAL
    ══════════════════════════════════════════ */
@@ -726,19 +726,19 @@ function initSearch() {
   const input  = document.getElementById('search-input');
   const closeX = document.getElementById('search-x');
   const drop   = document.getElementById('search-results-drop');
-
+ 
   btn.addEventListener('click', () => {
     flyout.classList.toggle('open');
     if (flyout.classList.contains('open')) setTimeout(() => input.focus(), 200);
     else { drop.style.display = 'none'; input.value = ''; }
   });
-
+ 
   closeX.addEventListener('click', () => {
     flyout.classList.remove('open');
     drop.style.display = 'none';
     input.value = '';
   });
-
+ 
   input.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
     if (q.length < 2) { drop.style.display = 'none'; return; }
@@ -747,7 +747,7 @@ function initSearch() {
       (p.liga || '').toLowerCase().includes(q) ||
       p.subtitle.toLowerCase().includes(q)
     ).slice(0, 7);
-
+ 
     if (!found.length) {
       drop.innerHTML = '<div style="padding:16px;color:var(--gray-3);font-size:14px">Nenhum resultado encontrado.</div>';
     } else {
@@ -762,7 +762,7 @@ function initSearch() {
     }
     drop.style.display = 'block';
   });
-
+ 
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.search-container') && !e.target.closest('.search-results-drop')) {
       flyout.classList.remove('open');
@@ -771,13 +771,13 @@ function initSearch() {
     }
   });
 }
-
+ 
 window.closeSrch = function() {
   document.getElementById('search-flyout').classList.remove('open');
   document.getElementById('search-results-drop').style.display = 'none';
   document.getElementById('search-input').value = '';
 };
-
+ 
 /* ══════════════════════════════════════════
    15. TOAST
    ══════════════════════════════════════════ */
@@ -789,7 +789,7 @@ window.showToast = function(msg) {
   wrap.appendChild(el);
   setTimeout(() => el.remove(), 3200);
 };
-
+ 
 /* ══════════════════════════════════════════
    16. FORMULÁRIO DE CONTATO
    ══════════════════════════════════════════ */
@@ -798,7 +798,7 @@ window.submitContact = function(e) {
   showToast('✅ Mensagem enviada! Retornaremos em breve.');
   e.target.reset();
 };
-
+ 
 /* ══════════════════════════════════════════
    17. INIT
    ══════════════════════════════════════════ */
@@ -807,30 +807,30 @@ document.addEventListener('DOMContentLoaded', () => {
   initCursor();
   initParticles();
   initHeader();
-
+ 
   // Dados
   renderHomeGrids();
   buildLigaFilters();
   updateCartUI();
-
+ 
   // Busca
   initSearch();
-
+ 
   // Countdown promos
   initCountdown();
-
+ 
   // Eventos do carrinho
   document.getElementById('cart-btn').addEventListener('click', openCart);
   document.getElementById('cart-panel-close').addEventListener('click', closeCart);
   document.getElementById('cart-backdrop').addEventListener('click', closeCart);
-
+ 
   // ESC fecha sobreposições
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeCart(); closeSrch(); }
   });
-
+ 
   // Página inicial
   showPage('home');
-
+ 
   console.log(`%cWJG 🔥 Loaded — ${PRODUCTS.length} produtos`, 'color:#FF7700;font-weight:bold;font-size:14px');
 });
