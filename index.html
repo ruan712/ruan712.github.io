@@ -1,23 +1,10 @@
-<!-- =========================
-ESTRUTURA PROFISSIONAL
-/wjg-store
- ├── index.html
- ├── /css/styles.css
- ├── /js/script.js
- ├── /data/products.json
-========================= -->
-
-
-<!-- =========================
-INDEX.HTML
-========================= -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WJG Store</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
 
@@ -26,7 +13,7 @@ INDEX.HTML
 
   <input type="text" id="search" placeholder="Buscar camisas..." />
 
-  <div id="cart" onclick="toggleCart()">
+  <div id="cart">
     🛒 <span id="cart-count">0</span>
   </div>
 </header>
@@ -35,7 +22,6 @@ INDEX.HTML
   <div id="products" class="grid"></div>
 </main>
 
-<!-- Carrinho lateral -->
 <div id="cart-panel" class="cart-panel">
   <h2>Carrinho</h2>
   <div id="cart-items"></div>
@@ -44,181 +30,3 @@ INDEX.HTML
 <script src="js/script.js"></script>
 </body>
 </html>
-
-
-<!-- =========================
-STYLES.CSS
-========================= -->
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f0f0f;
-  color: white;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  background: #111;
-  position: sticky;
-  top: 0;
-}
-
-.logo {
-  color: orange;
-}
-
-input {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  width: 200px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 30px;
-}
-
-.card {
-  background: #1a1a1a;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-.card-body {
-  padding: 15px;
-}
-
-.price {
-  color: orange;
-  font-weight: bold;
-}
-
-button {
-  background: orange;
-  border: none;
-  padding: 12px;
-  width: 100%;
-  margin-top: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.cart-panel {
-  position: fixed;
-  right: -300px;
-  top: 0;
-  width: 300px;
-  height: 100%;
-  background: #111;
-  padding: 20px;
-  transition: 0.3s;
-}
-
-.cart-panel.open {
-  right: 0;
-}
-
-
-<!-- =========================
-PRODUCTS.JSON
-========================= -->
-
-[
-  {
-    "id": 1,
-    "name": "Flamengo",
-    "price": 299,
-    "image": "https://images.unsplash.com/photo-1521417531039-2a7c1b5b9c9f"
-  },
-  {
-    "id": 2,
-    "name": "Barcelona",
-    "price": 399,
-    "image": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2"
-  },
-  {
-    "id": 3,
-    "name": "Brasil",
-    "price": 349,
-    "image": "https://images.unsplash.com/photo-1517649763962-0c623066013b"
-  }
-]
-
-
-<!-- =========================
-SCRIPT.JS
-========================= -->
-
-let PRODUCTS = [];
-let cart = [];
-
-async function loadProducts() {
-  const res = await fetch('data/products.json');
-  PRODUCTS = await res.json();
-  renderProducts(PRODUCTS);
-}
-
-function renderProducts(list) {
-  const el = document.getElementById('products');
-
-  el.innerHTML = list.map(p => `
-    <div class="card">
-      <img src="${p.image}" />
-      <div class="card-body">
-        <h3>${p.name}</h3>
-        <p class="price">R$ ${p.price}</p>
-        <button onclick="addToCart(${p.id})">Adicionar ao carrinho</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function addToCart(id) {
-  const product = PRODUCTS.find(p => p.id === id);
-  cart.push(product);
-
-  document.getElementById('cart-count').innerText = cart.length;
-  renderCart();
-}
-
-function renderCart() {
-  const el = document.getElementById('cart-items');
-
-  el.innerHTML = cart.map(item => `
-    <div>
-      ${item.name} - R$ ${item.price}
-    </div>
-  `).join('');
-}
-
-function toggleCart() {
-  document.getElementById('cart-panel').classList.toggle('open');
-}
-
-// busca
-const search = document.getElementById('search');
-search.addEventListener('input', e => {
-  const q = e.target.value.toLowerCase();
-  const filtered = PRODUCTS.filter(p => p.name.toLowerCase().includes(q));
-  renderProducts(filtered);
-});
-
-loadProducts();
