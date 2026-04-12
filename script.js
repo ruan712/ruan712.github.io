@@ -869,13 +869,40 @@ function buildPlaceholder(label) {
 function initCursor() {
   const cursor = document.getElementById('cursor');
   const trail  = document.getElementById('cursor-trail');
-  if (!cursor || window.innerWidth < 768) return;
-  let tx = 0, ty = 0, cx = 0, cy = 0;
-  document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; cursor.style.left = tx + 'px'; cursor.style.top = ty + 'px'; });
-  function animTrail() { cx += (tx - cx) * 0.14; cy += (ty - cy) * 0.14; trail.style.left = cx + 'px'; trail.style.top = cy + 'px'; requestAnimationFrame(animTrail); }
+  // Ativa apenas em dispositivos nao-touch com tela suficiente
+  if (!cursor || !window.matchMedia('(pointer: fine)').matches) return;
+
+  // Inicia invisivel ate o mouse entrar na pagina
+  cursor.style.opacity = '0';
+  trail.style.opacity  = '0';
+
+  let tx = 0, ty = 0, cx = 0, cy = 0, started = false;
+
+  document.addEventListener('mousemove', (e) => {
+    tx = e.clientX;
+    ty = e.clientY;
+    cursor.style.left = tx + 'px';
+    cursor.style.top  = ty + 'px';
+    if (!started) {
+      started = true;
+      cursor.style.opacity = '1';
+      trail.style.opacity  = '1';
+    }
+  });
+
+  function animTrail() {
+    cx += (tx - cx) * 0.14;
+    cy += (ty - cy) * 0.14;
+    trail.style.left = cx + 'px';
+    trail.style.top  = cy + 'px';
+    requestAnimationFrame(animTrail);
+  }
   animTrail();
+
   document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%,-50%) scale(0.7)');
   document.addEventListener('mouseup',   () => cursor.style.transform = 'translate(-50%,-50%) scale(1)');
+  document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; trail.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { if (started) { cursor.style.opacity = '1'; trail.style.opacity = '1'; } });
 }
 
 /* ══════════════════════════════════════════
@@ -1435,7 +1462,4 @@ document.addEventListener('DOMContentLoaded', () => {
     showPage(validPages.includes(hash) ? hash : 'home');
   }
   console.log(`WJG Loaded - ${PRODUCTS.length} produtos`);
-});
-
-  console.log(`%cWJG 🔥 Loaded — ${PRODUCTS.length} produtos`, 'color:#FF7700;font-weight:bold;font-size:14px');
 });
