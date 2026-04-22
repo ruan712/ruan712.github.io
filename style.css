@@ -1874,6 +1874,7 @@ body {
 }
 
 .career-item {
+  position: relative;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -1882,15 +1883,46 @@ body {
   flex-direction: row;
   align-items: flex-start;
   gap: 16px;
-  transition: border-color 0.3s, transform 0.3s, background 0.3s;
+  transition: all 0.4s var(--ease);
   cursor: pointer;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.career-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(8, 8, 8, 0.92) 0%, rgba(8, 8, 8, 0.75) 100%);
+  z-index: 0;
+  transition: opacity 0.4s, background 0.4s;
 }
 
 .career-item:hover {
   border-color: var(--neon);
   transform: translateY(-4px);
-  background: linear-gradient(135deg, var(--card), #0a0a0a);
+  box-shadow: 0 10px 30px rgba(170, 255, 0, 0.15);
 }
+
+.career-item:hover::before {
+  opacity: 0.6;
+  background: linear-gradient(135deg, rgba(170, 255, 0, 0.1) 0%, rgba(8, 8, 8, 0.5) 100%);
+}
+
+.career-item > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Backgrounds específicos usando as artes do portfólio */
+.career-item[data-modal="freelance"] { background-image: url('assets/social/realestate_social.png'); }
+.career-item[data-modal="mkv"] { background-image: url('assets/social/auto_social.png'); }
+.career-item[data-modal="mystics"] { background-image: url('assets/social/health_social.png'); }
+.career-item[data-modal="matrics"] { background-image: url('assets/social/agro_social.png'); }
+.career-item[data-modal="artwing"] { background-image: url('assets/social/fashion_social.png'); }
+.career-item[data-modal="nexon"] { background-image: url('assets/social/tech_social.png'); }
+.career-item[data-modal="chinagrill"] { background-image: url('assets/img/hero_section_initial_1776660348874.png'); }
 
 .career-header-row {
   display: flex;
