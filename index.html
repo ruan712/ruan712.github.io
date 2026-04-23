@@ -121,7 +121,7 @@
   </section>
 
   <!-- ═══════════════════════════ SOBRE MIM ═══════════════════════════ -->
-  <section class="about-section" id="about-content" style="position:relative; overflow:hidden;">
+  <section class="about-section" id="about-content" style="position:relative;">
 
     <!-- Título da seção -->
     <div class="section-header scroll-reveal" data-dir="up">
@@ -176,11 +176,57 @@
 
       <!-- Coluna Direita: Foto Cutout Flutuante -->
       <div class="about-photo-block scroll-reveal" data-dir="right" data-delay="100">
-        <div class="photo-cutout-wrap">
+        <div class="photo-cutout-wrap hud-container" id="hud-about-wrap">
+          <!-- Radar Rotativo -->
+          <div class="hud-radar">
+            <svg viewBox="0 0 400 400">
+              <circle cx="200" cy="200" r="190" fill="none" stroke="rgba(170, 255, 0, 0.05)" stroke-width="1" />
+              <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(170, 255, 0, 0.1)" stroke-width="1" stroke-dasharray="10 20" />
+              <line x1="200" y1="200" x2="200" y2="10" stroke="var(--neon)" stroke-width="2" opacity="0.3" class="radar-hand" />
+            </svg>
+          </div>
+
           <div class="photo-cutout-glow"></div>
-          <img src="./assets/img/foto-perfil.png" alt="Wadson Silva — Diretor de Arte" class="about-photo-cutout"
-            id="about-portrait" />
-          <div class="photo-cutout-badge">DESIGN SÊNIOR<br /><span>EST. 2020</span></div>
+          
+          <!-- Scanner Laser -->
+          <div class="hud-scanner"></div>
+          
+          <img src="./assets/img/foto-perfil.png" alt="Wadson Silva — Diretor de Arte" class="about-photo-cutout" id="about-portrait" />
+          
+          <!-- Órbita de Softwares -->
+          <div class="hud-orbit">
+            <div class="software-node sw-ps" data-label="PHOTOSHOP">PS</div>
+            <div class="software-node sw-ai" data-label="ILLUSTRATOR">AI</div>
+            <div class="software-node sw-ae" data-label="AFTER EFFECTS">AE</div>
+            <div class="software-node sw-pr" data-label="PREMIERE">PR</div>
+          </div>
+
+          <!-- HUD Elements -->
+          <div class="hud-element hud-title p-layer" data-depth="0.15">
+            <span class="hud-label">CORE_ROLE //</span>
+            <div class="hud-value typing-text">COORDENADOR DE MARKETING</div>
+          </div>
+          
+          <div class="hud-element hud-status p-layer" data-depth="0.25">
+            <span class="hud-label">STATUS //</span>
+            <div class="hud-value">ACTIVE <span class="hud-pulse"></span></div>
+          </div>
+          
+          <div class="hud-element hud-exp p-layer" data-depth="0.2">
+            <span class="hud-label">EXPERIENCE //</span>
+            <div class="hud-value">SÊNIOR <span class="hud-meta">6+ YRS</span></div>
+          </div>
+          
+          <div class="hud-element hud-data p-layer" data-depth="0.1">
+            <span class="hud-label">AUTH_ID //</span>
+            <div class="hud-value">WS-2026-ALPHA</div>
+          </div>
+
+
+
+          <!-- Brackets Decorativos -->
+          <div class="hud-bracket top-left"></div>
+          <div class="hud-bracket bottom-right"></div>
         </div>
       </div>
 
@@ -238,11 +284,50 @@
         </div>
       </div>
 
-      <!-- Centro: Foto Cutout -->
-      <div class="journey-center scroll-reveal" data-dir="up" data-delay="100">
-        <div class="journey-photo-wrap">
-          <div class="journey-photo-glow"></div>
-          <img src="./assets/img/foto-3.png" alt="Wadson Silva — Jornada Profissional" class="journey-photo" />
+      <!-- Centro: Cena 3D Multi-Camadas -->
+      <div class="journey-center scroll-reveal" data-dir="scale" data-delay="100">
+        <div class="journey-3d-scene" id="journey-3d-scene">
+          <div class="scene-inner">
+            <!-- Camada 0: Névoa Digital (Quebra de Caixa) -->
+            <div class="scene-layer layer-smoke">
+              <div class="digital-smoke"></div>
+            </div>
+
+            <!-- Camada 1: Background (Aura) -->
+            <div class="scene-layer layer-bg">
+              <div class="journey-photo-glow"></div>
+              <!-- Raios de Luz e Partículas -->
+              <div class="god-rays">
+                <div class="ray"></div>
+                <div class="ray"></div>
+                <div class="ray"></div>
+              </div>
+              <div class="floating-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+              </div>
+            </div>
+
+            <!-- Camada 2: Midground (Corpo Sólido) -->
+            <div class="scene-layer layer-mid">
+              <img src="assets/img/foto-jornada.png" alt="Wadson Silva" class="journey-photo-3d">
+            </div>
+
+            <!-- Camada 3: Foreground (Mão Avançada) -->
+            <div class="scene-layer layer-fg">
+              <img src="assets/img/foto-jornada.png" alt="Recorte Mão" class="journey-photo-3d hand-cutout">
+            </div>
+
+            <!-- Camada 4: Vinheta de Desfoque Atmosférico (Camuflagem Circular) -->
+            <div class="scene-layer layer-vignette">
+              <div class="blur-vignette"></div>
+            </div>
+
+            <!-- Camada 5: Grão de Unificação -->
+            <div class="scene-grain"></div>
+          </div>
         </div>
       </div>
 
