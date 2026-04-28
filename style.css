@@ -137,8 +137,8 @@ body {
 }
 
 .bg-elements-layer.vibrant {
-  opacity: 0.3;
-  /* Volta à cor normal quando o usuário rola a página */
+  opacity: 0.12;
+  /* Reduzido ainda mais para ser apenas um detalhe sutil ao fundo */
 }
 
 .bg-greek {
@@ -149,7 +149,7 @@ body {
   background-repeat: no-repeat;
   /* Sincronização cromática PERFEITA com #AAFF00 (Volt/Electric Lime) */
   filter:
-    hue-rotate(-45deg) brightness(1.5) saturate(1.5) drop-shadow(0 0 10px rgba(170, 255, 0, 0.5)) drop-shadow(0 0 40px rgba(170, 255, 0, 0.25));
+    hue-rotate(-45deg) brightness(0.8) saturate(0.8) drop-shadow(0 0 20px rgba(170, 255, 0, 0.1));
   mix-blend-mode: screen;
   transition: transform 0.2s ease-out;
   --mx: 0px;
@@ -299,8 +299,8 @@ body {
   top: 60%;
   --rot: -5deg;
   width: clamp(500px, 60vw, 900px);
-  opacity: 0.4;
-  /* Mais visível */
+  opacity: 0.15;
+  /* Suavidade máxima */
 }
 
 
@@ -1951,9 +1951,10 @@ body {
   /* Filtro de desfoque atmosférico */
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  pointer-events: none; /* Não bloqueia cliques */
-  
-  /* Máscara radial: Garante que o efeito seja invisível no centro e borre APENAS as bordas */
+  pointer-events: none;
+  will-change: transform, backdrop-filter;
+  transform: translate3d(0, 0, 0);
+  background: transparent;
   -webkit-mask-image: radial-gradient(circle at 50% 45%, 
     transparent 0%, 
     transparent 35%, 
@@ -2333,13 +2334,13 @@ body {
 }
 
 /* Backgrounds específicos usando as artes do portfólio */
-.career-item[data-modal="freelance"] { background-image: url('assets/social/realestate_social.png'); }
-.career-item[data-modal="mkv"] { background-image: url('assets/social/auto_social.png'); }
-.career-item[data-modal="mystics"] { background-image: url('assets/social/health_social.png'); }
-.career-item[data-modal="matrics"] { background-image: url('assets/social/agro_social.png'); }
-.career-item[data-modal="artwing"] { background-image: url('assets/social/fashion_social.png'); }
-.career-item[data-modal="nexon"] { background-image: url('assets/social/tech_social.png'); }
-.career-item[data-modal="chinagrill"] { background-image: url('assets/img/hero_section_initial_1776660348874.png'); }
+.career-item[data-modal="vivax"] { background-image: url('assets/social/social-1.jpg'); }
+.career-item[data-modal="zeepo"] { background-image: url('assets/zeepo/zeepo-cover.png'); }
+.career-item[data-modal="grupoaxis"] { background-image: url('assets/social/social-3.jpg'); }
+.career-item[data-modal="wjg"] { background-image: url('assets/social/social-4.jpg'); }
+.career-item[data-modal="sociallab"] { background-image: url('assets/social/social-5.jpg'); }
+.career-item[data-modal="esporadicos"] { background-image: url('assets/img/foto-capa-4k.png'); }
+
 
 .career-header-row {
   display: flex;
@@ -2385,17 +2386,38 @@ body {
   z-index: 100000;
   overflow-y: auto;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transform: scale(1.05);
-  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
-  backdrop-filter: blur(30px);
+  transform: scale(1.02);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), visibility 0.6s;
 }
 
 .expo-modal.open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
-  transform: scale(1);
+  transform: translateY(0);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
 }
+
+/* Fundo Quadriculado Sutil (Design System do Site) */
+.expo-modal::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 1;
+}
+
 
 /* Scroll Hint Interno do Modal */
 .modal-scroll-hint {
@@ -2428,15 +2450,15 @@ body {
   padding: 120px 40px 100px;
 }
 
-/* Header/Hero do Modal - Fidelidade Extrema China Grill */
+/* Header/Hero do Modal */
 .expo-hero {
   display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  /* Celular dominante à direita */
-  gap: 100px;
+  grid-template-columns: 1.1fr 1.2fr;
+  gap: 140px; /* Aumentado para dar espaço ao texto */
   align-items: center;
   margin-bottom: 80px;
   min-height: 85vh;
+  position: relative;
 }
 
 /* Lado Visual: Phone Mockup Imponente e Minimalista */
@@ -2446,7 +2468,7 @@ body {
   align-items: center;
   position: relative;
   perspective: 2000px;
-  min-height: 700px;
+  min-height: 850px;
   overflow: visible;
   /* Essencial para não cortar os cards */
 }
@@ -2516,8 +2538,8 @@ body {
 .floating-social-card {
   position: absolute;
   width: 280px;
-  height: 280px;
-  /* 1:1 */
+  height: 350px;
+  /* Proporção 4:5 (Instagram) */
   background: #131313;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
@@ -2584,7 +2606,7 @@ body {
 
   100% {
     opacity: 1;
-    transform: translate3d(-180px, -180px, 60px) scale(1) rotate(-5deg);
+    transform: translate3d(-180px, -180px, 120px) scale(1) rotate(-5deg);
   }
 }
 
@@ -2596,7 +2618,7 @@ body {
 
   100% {
     opacity: 1;
-    transform: translate3d(-300px, -240px, 120px) scale(1) rotate(3deg);
+    transform: translate3d(-300px, -240px, 180px) scale(1) rotate(3deg);
   }
 }
 
@@ -2608,7 +2630,7 @@ body {
 
   100% {
     opacity: 1;
-    transform: translate3d(-420px, -300px, 180px) scale(1) rotate(-2deg);
+    transform: translate3d(-420px, -300px, 240px) scale(1) rotate(-2deg);
   }
 }
 
@@ -2637,85 +2659,148 @@ body {
   margin-bottom: 40px;
 }
 
+/* ── LADO DE INFORMAÇÕES (DESIGN LIMPO E MODERNO) ── */
 .expo-info-side {
-  animation: modal-text-enter 1s var(--ease) 0.4s both;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
 }
 
-@keyframes modal-text-enter {
+.expo-modal.open .expo-info-side > * {
+  animation: expo-fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes expo-fade-in-up {
   from {
     opacity: 0;
-    transform: translateX(40px);
+    transform: translateY(20px);
   }
-
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
-.expo-role {
-  font-size: 13px;
-  letter-spacing: 0.3em;
-  color: var(--neon);
+.expo-modal.open .expo-info-side > :nth-child(1) { animation-delay: 0.1s; }
+.expo-modal.open .expo-info-side > :nth-child(2) { animation-delay: 0.2s; }
+.expo-modal.open .expo-info-side > :nth-child(3) { animation-delay: 0.3s; }
+.expo-modal.open .expo-info-side > :nth-child(4) { animation-delay: 0.4s; }
+
+.expo-eyebrow {
+  font-family: var(--ff-display);
   text-transform: uppercase;
-  margin-bottom: 8px;
+  letter-spacing: 0.4em;
+  font-size: 11px;
+  color: var(--neon);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.expo-eyebrow::before {
+  content: "";
+  width: 30px;
+  height: 1px;
+  background: var(--neon);
+  opacity: 0.5;
 }
 
 .expo-company {
-  font-family: var(--ff-name);
-  font-size: 24px;
-  color: var(--gray-lt);
-  margin-bottom: 24px;
-  letter-spacing: 0.1em;
+  font-family: var(--ff-display); /* Usando a fonte de destaque do site */
+  font-size: clamp(48px, 6vw, 90px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  font-weight: 800;
+  margin: 0;
+  text-transform: none;
+  filter: none;
+  background: none;
+  -webkit-text-fill-color: initial;
+  animation: none;
 }
 
 .expo-project-title {
-  font-family: var(--ff-display);
-  font-size: clamp(40px, 5vw, 64px);
-  line-height: 1.1;
-  margin-bottom: 40px;
-  max-width: 500px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+  margin-top: -15px;
+  font-family: var(--ff-body);
+  letter-spacing: 0.05em;
 }
 
 .expo-brief {
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.8;
-  color: var(--gray-lt);
-  margin-bottom: 60px;
-  max-width: 580px;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 540px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  position: relative;
 }
 
 .expo-brief strong {
   color: var(--white);
-  font-family: var(--ff-display);
-  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  display: block;
+  margin-bottom: 15px;
+  opacity: 0.5;
 }
 
-/* Grid de Metadados */
+/* Grid de Metadados Moderno */
 .expo-meta-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 40px;
 }
 
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .meta-label {
-  display: block;
   font-size: 10px;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
   letter-spacing: 0.2em;
-  color: var(--gray);
-  margin-bottom: 12px;
 }
 
 .meta-value {
-  font-family: var(--ff-display);
-  font-size: 20px;
+  font-size: 18px;
   color: var(--white);
+  font-weight: 500;
+  font-family: var(--ff-display);
 }
+
+.tool-badge {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.tool-badge:hover {
+  background: var(--neon);
+  color: #000;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(170, 255, 0, 0.2);
+}
+
 
 .meta-tools {
   display: flex;
@@ -2757,17 +2842,26 @@ body {
 
 .expo-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-auto-rows: 400px;
-  gap: 30px;
+  gap: 24px;
+  padding: 40px 0;
 }
 
 .grid-item {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
-  background: #111;
+  border-radius: 12px;
+  background: var(--card);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+
+
+.grid-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(170, 255, 0, 0.15);
+  z-index: 10;
 }
 
 .grid-item.tall {
@@ -2777,6 +2871,12 @@ body {
 .grid-item.wide {
   grid-column: span 2;
 }
+
+.grid-item.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
 
 .img-ph {
   width: 100%;
@@ -2788,6 +2888,67 @@ body {
 .grid-item:hover .img-ph {
   transform: scale(1.05);
   background: linear-gradient(135deg, #111, #1a1a1a);
+}
+
+/* Indicador de Vídeo */
+.grid-item.is-video .video-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 14px 28px;
+  border-radius: 50px;
+  border: 1px solid rgba(170, 255, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--neon);
+  font-family: var(--ff-display);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  pointer-events: none;
+  transition: all 0.4s var(--ease);
+  box-shadow: 0 0 30px rgba(170, 255, 0, 0.2);
+  z-index: 10;
+}
+
+.grid-item.is-video:hover .video-indicator {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--neon);
+  color: #000;
+  box-shadow: 0 0 50px rgba(170, 255, 0, 0.6);
+  border-color: #fff;
+}
+
+.grid-item.is-video .play-icon {
+  font-size: 14px;
+  animation: play-pulse 2s infinite;
+}
+
+@keyframes play-pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.grid-item.is-video .indicator-text {
+  font-weight: 800;
+}
+
+.video-glow-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(170, 255, 0, 0.1) 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.grid-item.is-video:hover .video-glow-overlay {
+  opacity: 0.8;
+  background: radial-gradient(circle at center, rgba(170, 255, 0, 0.2) 0%, transparent 60%);
 }
 
 /* Estilização da Scrollbar Interna do Modal */
@@ -2827,8 +2988,16 @@ body {
   cursor: pointer;
   z-index: 100001;
   font-size: 16px;
-  transition: all 0.3s;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s var(--ease);
 }
+
+.expo-modal.open + .expo-close {
+  opacity: 1;
+  visibility: visible;
+}
+
 
 .expo-close:hover {
   background: var(--neon);
@@ -2853,16 +3022,17 @@ body {
 }
 
 .career-role {
+  font-size: 12px;
+  color: var(--gray-lt);
+}
+
+.career-company {
   font-size: 13px;
   font-weight: 600;
   color: var(--white);
   line-height: 1.4;
 }
 
-.career-company {
-  font-size: 12px;
-  color: var(--gray-lt);
-}
 
 /* ── DNA Criativo ── */
 .dna-section {
@@ -3122,8 +3292,20 @@ body {
   background-image: url('/assets/clients/logo-2.png');
 }
 
+/* Logo 2 - Dobro do tamanho na faixa */
+.ticker-track .br-2 {
+  transform: scale(2);
+  margin: 0;
+}
+
 .br-3 {
   background-image: url('/assets/clients/logo-3.png');
+}
+
+/* Logo 3 - 4x o tamanho na faixa */
+.ticker-track .br-3 {
+  transform: scale(4);
+  margin: 0;
 }
 
 .br-4 {
@@ -3576,6 +3758,95 @@ body {
 }
 
 /* ══════════════════════════════════════
+   ACADEMIC / PDF CARDS
+   ══════════════════════════════════════ */
+.academic-card {
+  perspective: 1000px;
+}
+
+.pdf-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--neon);
+  color: #000;
+  font-family: var(--ff-display);
+  font-weight: 900;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  z-index: 10;
+  box-shadow: 0 0 20px rgba(170, 255, 0, 0.4);
+}
+
+.pdf-glint {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.brand-card:hover .pdf-glint {
+  animation: glint-sweep 1.5s ease-in-out infinite;
+}
+
+@keyframes glint-sweep {
+  0% { left: -150%; }
+  100% { left: 250%; }
+}
+
+.btn-read-pdf {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-family: var(--ff-display);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.4s var(--ease);
+  margin-top: 15px;
+}
+
+.btn-read-pdf:hover {
+  background: var(--neon);
+  color: #000;
+  border-color: #fff;
+  box-shadow: 0 0 30px rgba(170, 255, 0, 0.5);
+  transform: translateY(-3px);
+}
+
+.read-icon {
+  font-size: 16px;
+}
+
+.academic-card:hover .brand-media {
+  transform: rotateX(5deg) rotateY(-5deg);
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+.academic-card .brand-media {
+  transition: transform 0.6s var(--ease);
+  transform-style: preserve-3d;
+}
+
+/* ══════════════════════════════════════
    AUDIOVISUAL SECTION (CARROSSEL 3D)
 ══════════════════════════════════════ */
 .audiovisual-section {
@@ -3637,8 +3908,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1200px;
-  /* Profundidade 3D */
+  /* perspective removido para tirar o efeito de "girar" em profundidade */
 }
 
 /* Ítens do Carrossel */
@@ -3649,7 +3919,7 @@ body {
   max-width: 1100px;
   /* Maior limite máximo ocupando mais a tela */
   aspect-ratio: 16 / 9;
-  /* Força os vídeos a ficarem numa boa proporção retangular */
+  /* Proporção padrão Horizontal */
   background: linear-gradient(to bottom right, var(--card), #0a0a0a);
   border: none;
   border-radius: 0;
@@ -3663,7 +3933,7 @@ body {
 
 /* Estados do Carrossel 3D */
 .av-item.active {
-  transform: translateX(0) scale(1) translateZ(0);
+  transform: translateX(0) scale(1);
   opacity: 1;
   z-index: 3;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 40px rgba(170, 255, 0, 0.05);
@@ -3672,20 +3942,20 @@ body {
 
 /* Efeito de zoom sutil ao passar o mouse no vídeo central */
 .av-item.active:hover {
-  transform: translateX(0) scale(1.05) translateZ(0);
+  transform: translateX(0) scale(1.05);
   box-shadow: 0 50px 120px rgba(0, 0, 0, 0.9), 0 0 60px rgba(170, 255, 0, 0.1);
 }
 
 .av-item.prev {
-  transform: translateX(-55%) scale(0.75) translateZ(-150px);
-  /* Mais nas bordas e mais recuado */
+  transform: translateX(-65%) scale(0.8);
+  /* Movimento linear e escala simples */
   opacity: 0.35;
   z-index: 1;
 }
 
 .av-item.next {
-  transform: translateX(55%) scale(0.75) translateZ(-150px);
-  /* Mais nas bordas e mais recuado */
+  transform: translateX(65%) scale(0.8);
+  /* Movimento linear e escala simples */
   opacity: 0.35;
   z-index: 1;
 }
@@ -3695,6 +3965,29 @@ body {
   opacity: 0.8;
   box-shadow: 0 0 20px rgba(170, 255, 0, 0.2);
 }
+
+/* Itens escondidos (não são active, prev ou next) */
+.av-item:not(.active):not(.prev):not(.next) {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.6);
+}
+
+/* Suporte para Vídeos Verticais (9:16) no Carrossel (16:9) */
+.av-item.vertical {
+  aspect-ratio: 9 / 16;
+  max-width: 380px; /* Limita a largura para não ficar gigante verticalmente */
+}
+
+.av-item .bg-video {
+  object-fit: contain;
+  background: transparent;
+}
+
+.av-item.vertical .bg-video {
+  object-fit: contain;
+}
+
 
 /* Áreas internas do Card */
 .av-video-ph {
@@ -3820,20 +4113,37 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  z-index: 5; /* Aumentado para garantir que fique no topo */
+  opacity: 0; /* Começa invisível para não mostrar o vídeo sem foco */
+  transition: opacity 0.6s var(--ease);
+}
+
+.blur-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  z-index: 0;
-  opacity: 0.4;
+  z-index: 1;
+  filter: blur(20px) brightness(0.4);
+  transform: scale(1.1); /* Evita bordas limpas do blur */
+  opacity: 1;
   transition: opacity 0.4s var(--ease);
 }
 
 .av-item.active .bg-video {
-  opacity: 0.8;
-  /* Vídeo ativo fica com cor viva, botõa play em cima */
+  opacity: 1;
+}
+
+.av-item.active .blur-video {
+  opacity: 1;
 }
 
 .play-btn {
-  z-index: 1;
-  /* Mantém o play acima do bg-video */
+  z-index: 10;
+  /* Mantém o play acima de TUDO */
 }
 
 /* ══════════════════════════════════════
@@ -3846,7 +4156,7 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.9);
-  z-index: 9999;
+  z-index: 200000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3862,15 +4172,21 @@ body {
 }
 
 .video-modal .modal-content {
-  width: 90%;
-  max-width: 1400px;
-  aspect-ratio: 16/9;
+  width: auto;
+  max-width: 90%;
+  height: auto;
+  max-height: 85vh;
+  aspect-ratio: auto;
   background: #000;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 80px rgba(170, 255, 0, 0.15);
   transform: scale(0.95);
   transition: transform 0.4s var(--ease);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .video-modal.show .modal-content {
@@ -3880,8 +4196,25 @@ body {
 #modalVideo {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background: #000;
+  max-height: 85vh;
+  display: block;
+  object-fit: contain; /* No modal queremos ver o vídeo todo, mas sem o fundo cinza/preto do container fixo */
+  border-radius: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.blur-video-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.1);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: blur(40px) brightness(0.3);
+  opacity: 1;
 }
 
 .close-modal {
@@ -3901,6 +4234,66 @@ body {
   color: var(--neon);
   transform: scale(1.1) rotate(90deg);
 }
+
+/* IMAGE GALLERY MODAL (LIGHTBOX) */
+.image-gallery-modal .modal-content {
+  aspect-ratio: auto; /* Deixa a imagem ditar a proporção */
+  max-height: 85vh;
+  width: auto;
+  background: transparent;
+  box-shadow: none;
+}
+
+#galleryFullImage {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.gallery-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  user-select: none;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gallery-nav-btn:hover {
+  background: var(--neon);
+  color: black;
+  border-color: var(--neon);
+  box-shadow: 0 0 20px rgba(170, 255, 0, 0.3);
+}
+
+.prev-btn { left: 40px; }
+.next-btn { right: 40px; }
+
+.gallery-counter {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--ff-display);
+  letter-spacing: 0.1em;
+  font-size: 14px;
+}
+
 
 /* ══════════════════════════════════════
    PLACEHOLDER SECTIONS
@@ -4314,5 +4707,17 @@ body::after {
 
   .header-nav {
     display: none;
+  }
+
+  .expo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .expo-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 500px;
   }
 }
