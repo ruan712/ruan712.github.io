@@ -210,71 +210,133 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ════════════════════════════════
      4.5. EXPO MODAL (PORTFÓLIO SCREEN)
   ════════════════════════════════ */
+
   const EXP_DATA = {
-    freelance: {
-      title: 'Identidade de Luxo Imobiliário',
+
+    vivax: {
+      company: 'Vivax',
+      title: 'Coordenador de Marketing',
       brief:
-        'Desenvolvimento de ecossistema visual para incorporadora de alto padrão. O objetivo foi transmitir exclusividade e sofisticação através de uma paleta sóbria e tipografia clássica, focando em investidores do mercado premium.',
-      time: '3 Semanas',
-      tools: ['Ai', 'Ps', 'Id'],
-      industry: 'Imobiliário',
-      mainImg: '/assets/social/realestate_social.png',
-    },
-    mkv: {
-      title: 'Performance Automotiva Digital',
-      brief:
-        'Campanha de lançamento para modelo esportivo em Dubai. Criação de peças dinâmicas para redes sociais que enfatizam velocidade e tecnologia, utilizando manipulação de imagem avançada e efeitos de iluminação neon.',
-      time: '2 Semanas',
-      tools: ['Ps', 'Ae', 'Pr'],
-      industry: 'Automobilístico',
-      mainImg: '/assets/social/auto_social.png',
-    },
-    mystics: {
-      title: 'Branding para Bem-Estar e Saúde',
-      brief:
-        'Rebranding estratégico para clínica médica focada em longevidade. O design utiliza espaços em branco e cores suaves para promover calma e confiança, alinhando a comunicação visual à excelência do atendimento.',
-      time: '4 Semanas',
-      tools: ['Ai', 'Ps'],
-      industry: 'Saúde',
-      mainImg: '/assets/social/health_social.png',
-    },
-    matrics: {
-      title: 'Inovação no Agronegócio Tech',
-      brief:
-        'Interface e branding para plataforma de monitoramento agrícola via drones. A linguagem visual une o rústico do campo com o tecnológico do software, facilitando a visualização de dados complexos para o produtor.',
-      time: '6 Semanas',
-      tools: ['Ai', 'Ps', 'Figma'],
-      industry: 'Agronegócio',
-      mainImg: '/assets/social/agro_social.png',
-    },
-    artwing: {
-      title: 'Campanhas de Alta Moda',
-      brief:
-        'Direção de arte para campanha sazonal de marca de moda europeia. Foco em estética minimalista e composições editoriais que valorizam o produto através de contrastes marcantes e tipografia vanguardista.',
-      time: '3 Semanas',
-      tools: ['Ps', 'Id', 'Lr'],
-      industry: 'Moda',
-      mainImg: '/assets/social/fashion_social.png',
-    },
-    nexon: {
-      title: 'Ecossistema Visual de Tecnologia',
-      brief:
-        'Liderança criativa para rebranding de software house global. Desenvolvimento de sistema de design modular e ativos para marketing digital que comunicam robustez, escalabilidade e inovação disruptiva.',
-      time: 'Indeterminado',
-      tools: ['Ai', 'Ps', 'Ae', 'Figma'],
+        'Liderança de equipe criativa e estratégica na Vivax, focada em branding digital e campanhas de alta performance.',
+      time: '2023 - Presente',
+      tools: ['Ps', 'Ai', 'Ae', 'Pr'],
       industry: 'Tecnologia',
-      mainImg: '/assets/social/tech_social.png',
+      mainImg: '/assets/social/social-1.jpg',
     },
-    chinagrill: {
-      title: 'Social Media Campaign Designs',
+    zeepo: {
+      company: 'Zeepo',
+      title: 'Coordenador de Marketing',
       brief:
-        'China Grill has entered the fast food business and established its popular name in a small span of time. With a unique sense of cooking, meal prep and customer services, we take pride in creating a fusion of traditional Chinese cuisine and blending it with a modern twist. China Grill is not just a Restaurant. We have created an eatery that is fun, entertaining and offers you decadent Asian flavors packed in every meal.',
-      time: '1 Week',
+        'Gestão de marca e estratégias de social media para a Zeepo Motors, com foco em lançamento de produtos e engajamento.',
+      time: '2022 - 2023',
+      tools: ['Ps', 'Ai', 'Pr'],
+      industry: 'Automobilístico',
+      mainImg: '/assets/zeepo/Post - EZ2.jpg',
+      gallery: [
+        '/assets/zeepo/Post - EZ2.jpg',
+        '/assets/zeepo/12.jpg',
+        '/assets/zeepo/16.jpg',
+        '/assets/zeepo/18.jpg',
+        '/assets/zeepo/20.jpg',
+        '/assets/zeepo/21.jpg',
+        '/assets/zeepo/Banner 360 imprimir.jpg',
+        '/assets/zeepo/Criativo Fábio.jpg'
+      ],
+      assets: [
+        '/assets/zeepo/20.jpg',
+        '/assets/zeepo/18.jpg',
+        '/assets/zeepo/12.jpg'
+      ]
+    },
+
+    grupoaxis: {
+      company: 'Grupo Axis',
+      title: 'Diretor de Arte',
+      brief:
+        'Desenvolvimento de identidades visuais e campanhas publicitárias para diversos clientes do Grupo Axis.',
+      time: '2021 - 2022',
+      tools: ['Ai', 'Ps', 'Id'],
+      industry: 'Publicidade',
+      mainImg: '/assets/social/social-3.jpg',
+      gallery: [
+        '/assets/axis/1.jpg',
+        '/assets/axis/2.jpg',
+        '/assets/axis/3.jpg',
+        '/assets/axis/4.jpg',
+        '/assets/axis/5.jpg',
+        '/assets/axis/6.jpg',
+        '/assets/axis/7.jpg',
+        '/assets/axis/8.jpg'
+      ],
+      assets: [
+        '/assets/axis/3.jpg',
+        '/assets/axis/6.jpg',
+        '/assets/axis/1.jpg'
+      ]
+    },
+    wjg: {
+      company: 'WJG',
+      title: 'Designer Gráfico Sênior',
+      brief:
+        'Criação de materiais gráficos complexos e suporte na direção criativa para projetos da WJG.',
+      time: '2020 - 2021',
+      tools: ['Ai', 'Ps'],
+      industry: 'Design',
+      mainImg: '/assets/social/social-4.jpg',
+    },
+    sociallab: {
+      company: 'Social Lab',
+      title: 'Social Media Designer',
+      brief:
+        'Especialista em design para redes sociais, criando conteúdo dinâmico e estratégico para marcas globais.',
+      time: '2019 - 2020',
+      tools: ['Ps', 'Ae'],
+      industry: 'Social Media',
+      mainImg: '/assets/social/social-5.jpg',
+    },
+    esporadicos: {
+      company: 'Esporádicos',
+      title: 'Projetos Selecionados',
+      brief:
+        'Coleção de trabalhos independentes e projetos esporádicos desenvolvidos ao longo da carreira, abrangendo branding, audiovisual e design para streamers.',
+      time: 'Diverso',
       tools: ['Ai', 'Ps', 'Ae', 'Pr'],
-      industry: 'Food & Beverage',
-      mainImg: '/assets/img/foto-capa-4k.png',
+      industry: 'Multidisciplinar',
+      mainImg: '/assets/esporadicos/4.jpg',
+      gallery: [
+        '/assets/esporadicos/1.jpg',
+        '/assets/esporadicos/2.jpg',
+        '/assets/esporadicos/3.jpg',
+        '/assets/esporadicos/4.jpg',
+        '/assets/esporadicos/gamer/gamer-video-1.mp4',
+        '/assets/esporadicos/gamer/gamer-video-2.mp4',
+        '/assets/esporadicos/gamer/logo-gamer.png',
+        '/assets/esporadicos/gamer/gamer-cam.png',
+        '/assets/esporadicos/leela/1.jpg',
+        '/assets/esporadicos/leela/2.jpg',
+        '/assets/esporadicos/leela/3.jpg',
+        '/assets/esporadicos/leela/4.jpg',
+        '/assets/esporadicos/leela/5.jpg',
+        '/assets/esporadicos/leela/6.jpg',
+        '/assets/esporadicos/leela/7.jpg',
+        '/assets/esporadicos/leela/8.jpg',
+        '/assets/esporadicos/leela/9.jpg',
+        '/assets/esporadicos/leela/10.jpg',
+        '/assets/esporadicos/leela/11.jpg',
+        '/assets/esporadicos/leela/12.jpg',
+        '/assets/esporadicos/leela/13.jpg',
+        '/assets/esporadicos/leela/14.jpg',
+        '/assets/esporadicos/leela/15.jpg',
+        '/assets/esporadicos/leela/16.jpg'
+      ],
+      assets: [
+        '/assets/esporadicos/leela/1.jpg',
+        '/assets/esporadicos/gamer/logo-gamer.png',
+        '/assets/esporadicos/2.jpg'
+      ]
     },
   }
+
 
   const careerItems = document.querySelectorAll('.career-item')
   const expoModal = document.getElementById('expo-modal')
@@ -286,143 +348,209 @@ document.addEventListener('DOMContentLoaded', () => {
   const expoTime = document.getElementById('expo-time-val')
   const expoTools = document.getElementById('expo-tools-list')
   const expoHeroImg = document.getElementById('expo-main-image')
+  const expoGrid = document.querySelector('.expo-grid')
+
+  const populateAndOpenModal = (type, skipPushState = false) => {
+    const data = EXP_DATA[type]
+    if (!expoModal || !data) return
+
+    if (expoRole) expoRole.textContent = data.title
+    if (expoCompany) {
+      expoCompany.textContent = data.company
+      expoCompany.setAttribute('data-text', data.company)
+    }
+    if (expoTitle) expoTitle.textContent = data.title
+
+    if (expoBrief) expoBrief.innerHTML = `<strong>Brief:</strong><br>${data.brief}`
+    if (expoTime) expoTime.textContent = data.time
+
+    // Limpa e adiciona ferramentas
+    if (expoTools) {
+      expoTools.innerHTML = ''
+      data.tools.forEach(tool => {
+        const span = document.createElement('span')
+        span.className = 'tool-badge'
+        span.textContent = tool
+        expoTools.appendChild(span)
+      })
+    }
+
+    // Imagem Principal
+    if (expoHeroImg) expoHeroImg.src = data.mainImg
+
+    // Galeria (Exploração Visual)
+    if (expoGrid) {
+      expoGrid.innerHTML = ''
+      if (data.gallery && data.gallery.length > 0) {
+        data.gallery.forEach((url, index) => {
+          const isVideo = url.toLowerCase().endsWith('.mp4');
+          const gridItem = document.createElement('div');
+          gridItem.className = 'grid-item' + (isVideo ? ' is-video' : '');
+          
+          // Se for vídeo, usamos o logotipo do Pdrzeera como capa com preenchimento total
+          let thumbUrl = isVideo ? '/assets/esporadicos/gamer/logo-gamer.png' : url;
+          let content = `<div class="img-ph" style="background-image: url('${thumbUrl}'); background-size: cover; background-position: center; ${isVideo ? 'filter: brightness(0.5) saturate(1.1);' : ''}"></div>`;
+          
+          if (isVideo) {
+            content += `
+              <div class="video-indicator">
+                <span class="play-icon">▶</span>
+                <span class="indicator-text">VIDEO</span>
+              </div>
+              <div class="video-glow-overlay"></div>
+            `;
+          }
+          
+          gridItem.innerHTML = content;
+          
+          // Clique para abrir o Lightbox adequado
+          gridItem.addEventListener('click', (e) => {
+            e.stopPropagation()
+            if (isVideo) {
+              const vModal = document.getElementById('videoModal');
+              const vVideo = document.getElementById('modalVideo');
+              if (vModal && vVideo) {
+                vVideo.src = url;
+                vModal.classList.add('show');
+                vVideo.play().catch(err => console.log('Erro ao tocar vídeo:', err));
+              }
+            } else {
+              // Filtra apenas imagens para manter a navegação da galeria consistente
+              const imageOnlyGallery = data.gallery.filter(u => !u.toLowerCase().endsWith('.mp4'));
+              const imgIdx = imageOnlyGallery.indexOf(url);
+              openImageGallery(imageOnlyGallery, imgIdx);
+            }
+          })
+
+          expoGrid.appendChild(gridItem)
+        })
+      }
+    }
+
+
+    // Cartões Flutuantes (Assets)
+    const asset1 = expoModal.querySelector('.card-1')
+    const asset2 = expoModal.querySelector('.card-2')
+    const asset3 = expoModal.querySelector('.card-3')
+    
+    const secondaryImgs = data.assets || [data.mainImg, data.mainImg, data.mainImg]
+    
+    if (asset1) asset1.style.backgroundImage = `url(${secondaryImgs[0] || data.mainImg})`
+    if (asset2) asset2.style.backgroundImage = `url(${secondaryImgs[1] || data.mainImg})`
+    if (asset3) asset3.style.backgroundImage = `url(${secondaryImgs[2] || data.mainImg})`
+
+
+    // Abre o Modal com lock de scroll
+    expoModal.classList.add('open')
+    toggleScrollLock(true)
+
+    // Adiciona ao histórico se não estivermos vindo de um popstate
+    if (!skipPushState) {
+      history.pushState({ modalOpen: true, modalType: type }, '')
+    }
+
+    /* ── INTERATIVIDADE 3D ── */
+    const expoHero = expoModal.querySelector('.expo-hero')
+    const mockupWrap = expoModal.querySelector('.phone-mockup-wrap')
+    const cards = [asset1, asset2, asset3]
+
+    if (expoHero && mockupWrap) {
+      mockupWrap.style.transform = ''
+      cards.forEach(card => {
+        if (card) {
+          card.style.transform = ''
+          card.classList.remove('is-playing')
+        }
+      })
+
+      expoHero.onmousemove = (e) => {
+        if (!expoModal.classList.contains('open')) return
+        const rect = expoHero.getBoundingClientRect()
+        const cx = rect.width / 2
+        const cy = rect.height / 2
+        const dx = (e.clientX - rect.left - cx) / cx
+        const dy = (e.clientY - rect.top - cy) / cy
+        mockupWrap.style.transform = `rotateX(${dy * -12}deg) rotateY(${dx * 12}deg)`
+        cards.forEach((card, i) => {
+          if (card) {
+            const depth = (i + 1) * 20
+            card.style.marginLeft = `${dx * depth}px`
+            card.style.marginTop = `${dy * depth}px`
+          }
+        })
+      }
+
+      expoHero.onmouseleave = () => {
+        mockupWrap.style.transform = ''
+        cards.forEach(card => {
+          if (card) {
+            card.style.marginLeft = '0'
+            card.style.marginTop = '0'
+          }
+        })
+      }
+
+      const modalScrollHint = document.getElementById('modal-scroll-hint')
+      const observerOptions = { root: expoModal, threshold: 0.1 }
+      const modalScrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            cards.forEach(card => card && card.classList.add('is-playing'))
+            if (modalScrollHint) modalScrollHint.classList.remove('hidden')
+          } else {
+            if (entry.boundingClientRect.top < 0) {
+              cards.forEach(card => card && card.classList.remove('is-playing'))
+              if (modalScrollHint) modalScrollHint.classList.add('hidden')
+            }
+          }
+        })
+      }, observerOptions)
+
+      modalScrollObserver.observe(expoHero)
+      expoModal._observer = modalScrollObserver
+    }
+  }
 
   careerItems.forEach(item => {
     item.addEventListener('click', () => {
-      const type = item.dataset.modal
-      const data = EXP_DATA[type]
-
-      if (expoModal && data) {
-        const role = item.querySelector('.career-role').textContent
-        const company = item.querySelector('.career-company').textContent
-
-        if (expoRole) expoRole.textContent = role
-        if (expoCompany) expoCompany.textContent = company
-        if (expoTitle) expoTitle.textContent = data.title
-        if (expoBrief) expoBrief.innerHTML = `<strong>Brief:</strong><br>${data.brief}`
-        if (expoTime) expoTime.textContent = data.time
-
-        // Limpa e adiciona ferramentas
-        if (expoTools) {
-          expoTools.innerHTML = ''
-          data.tools.forEach(tool => {
-            const span = document.createElement('span')
-            span.className = 'tool-badge'
-            span.textContent = tool
-            expoTools.appendChild(span)
-          })
-        }
-
-        // Imagem Principal
-        if (expoHeroImg) {
-          expoHeroImg.src = data.mainImg
-        }
-
-        // Cartões Flutuantes (Assets)
-        const asset1 = expoModal.querySelector('.card-1');
-        const asset2 = expoModal.querySelector('.card-2');
-        const asset3 = expoModal.querySelector('.card-3');
-        if (asset1) asset1.style.backgroundImage = `url(${data.mainImg})`;
-        if (asset2) asset2.style.backgroundImage = `url(${data.mainImg})`;
-        if (asset3) asset3.style.backgroundImage = `url(${data.mainImg})`;
-
-        // Abre o Modal com lock de scroll no fundo
-        expoModal.classList.add('open');
-        toggleScrollLock(true);
-
-        /* ── INTERATIVIDADE 3D (TILT + PARALLAX) ── */
-        const expoHero = expoModal.querySelector('.expo-hero');
-        const mockupWrap = expoModal.querySelector('.phone-mockup-wrap');
-        const cards = [asset1, asset2, asset3];
-
-        if (expoHero && mockupWrap) {
-          // Limpa transformações anteriores
-          mockupWrap.style.transform = '';
-          cards.forEach(card => {
-            if (card) {
-              card.style.transform = '';
-              card.classList.remove('is-playing'); // Reset inicial
-            }
-          });
-
-          const handleMouseMove = (e) => {
-            if (!expoModal.classList.contains('open')) return;
-            const rect = expoHero.getBoundingClientRect();
-            const cx = rect.width / 2;
-            const cy = rect.height / 2;
-            const dx = (e.clientX - rect.left - cx) / cx;
-            const dy = (e.clientY - rect.top - cy) / cy;
-
-            mockupWrap.style.transform = `rotateX(${dy * -12}deg) rotateY(${dx * 12}deg)`;
-            cards.forEach((card, i) => {
-              if (card) {
-                const depth = (i + 1) * 20;
-                card.style.marginLeft = `${dx * depth}px`;
-                card.style.marginTop = `${dy * depth}px`;
-              }
-            });
-          };
-
-          const handleMouseLeave = () => {
-            mockupWrap.style.transform = '';
-            cards.forEach(card => {
-              if (card) {
-                card.style.marginLeft = '0';
-                card.style.marginTop = '0';
-              }
-            });
-          };
-
-          expoHero.onmousemove = handleMouseMove;
-          expoHero.onmouseleave = handleMouseLeave;
-
-          /* ── REPLAY DA ANIMAÇÃO NO SCROLL INTERNO ── */
-          const modalScrollHint = document.getElementById('modal-scroll-hint');
-          const observerOptions = {
-            root: expoModal,
-            threshold: 0.1 // Dispara quando 10% do hero estiver visível
-          };
-
-          const modalScrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                cards.forEach(card => card && card.classList.add('is-playing'));
-                if (modalScrollHint) modalScrollHint.classList.remove('hidden');
-              } else {
-                // Remove a classe quando o herói sai de vista (usuario desceu)
-                // Usamos um pequeno delay ou verificação para evitar flickers
-                if (entry.boundingClientRect.top < 0) { // Saiu por cima (subiu/desceu scroll)
-                  cards.forEach(card => card && card.classList.remove('is-playing'));
-                  if (modalScrollHint) modalScrollHint.classList.add('hidden');
-                }
-              }
-            });
-          }, observerOptions);
-
-          modalScrollObserver.observe(expoHero);
-
-          // Guardar referência para desconectar ao fechar o modal
-          expoModal._observer = modalScrollObserver;
-        }
-      }
+      populateAndOpenModal(item.dataset.modal)
     })
   })
 
-  if (expoClose) {
-    expoClose.addEventListener('click', () => {
+  const closeExpoModal = () => {
+    if (expoModal.classList.contains('open')) {
       expoModal.classList.remove('open')
       toggleScrollLock(false)
+      if (expoModal._observer) expoModal._observer.disconnect()
+      const allCards = expoModal.querySelectorAll('.floating-social-card')
+      allCards.forEach(c => c.classList.remove('is-playing'))
+    }
+  }
 
-      // Desconectar o observer ao fechar
-      if (expoModal._observer) {
-        expoModal._observer.disconnect();
+
+
+  if (expoClose) {
+    expoClose.addEventListener('click', () => {
+      // Se abrimos o modal com pushState, voltamos no histórico
+      if (history.state && history.state.modalOpen) {
+        history.back()
+      } else {
+        closeExpoModal()
       }
-
-      // Limpar classes de animação de todos os cards
-      const allCards = expoModal.querySelectorAll('.floating-social-card');
-      allCards.forEach(c => c.classList.remove('is-playing'));
     })
   }
+
+  // Listener para o botão "Voltar" e "Avançar" (popstate)
+  window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.modalOpen) {
+      // Se o estado tem modalOpen, abrimos o modal (Forward case)
+      populateAndOpenModal(event.state.modalType, true)
+    } else {
+      // Se não, fechamos (Back case)
+      closeExpoModal()
+    }
+  })
+
 
   /* ════════════════════════════════
      5. SCROLL REVEAL DIRECIONAL
@@ -632,8 +760,8 @@ document.addEventListener('DOMContentLoaded', () => {
      10. CARROSSEL 3D AUDIOVISUAL
   ════════════════════════════════ */
   const avItems = Array.from(document.querySelectorAll('.av-item'))
-  const btnPrev = document.querySelector('.av-prev-btn')
-  const btnNext = document.querySelector('.av-next-btn')
+  const btnPrev = document.querySelector('.av-prev')
+  const btnNext = document.querySelector('.av-next')
 
   if (avItems.length > 0) {
     let currentIndex = 1 // O vídeo central (do meio) começa ativo
@@ -647,12 +775,11 @@ document.addEventListener('DOMContentLoaded', () => {
         item.classList.remove('active', 'prev', 'next')
         if (index === currentIndex) {
           item.classList.add('active')
-          const vid = item.querySelector('video')
-          if (vid) {
+          const vids = item.querySelectorAll('video')
+          vids.forEach(vid => {
             vid.muted = true
-            // Removemos 'vid.currentTime = 0;' para não resetar o giro natural do vídeo
             vid.play().catch(e => e)
-          }
+          })
         } else if (index === prevIndex) {
           item.classList.add('prev')
         } else if (index === nextIndex) {
@@ -688,6 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ════ Modal de Vídeo (Lightbox) ════ */
     const videoModal = document.getElementById('videoModal')
     const modalVideo = document.getElementById('modalVideo')
+    const modalBlurVideo = document.getElementById('modalBlurVideo')
     const closeModalBtn = document.querySelector('.close-modal')
 
     if (videoModal && modalVideo) {
@@ -704,15 +832,21 @@ document.addEventListener('DOMContentLoaded', () => {
               const src = bgVideo.getAttribute('src')
               if (src) {
                 // Se a URL mudou, atribui
-                if (modalVideo.getAttribute('src') !== src) {
-                  modalVideo.setAttribute('src', src)
+                if (modalVideo.src !== new URL(src, window.location.origin).href) {
+                  modalVideo.src = src
+                  if (modalBlurVideo) modalBlurVideo.src = src
                 }
+
+                modalVideo.loop = true // Garantia via JS
+                if (modalBlurVideo) modalBlurVideo.loop = true
 
                 // Transfere o tempo exato do poster rolando para o player do modal "Seamlessly"
                 modalVideo.currentTime = bgVideo.currentTime
+                if (modalBlurVideo) modalBlurVideo.currentTime = bgVideo.currentTime
 
                 videoModal.classList.add('show')
                 modalVideo.play().catch(err => console.log('Erro de reprodução:', err))
+                if (modalBlurVideo) modalBlurVideo.play().catch(err => console.log('Erro de reprodução:', err))
               }
             }
           })
@@ -723,7 +857,9 @@ document.addEventListener('DOMContentLoaded', () => {
       function closeModal() {
         videoModal.classList.remove('show')
         modalVideo.pause()
+        if (modalBlurVideo) modalBlurVideo.pause()
         modalVideo.removeAttribute('src')
+        if (modalBlurVideo) modalBlurVideo.removeAttribute('src')
       }
 
       if (closeModalBtn) {
@@ -797,6 +933,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializa posições e adiciona cliques
     updateSocialPositions(socialCenterIndex)
 
+    // ── Autoplay para Social Media ──
+    let socialInterval = setInterval(() => {
+      socialCenterIndex = (socialCenterIndex + 1) % revealPhones.length
+      updateSocialPositions(socialCenterIndex)
+    }, 5000)
+
+    function resetSocialInterval() {
+      clearInterval(socialInterval)
+      socialInterval = setInterval(() => {
+        socialCenterIndex = (socialCenterIndex + 1) % revealPhones.length
+        updateSocialPositions(socialCenterIndex)
+      }, 5000)
+    }
+
     revealPhones.forEach(phone => {
       phoneObserver.observe(phone)
 
@@ -804,6 +954,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const clickedIdx = parseInt(phone.getAttribute('data-index'))
         socialCenterIndex = clickedIdx
         updateSocialPositions(socialCenterIndex)
+        resetSocialInterval()
       })
     })
 
@@ -846,5 +997,124 @@ document.addEventListener('DOMContentLoaded', () => {
         god.style.setProperty('--my', `${dy * intensity}px`);
       });
     });
+    /* ════════════════════════════════
+       12. LIGHTBOX DE GALERIA DE IMAGENS
+    ════════════════════════════════ */
+    const imageGalleryModal = document.getElementById('imageGalleryModal');
+    const galleryFullImage = document.getElementById('galleryFullImage');
+    const closeImageGallery = document.getElementById('closeImageGallery');
+    const prevImageBtn = document.getElementById('prevImage');
+    const nextImageBtn = document.getElementById('nextImage');
+    const galleryCounter = document.getElementById('galleryCounter');
+
+    let currentGallery = [];
+    let currentImageIndex = 0;
+
+    window.openImageGallery = function(images, index, skipPushState = false) {
+      currentGallery = images;
+      currentImageIndex = index;
+      updateGalleryView();
+      imageGalleryModal.classList.add('show');
+      toggleScrollLock(true);
+
+      if (!skipPushState) {
+        // Preserva o tipo do modal atual no estado
+        const currentType = history.state?.modalType;
+        history.pushState({ modalOpen: true, modalType: currentType, lightboxOpen: true, imageIndex: index }, '');
+      }
+    };
+
+    function updateGalleryView() {
+      if (galleryFullImage && currentGallery[currentImageIndex]) {
+        galleryFullImage.src = currentGallery[currentImageIndex];
+        if (galleryCounter) {
+          galleryCounter.textContent = `${currentImageIndex + 1} / ${currentGallery.length}`;
+        }
+      }
+    }
+
+    function closeGallery() {
+      imageGalleryModal.classList.remove('show');
+      // Só remove o lock se o modal principal também estiver fechado
+      if (!expoModal.classList.contains('open')) {
+        toggleScrollLock(false);
+      }
+    }
+
+    if (closeImageGallery) {
+      closeImageGallery.addEventListener('click', () => {
+        if (history.state && history.state.lightboxOpen) {
+          history.back();
+        } else {
+          closeGallery();
+        }
+      });
+    }
+
+    const navigateGallery = (direction) => {
+      currentImageIndex = (currentImageIndex + direction + currentGallery.length) % currentGallery.length;
+      updateGalleryView();
+      // Atualiza o estado atual sem criar uma nova entrada (replaceState) para não poluir o histórico
+      history.replaceState({ ...history.state, imageIndex: currentImageIndex }, '');
+    };
+
+    if (prevImageBtn) {
+      prevImageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navigateGallery(-1);
+      });
+    }
+
+    if (nextImageBtn) {
+      nextImageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navigateGallery(1);
+      });
+    }
+
+    imageGalleryModal.addEventListener('click', (e) => {
+      if (e.target === imageGalleryModal) {
+        if (history.state && history.state.lightboxOpen) history.back();
+        else closeGallery();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!imageGalleryModal.classList.contains('show')) return;
+      if (e.key === 'Escape') {
+        if (history.state && history.state.lightboxOpen) history.back();
+        else closeGallery();
+      }
+      if (e.key === 'ArrowLeft') navigateGallery(-1);
+      if (e.key === 'ArrowRight') navigateGallery(1);
+    });
+
+    // Listener de Histórico Aprimorado (Popstate)
+    window.addEventListener('popstate', (event) => {
+      const state = event.state;
+      
+      if (state && state.modalOpen) {
+        // Se o modal principal deve estar aberto
+        if (!expoModal.classList.contains('open')) {
+          populateAndOpenModal(state.modalType, true);
+        }
+
+        // Se o lightbox deve estar aberto
+        if (state.lightboxOpen) {
+          const data = EXP_DATA[state.modalType];
+          if (data && data.gallery) {
+            window.openImageGallery(data.gallery, state.imageIndex, true);
+          }
+        } else {
+          closeGallery();
+        }
+      } else {
+        // Fecha tudo
+        closeGallery();
+        closeExpoModal();
+      }
+    });
   }
 })
+
+
